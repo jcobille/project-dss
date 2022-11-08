@@ -1,0 +1,83 @@
+[{
+  "_id": {
+    "$oid": "635d3f5bdebe831da8aef389"
+  },
+  "userId": "8e5bef8e-578e-489e-8e43-0a1c6aac2dde",
+  "reviewScore": 3,
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum\n        ante ut velit vehicula, et finibus dolor congue. Morbi sed accumsan\n        lacus, ut iaculis ligula. Nullam quis sem nulla. Curabitur pharetra orci\n        vel velit porttitor vehicula. Aliquam sed est pretium, dictum sapien a,\n        commodo eros. Etiam pellentesque tellus nec nisi ullamcorper, at\n        scelerisque risus tempus.",
+  "status": "approved",
+  "movieId": {
+    "$oid": "635d3d39425fc647181495f2"
+  },
+  "posted_date": "2022-11-05"
+},{
+  "_id": {
+    "$oid": "635d405040e9ee2078478d91"
+  },
+  "userId": "8e5bef8e-578e-489e-8e43-0a1c6aac2dde",
+  "reviewScore": 5,
+  "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. ",
+  "status": "approved",
+  "movieId": {
+    "$oid": "635d3d39425fc647181495f2"
+  },
+  "posted_date": {
+    "$date": {
+      "$numberLong": "1667433600000"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63675842eabafd331808ad20"
+  },
+  "userId": {
+    "$oid": "6365241f0b6c8e1dc0a38cf6"
+  },
+  "reviewScore": 1,
+  "description": "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.",
+  "posted_date": {
+    "$date": {
+      "$numberLong": "1667717186334"
+    }
+  },
+  "status": "approved",
+  "movieId": {
+    "$oid": "635d3d39425fc647181495f2"
+  }
+},{
+  "_id": {
+    "$oid": "63675ccceabafd331808ad21"
+  },
+  "userId": {
+    "$oid": "6365241f0b6c8e1dc0a38cf6"
+  },
+  "reviewScore": 5,
+  "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
+  "posted_date": {
+    "$date": {
+      "$numberLong": "1667718348688"
+    }
+  },
+  "status": "approved",
+  "movieId": {
+    "$oid": "635e2a561fd72a3b343f1576"
+  }
+},{
+  "_id": {
+    "$oid": "6368595489ff106438a50ae6"
+  },
+  "userId": {
+    "$oid": "6365241f0b6c8e1dc0a38cf6"
+  },
+  "reviewScore": 5,
+  "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
+  "posted_date": {
+    "$date": {
+      "$numberLong": "1667782996183"
+    }
+  },
+  "status": "checking",
+  "movieId": {
+    "$oid": "635e2aa41fd72a3b343f1577"
+  }
+}]

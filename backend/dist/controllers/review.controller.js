@@ -16,7 +16,7 @@ let ReviewController = class ReviewController {
         try {
             let newReview = await this.reviewRepository.create(review);
             if (!newReview)
-                throw 'Cannot create new review';
+                throw new Error('Cannot create new review');
             return {
                 data: newReview,
                 status: true,
@@ -24,7 +24,7 @@ let ReviewController = class ReviewController {
             };
         }
         catch (err) {
-            return { data: [], status: false, message: err };
+            return { data: [], status: false, message: err.message };
         }
     }
     // Approves or decline a review

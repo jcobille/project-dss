@@ -42,11 +42,11 @@ export class ActorController {
     actor: Omit<Actor, 'id'>,
   ): Promise<CustomResponse> {
     try {
-      if (!actor.firstName) throw 'First name is required';
-      if (!actor.lastName) throw 'Last name is required';
-      if (!actor.gender) throw 'Gender is required';
-      if (actor.age === 0) throw 'Age is required';
-      if (!actor.image) throw 'Actor image is required';
+      if (!actor.firstName) throw new Error('First name is required');
+      if (!actor.lastName) throw new Error('Last name is required');
+      if (!actor.gender) throw new Error('Gender is required');
+      if (actor.age === 0) throw new Error('Age is required');
+      if (!actor.image) throw new Error('Actor image is required');
 
       let newActor = await this.actorRepository.create(actor);
 
@@ -187,7 +187,8 @@ export class ActorController {
   ): Promise<CustomResponse> {
     try {
       let actorMovies = await this.actorRepository.movies(id).find();
-      if (actorMovies.length > 0) throw 'Actor still have movies associated';
+      if (actorMovies.length > 0)
+        throw new Error('Actor still have movies associated');
 
       await this.actorRepository.deleteById(id);
 
@@ -197,7 +198,7 @@ export class ActorController {
         message: 'Actor has been deleted',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 }

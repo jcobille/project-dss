@@ -6,6 +6,7 @@ import Table from "../views/Table";
 import { AdminNavTabs } from "./AdminNavTabs";
 import Modal from "../popup/Modal";
 import { getUsers } from "../features/userSlice";
+import { ToastContainer } from "react-toastify";
 
 export const UserList = () => {
   const tableHeader = [
@@ -48,6 +49,7 @@ export const UserList = () => {
   }, [dispatch]);
   return (
     <section>
+      <ToastContainer />
       <div className="section mt-3">
         <AdminNavTabs />
         <div className="section-container dark">

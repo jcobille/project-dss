@@ -1,6 +1,5 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { BodyProps } from "../types/ActionTypes";
 import {
   AutoComplete,
   CustomAutocompleteProps,

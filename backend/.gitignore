@@ -58,7 +58,8 @@ typings/
 .env
 
 # Transpiled JavaScript files from Typescript
-/dist
+../backend/dist
+../frontend/dist
 
 # Cache used by TypeScript's incremental build
 *.tsbuildinfo

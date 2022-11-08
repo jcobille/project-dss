@@ -200,8 +200,8 @@ export const MovieModalBody = ({
   const notify = (message: string) =>
     toast(message, {
       position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
+      autoClose: 2500,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,

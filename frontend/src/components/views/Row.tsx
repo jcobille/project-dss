@@ -26,6 +26,7 @@ const TableRow = ({
 }: RowProps) => {
   const [ratings, setRatings] = useState(0);
   const [newReviews, setNewReviews] = useState(0);
+  let isDeleteDisabled = tableType !== "user" ? false : true;
 
   const getRatings = () => {
     let newReviews = 0;
@@ -45,8 +46,6 @@ const TableRow = ({
       setRatings(reviewRatings / reviewCount);
     }
   };
-
-  let isDeleteDisabled = tableType !== "user" ? false : true;
 
   if (data["released_date" as keyof typeof data]) {
     let releasedDate = new Date(
@@ -68,6 +67,7 @@ const TableRow = ({
   if (tableType === "user" && index === 0) {
     isDeleteDisabled = false;
   }
+
   useEffect(() => {
     if (tableType === "movies") getRatings();
   }, [data]);
@@ -102,17 +102,14 @@ const TableRow = ({
           } else if (header.key === "newReviews") {
             return (
               <td className={i > 0 ? "centered" : ""} key={i}>
-                {newReviews === 1 && (
+                {newReviews >= 1 && (
                   <Link to={`/movie/details/${data.id}`}>
                     <span className="pointer badge rounded-pill bg-success">
-                      {newReviews} New Review
+                      {newReviews === 1
+                        ? `${newReviews} New Review`
+                        : `${newReviews} New Reviews`}
                     </span>
                   </Link>
-                )}
-                {newReviews > 1 && (
-                  <span className="pointer badge rounded-pill">
-                    {newReviews} New Reviews
-                  </span>
                 )}
                 {newReviews === 0 && (
                   <span className="badge rounded-pill bg-secondary">

@@ -16,15 +16,15 @@ let ActorController = class ActorController {
     async create(actor) {
         try {
             if (!actor.firstName)
-                throw 'First name is required';
+                throw new Error('First name is required');
             if (!actor.lastName)
-                throw 'Last name is required';
+                throw new Error('Last name is required');
             if (!actor.gender)
-                throw 'Gender is required';
+                throw new Error('Gender is required');
             if (actor.age === 0)
-                throw 'Age is required';
+                throw new Error('Age is required');
             if (!actor.image)
-                throw 'Actor image is required';
+                throw new Error('Actor image is required');
             let newActor = await this.actorRepository.create(actor);
             if (!newActor)
                 throw new Error("There's an error while creating a new actor");
@@ -95,7 +95,7 @@ let ActorController = class ActorController {
         try {
             let actorMovies = await this.actorRepository.movies(id).find();
             if (actorMovies.length > 0)
-                throw 'Actor still have movies associated';
+                throw new Error('Actor still have movies associated');
             await this.actorRepository.deleteById(id);
             return {
                 data: [],
@@ -104,7 +104,7 @@ let ActorController = class ActorController {
             };
         }
         catch (err) {
-            return { data: [], status: false, message: err };
+            return { data: [], status: false, message: err.message };
         }
     }
 };

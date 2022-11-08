@@ -5,6 +5,7 @@ import { User } from "../types/ActionTypes";
 import { addUser, deleteUser, editUser } from "../features/userSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { CustomInput, CustomRadioButton } from "../views/CustomInput";
+import { toast } from "react-toastify";
 
 interface BodyProps {
   userId?: string;
@@ -78,12 +79,22 @@ export const UserModalBody = ({
       }
     }
 
-    type === "addUser" ? dispatch(addUser(data)) : dispatch(editUser(data));
+    if (type === "addUser") {
+      dispatch(addUser(data)).then(() => {
+        notify("New account has been created");
+      });
+    } else {
+      dispatch(editUser(data)).then(() => {
+        notify("Successfully edited the user");
+      });
+    }
     closeModal(type);
   };
 
   const handleDelete = (id: string) => {
-    dispatch(deleteUser(id));
+    dispatch(deleteUser(id)).then(() => {
+      notify("User has been deleted");
+    });
     closeModal(type);
   };
   const changeHandler = (
@@ -112,6 +123,17 @@ export const UserModalBody = ({
       setIsActive(isActive);
     }
   }, [userId]);
+  const notify = (message: string) =>
+    toast(message, {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   return (
     <div>
       <div className="custom-modal-header">

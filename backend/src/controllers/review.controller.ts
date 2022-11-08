@@ -39,7 +39,7 @@ export class ReviewController {
     review = {...review, status: 'checking'};
     try {
       let newReview = await this.reviewRepository.create(review);
-      if (!newReview) throw 'Cannot create new review';
+      if (!newReview) throw new Error('Cannot create new review');
 
       return {
         data: newReview,
@@ -47,7 +47,7 @@ export class ReviewController {
         message: 'Movie has been created.',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 

@@ -17,6 +17,7 @@ const DetailsPage = () => {
   const { id } = useParams();
   const [ratings, setRatings] = useState(0);
   const [reviewFound, setReviewFound] = useState(false);
+  const [reviewCount, setReviewCount] = useState(0);
   const dispatch = useAppDispatch();
   const user = getCookie();
   const currentUser = useAppSelector<User>(
@@ -27,6 +28,7 @@ const DetailsPage = () => {
   );
 
   const reviews = useAppSelector<Review[]>(({ reviewList }) => reviewList.data);
+
   const [modal, setModal] = useState({
     id: "",
     type: "",
@@ -59,25 +61,31 @@ const DetailsPage = () => {
         dispatch(loadReviews(details.reviews));
       }
     }
+    console.log();
   }, [id, details, dispatch]);
 
   useEffect(() => {
     setReviewFound(false);
     reviews.forEach((review) => {
-      if (review.userId === currentUser.id) {
+      if (review.userId === currentUser.id && review.status === 'approved') {
         setReviewFound(true);
       }
     });
-  }, [reviews]);
+    ratingsCount();
+  }, [reviews, currentUser]);
 
   const ratingsCount = () => {
     let ratings = 0;
-    if (details.reviews) {
-      details.reviews.forEach((review: Review) => {
-        ratings += review.reviewScore;
+    if (reviews) {
+      let reviewCount = 0;
+      reviews.forEach((review: Review) => {
+        if (review.status === "approved") {
+          ratings += review.reviewScore;
+          reviewCount += 1;
+        }
       });
-
-      setRatings(ratings / details.reviews.length);
+      setReviewCount(reviewCount);
+      setRatings(ratings / reviewCount);
     } else {
       setRatings(ratings);
     }
@@ -100,7 +108,7 @@ const DetailsPage = () => {
                     <b>Ratings:</b>{" "}
                   </span>
                   <StarRatings ratings={ratings} />
-                  <span> / {reviews?.length} voted</span>
+                  <span> / {reviewCount} voted</span>
                 </div>
               </div>
             </div>

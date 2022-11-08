@@ -85,8 +85,8 @@ const NavTabs = () => {
   };
 
   const userLogout = () => {
-    logout();
     dispatch(clearCurrentUser());
+    logout();
   };
 
   useEffect(() => {

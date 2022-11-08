@@ -1,4 +1,5 @@
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Actor, Movie, User } from "../types/ActionTypes";
 import { CustomButton, StarRatings } from "./CustomInput";
@@ -15,7 +16,7 @@ interface RowProps {
   tableType: string;
 }
 
-const tableRow = ({
+const TableRow = ({
   data,
   headers,
   changeModal,
@@ -23,30 +24,29 @@ const tableRow = ({
   tableType,
   index,
 }: RowProps) => {
-  let ratings = 0;
-  let newReviews = 0;
-  let isDeleteDisabled = tableType !== "user" ? false : true;
-  if (data["reviews" as keyof typeof data]) {
-    let reviews = data["reviews" as keyof typeof data];
-    if (reviews) {
-      let length = reviews?.length;
-      for (let index = 0; index < length; index++) {
-        if (
-          (reviews[index]["status" as keyof typeof reviews] as string) ===
-          "approved"
-        )
-          ratings +=
-            (reviews[index]["reviewScore" as keyof typeof reviews] as number) /
-            length;
+  const [ratings, setRatings] = useState(0);
+  const [newReviews, setNewReviews] = useState(0);
 
-        if (
-          (reviews[index]["status" as keyof typeof reviews] as string) ===
-          "checking"
-        )
-          newReviews += 1;
-      }
+  const getRatings = () => {
+    let newReviews = 0;
+    let reviewRatings = 0;
+    let movieData: Movie = data as Movie;
+    if (movieData.reviews) {
+      let reviews = movieData.reviews;
+      let reviewCount = 0;
+      reviews.forEach((review) => {
+        if (review.status === "approved") {
+          reviewCount += 1;
+          reviewRatings += review.reviewScore;
+        }
+        if (review.status === "checking") newReviews += 1;
+      });
+      setNewReviews(newReviews / reviewCount);
+      setRatings(reviewRatings / reviewCount);
     }
-  }
+  };
+
+  let isDeleteDisabled = tableType !== "user" ? false : true;
 
   if (data["released_date" as keyof typeof data]) {
     let releasedDate = new Date(
@@ -68,6 +68,9 @@ const tableRow = ({
   if (tableType === "user" && index === 0) {
     isDeleteDisabled = false;
   }
+  useEffect(() => {
+    if (tableType === "movies") getRatings();
+  }, [data]);
 
   return (
     <tr>
@@ -128,6 +131,17 @@ const tableRow = ({
         } else {
           return (
             <td className="centered" key={i}>
+              {tableType === "movies" && (
+                <Link to={`/movie/details/${data.id}`}>
+                  <CustomButton
+                    className="btn btn-primary mx-1"
+                    modalType={buttonModalTypes[0]}
+                    dataId={data.id}
+                    changeModal={changeModal}
+                    icon={faEye}
+                  />
+                </Link>
+              )}
               <CustomButton
                 className="btn btn-success mx-1"
                 modalType={buttonModalTypes[0]}
@@ -150,4 +164,4 @@ const tableRow = ({
     </tr>
   );
 };
-export default tableRow;
+export default TableRow;

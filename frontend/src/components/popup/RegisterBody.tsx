@@ -46,6 +46,7 @@ const RegisterBody = ({ type, changeModal, closeModal }: BodyProps) => {
         return;
       } else if (formRegisterData.password.length < 6) {
         setError("Password is fewer than 6 characters");
+        return;
       } else if (
         formRegisterData.password !== formRegisterData.confirmPassword
       ) {
@@ -61,10 +62,10 @@ const RegisterBody = ({ type, changeModal, closeModal }: BodyProps) => {
       };
       dispatch(createUser(userDetails))
         .unwrap()
-        .then((res) => {
+        .then(() => {
           changeModal("successRegistration");
         })
-        .catch((error) => setError(error));
+        .catch((error: string) => setError(error));
     }
   };
 

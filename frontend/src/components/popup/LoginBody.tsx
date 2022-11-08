@@ -32,16 +32,19 @@ export const LoginBody = ({ type, changeModal, closeModal }: BodyProps) => {
       setError("Password is required");
     } else {
       if (!emailChecker(formLoginData.email)) {
-        setError("Email is invalid");
+        setError("Invalid email");
+        return;
+      } else if (formLoginData.password.length <= 6) {
+        setError("Invalid email or password");
         return;
       }
 
       dispatch(loginUser(formLoginData))
         .unwrap()
-        .then((res) => {
+        .then(() => {
           closeModal(type);
         })
-        .catch((error) => setError(error));
+        .catch((error: string) => setError(error));
     }
   };
   return (

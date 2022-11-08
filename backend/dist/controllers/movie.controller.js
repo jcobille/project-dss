@@ -15,20 +15,20 @@ let MovieController = class MovieController {
     async create(movie) {
         try {
             if (!movie.title)
-                throw 'Title is required';
+                throw new Error('Title is required');
             if (!movie.description)
-                throw 'Description is required';
+                throw new Error('Description is required');
             if (!movie.cost)
-                throw 'Budget cost is required';
+                throw new Error('Budget cost is required');
             if (!movie.released_date)
-                throw 'Released date is required';
+                throw new Error('Released date is required');
             if (movie.duration === 0)
-                throw 'Duration is required';
+                throw new Error('Duration is required');
             if (!movie.image)
-                throw 'Movie image is required';
+                throw new Error('Movie image is required');
             let newMovie = await this.movieRepository.create(movie);
             if (!newMovie)
-                throw 'Cannot create new movie';
+                throw new Error('Cannot create new movie');
             return {
                 data: newMovie,
                 status: true,
@@ -36,7 +36,7 @@ let MovieController = class MovieController {
             };
         }
         catch (err) {
-            return { data: [], status: false, message: err };
+            return { data: [], status: false, message: err.message };
         }
     }
     async find() {
@@ -45,7 +45,7 @@ let MovieController = class MovieController {
                 include: ['reviews', 'actors'],
             });
             if (!movieList)
-                throw 'No movies found';
+                throw new Error('No movies found');
             return {
                 data: movieList,
                 status: true,
@@ -53,7 +53,7 @@ let MovieController = class MovieController {
             };
         }
         catch (err) {
-            return { data: [], status: false, message: err };
+            return { data: [], status: false, message: err.message };
         }
     }
     // Search all the movies that is equal to parameter
@@ -68,7 +68,7 @@ let MovieController = class MovieController {
     async findById(id, filter) {
         try {
             const movieDetails = await this.movieRepository.findById(id, {
-                include: ['reviews', 'actors'],
+                include: [{ relation: 'reviews', scope: { include: ['user'] } }, 'actors'],
             });
             return {
                 data: movieDetails,
@@ -87,7 +87,7 @@ let MovieController = class MovieController {
     async updateById(id, movie) {
         try {
             if (!movie.description)
-                throw 'Description is required';
+                throw new Error('Description is required');
             await this.movieRepository.updateById(id, movie);
             return {
                 data: movie,
@@ -96,7 +96,7 @@ let MovieController = class MovieController {
             };
         }
         catch (err) {
-            return { data: [], status: false, message: err };
+            return { data: [], status: false, message: err.message };
         }
     }
     async deleteById(id) {
@@ -117,15 +117,15 @@ let MovieController = class MovieController {
         try {
             let reviews = await this.movieRepository.reviews(id).find(filter);
             if (reviews.length === 0)
-                throw 'No reviews found';
+                throw new Error('No reviews found');
             return {
-                data: [],
+                data: reviews,
                 status: true,
                 message: 'Movie reviews has been fetched',
             };
         }
         catch (err) {
-            return { data: [], status: false, message: err };
+            return { data: [], status: false, message: err.message };
         }
     }
 };

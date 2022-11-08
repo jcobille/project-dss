@@ -14,6 +14,7 @@ const HomePage = () => {
   const [data, setData] = useState<Movie[] | Actor[]>([]);
   const navigate = useNavigate();
   const [searchType, setSearchType] = useState("Movie");
+  const [pageLoaded, setPageLoaded] = useState(false);
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (value) {
@@ -44,9 +45,11 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    dispatch(getMovies());
+    dispatch(getMovies()).then(() => {
+      setPageLoaded(true);
+    });
   }, [dispatch]);
-
+  // setPageLoaded
   return (
     <section>
       <div className="section">
@@ -73,6 +76,11 @@ const HomePage = () => {
         </div>
         <div>
           <MovieContainer data={movieList} limit={32} />
+          {pageLoaded && (
+            <div className="d-flex justify-content-center">
+              No movies yet. Please come back later.
+            </div>
+          )}
         </div>
       </div>
     </section>

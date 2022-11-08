@@ -47,6 +47,7 @@ export interface Review {
   status?: string;
   movieId?: string;
   posted_date?: string;
+  user?: User;
 }
 
 export interface BodyProps {

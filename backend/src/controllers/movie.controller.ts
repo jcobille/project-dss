@@ -40,15 +40,15 @@ export class MovieController {
     movie: Omit<Movie, 'id'>,
   ): Promise<CustomResponse> {
     try {
-      if (!movie.title) throw 'Title is required';
-      if (!movie.description) throw 'Description is required';
-      if (!movie.cost) throw 'Budget cost is required';
-      if (!movie.released_date) throw 'Released date is required';
-      if (movie.duration === 0) throw 'Duration is required';
-      if (!movie.image) throw 'Movie image is required';
+      if (!movie.title) throw new Error('Title is required');
+      if (!movie.description) throw new Error('Description is required');
+      if (!movie.cost) throw new Error('Budget cost is required');
+      if (!movie.released_date) throw new Error('Released date is required');
+      if (movie.duration === 0) throw new Error('Duration is required');
+      if (!movie.image) throw new Error('Movie image is required');
 
       let newMovie = await this.movieRepository.create(movie);
-      if (!newMovie) throw 'Cannot create new movie';
+      if (!newMovie) throw new Error('Cannot create new movie');
 
       return {
         data: newMovie,
@@ -56,7 +56,7 @@ export class MovieController {
         message: 'Movie has been created.',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 
@@ -78,7 +78,7 @@ export class MovieController {
         include: ['reviews', 'actors'],
       });
 
-      if (!movieList) throw 'No movies found';
+      if (!movieList) throw new Error('No movies found');
 
       return {
         data: movieList,
@@ -86,7 +86,7 @@ export class MovieController {
         message: 'Movie list has been fetched.',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 
@@ -130,7 +130,7 @@ export class MovieController {
   ): Promise<CustomResponse> {
     try {
       const movieDetails = await this.movieRepository.findById(id, {
-        include: ['reviews', 'actors'],
+        include: [{relation: 'reviews', scope: {include: ['user']}}, 'actors'],
       });
 
       return {
@@ -165,7 +165,7 @@ export class MovieController {
     movie: Movie,
   ): Promise<CustomResponse> {
     try {
-      if (!movie.description) throw 'Description is required';
+      if (!movie.description) throw new Error('Description is required');
 
       await this.movieRepository.updateById(id, movie);
 
@@ -175,7 +175,7 @@ export class MovieController {
         message: 'Movie has been updated',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 
@@ -218,15 +218,15 @@ export class MovieController {
   ): Promise<CustomResponse> {
     try {
       let reviews = await this.movieRepository.reviews(id).find(filter);
-      if (reviews.length === 0) throw 'No reviews found';
+      if (reviews.length === 0) throw new Error('No reviews found');
 
       return {
-        data: [],
+        data: reviews,
         status: true,
         message: 'Movie reviews has been fetched',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 }

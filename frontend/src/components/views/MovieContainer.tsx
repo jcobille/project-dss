@@ -7,23 +7,15 @@ interface MovieContainerProps {
 }
 
 const MovieContainer = ({ data, limit }: MovieContainerProps) => {
-  if (data.length > 0) {
-    return (
-      <div className="row">
-        {[...Array(limit)].map((_, i) => {
-          if (data[i]) {
-            return <MovieCell key={i} data={data[i]} />;
-          }
-        })}
-      </div>
-    );
-  } else {
-    return (
-      <div className="d-flex justify-content-center">
-        No movies yet. Please come back later.
-      </div>
-    );
-  }
+  return (
+    <div className="row">
+      {[...Array(limit)].map((_, i) => {
+        if (data[i]) {
+          return <MovieCell key={i} data={data[i]} />;
+        }
+      })}
+    </div>
+  );
 };
 
 export default MovieContainer;

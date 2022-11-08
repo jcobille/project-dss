@@ -17,7 +17,7 @@ const ReviewsContainer = ({ data, changeModal }: ReviewsContainerProps) => {
   return (
     <div className="my-3">
       <div className="header">
-        <b>User</b>
+        <b>{`${data.user?.firstName} ${data.user?.lastName}`}</b>
         {currentUser.role === "Admin" && data.status === "checking" && (
           <button
             className="float-end btn btn-outline-danger mx-1"

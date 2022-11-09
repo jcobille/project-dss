@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BodyProps } from "../types/ActionTypes";
+import { ModalProps } from "../types/ActionTypes";
 import { clearErrorMessage, createUser } from "../features/currentUserSlice";
 import { useAppDispatch } from "../store/hooks";
 import { emailChecker } from "../utils/misc";
@@ -13,7 +13,7 @@ interface SignupProps {
   confirmPassword: string;
 }
 
-const RegisterBody = ({ type, changeModal, closeModal }: BodyProps) => {
+const RegisterBody = (props: ModalProps) => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState("");
   const [formRegisterData, setFormRegisterData] = useState<SignupProps>({
@@ -63,7 +63,7 @@ const RegisterBody = ({ type, changeModal, closeModal }: BodyProps) => {
       dispatch(createUser(userDetails))
         .unwrap()
         .then(() => {
-          changeModal("successRegistration");
+          props.setModalProps("successRegistration");
         })
         .catch((error: string) => setError(error));
     }
@@ -72,7 +72,7 @@ const RegisterBody = ({ type, changeModal, closeModal }: BodyProps) => {
   useEffect(() => {
     setError("");
     dispatch(clearErrorMessage());
-  }, [type, dispatch]);
+  }, [props.type, dispatch]);
 
   return (
     <div>
@@ -144,7 +144,7 @@ const RegisterBody = ({ type, changeModal, closeModal }: BodyProps) => {
         Have an account?&nbsp;
         <button
           className="btn-link active"
-          onClick={() => changeModal("login")}
+          onClick={() => props.setModalProps("login")}
         >
           Login
         </button>

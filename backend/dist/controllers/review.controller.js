@@ -12,7 +12,7 @@ let ReviewController = class ReviewController {
     }
     // creates a new review from a user
     async create(review) {
-        review = Object.assign(Object.assign({}, review), { status: 'checking' });
+        review = { ...review, status: 'checking' };
         try {
             let newReview = await this.reviewRepository.create(review);
             if (!newReview)

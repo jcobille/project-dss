@@ -1,13 +1,13 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Movies } from "../types/ActionTypes";
+import { ModalProps, Movies } from "../types/ActionTypes";
 import { getMovies } from "../features/movieSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Table from "../views/Table";
 import { AdminNavTabs } from "./AdminNavTabs";
-import Modal from "../popup/Modal";
 import { ToastContainer } from "react-toastify";
+import CustomModal from "../popup/Modal";
 
 export const MovieList = () => {
   const tableHeader = [
@@ -19,32 +19,24 @@ export const MovieList = () => {
     { title: "Rating Avg%", key: "reviews" },
     { title: "", key: "id" },
   ];
-  const buttonModalTypes = ["editMovie", "deleteMovie"];
-  const [modal, setModal] = useState({
+
+  const [modal, setModal] = useState<ModalProps>({
     id: "",
     type: "",
-    isOpen: false,
+    action: "",
+    setModalProps: (newType: string, newAction = "", newId = "") => {
+      setModal({ ...modal, type: newType, action: newAction, id: newId });
+    },
   });
 
-  const openCloseModal = (type: string) => {
-    setModal({
-      id: "",
-      type: type,
-      isOpen: !modal.isOpen,
-    });
-  };
-
-  const changeModal = (type: string, id?: string) => {
-    if (id) {
-      setModal({ ...modal, id: id, type: type, isOpen: true });
-    } else {
-      setModal({ ...modal, type: type, isOpen: true });
-    }
+  const addHandler = (type: string, action: string) => {
+    setModal({ ...modal, action: action, type: type });
   };
 
   const movieList = useAppSelector(
     (state) => state.movieList.movies as Movies[]
   );
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getMovies());
@@ -60,7 +52,7 @@ export const MovieList = () => {
               <span className="title">Movies Management</span>
               <button
                 className="btn-float-end"
-                onClick={() => openCloseModal("addMovie")}
+                onClick={() => addHandler("movies", "add")}
               >
                 <FontAwesomeIcon className="pr-3" icon={faPlus} />
                 <span> Add Movie</span>
@@ -73,16 +65,11 @@ export const MovieList = () => {
             data={movieList}
             minRow={15}
             tableType="movies"
-            changeModal={changeModal}
-            buttonModalTypes={buttonModalTypes}
+            modal={modal}
           />
         </div>
       </div>
-      <Modal
-        modal={modal}
-        closeModal={openCloseModal}
-        changeModal={changeModal}
-      />
+      <CustomModal {...modal} />
     </section>
   );
 };

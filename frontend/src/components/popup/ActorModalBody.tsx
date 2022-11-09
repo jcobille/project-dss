@@ -1,26 +1,13 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Actor } from "../types/ActionTypes";
+import { Actor, ModalProps } from "../types/ActionTypes";
 import { createActor, deleteActor, editActor } from "../features/actorSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { CustomInput, CustomRadioButton } from "../views/CustomInput";
 import { toast } from "react-toastify";
 
-interface BodyProps {
-  actorId?: string;
-  type: string;
-  changeModal: (type: string) => void;
-  closeModal: (type: string) => void;
-  isOpen: boolean;
-}
-export const ActorModalBody = ({
-  actorId,
-  type,
-  changeModal,
-  closeModal,
-  isOpen,
-}: BodyProps) => {
+export const ActorModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<Actor>({
     firstName: "",
     lastName: "",
@@ -33,19 +20,16 @@ export const ActorModalBody = ({
   const actors = useAppSelector((state) => state.actorList.actors);
   const dispatch = useAppDispatch();
 
-  let title = "Add";
-  if (type === "editActor") {
-    title = "Edit";
-  } else if (type === "deleteActor") {
-    title = "Delete";
-  }
+  let title = props.action
+    ? props.action[0].toUpperCase() + props.action.substring(1)
+    : "";
 
   const submitHandler = () => {
-    if (type === "addActor" || type === "editActor") {
+    if (props.action === "add" || props.action === "edit") {
       handleAddandEdit(formData);
     } else {
-      if (actorId) {
-        handleDelete(actorId);
+      if (props.id) {
+        handleDelete(props.id);
       }
     }
   };
@@ -66,18 +50,18 @@ export const ActorModalBody = ({
       return;
     }
 
-    if (type === "addActor") {
+    if (props.action === "add") {
       dispatch(createActor(data))
         .then((res) => {
           notify("Actor has been created");
-          closeModal(type);
+          props.setModalProps("");
         })
         .catch((error) => notify(error));
     } else {
       dispatch(editActor(data))
         .then((res) => {
           notify("Actor has been updated");
-          closeModal(type);
+          props.setModalProps("");
         })
         .catch((error) => notify(error));
     }
@@ -87,7 +71,7 @@ export const ActorModalBody = ({
     dispatch(deleteActor(id))
       .then((res) => {
         notify("Actor has been deleted");
-        closeModal(type);
+        props.setModalProps("");
       })
       .catch((error) => notify(error));
   };
@@ -103,11 +87,19 @@ export const ActorModalBody = ({
   };
 
   useEffect(() => {
-    let actor = actors.find((actor) => actor.id === actorId);
+    let actor = actors.find((actor) => actor.id === props.id);
     if (actor) {
-      setFormData(actor);
+      console.log(actor);
+      setFormData({
+        id: actor.id,
+        firstName: actor.firstName,
+        lastName: actor.lastName,
+        age: actor.age,
+        gender: actor.gender,
+        image: actor.image,
+      });
     }
-  }, [actorId]);
+  }, [props.id]);
 
   const notify = (message: string) =>
     toast(message, {
@@ -127,7 +119,7 @@ export const ActorModalBody = ({
       </div>
       <div
         className={
-          "custom-modal-body " + (type === "deleteActor" ? "div-hidden" : "")
+          "custom-modal-body " + (props.action === "delete" ? "div-hidden" : "")
         }
       >
         {error ? <div className="error text-center">{error}</div> : ""}
@@ -205,7 +197,7 @@ export const ActorModalBody = ({
       <div
         className={
           "custom-modal-body text-center " +
-          (type !== "deleteActor" ? "div-hidden" : "")
+          (props.action !== "delete" ? "div-hidden" : "")
         }
       >
         <div className="form-input">

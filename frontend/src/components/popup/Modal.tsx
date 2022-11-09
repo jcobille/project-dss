@@ -1,4 +1,4 @@
-import Modal from "react-modal";
+import Modal, { setAppElement } from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { MovieModalBody } from "./MovieModalBody";
@@ -8,96 +8,38 @@ import { ReviewModalBody } from "./ReviewModalBody";
 import { LoginBody } from "./LoginBody";
 import RegisterBody from "./RegisterBody";
 import { RegisterSuccess } from "./RegisterSuccess";
+import { useEffect, useState } from "react";
+import { ModalProps } from "../types/ActionTypes";
 
-Modal.setAppElement("#root");
-interface ModalProps {
-  modal: { id?: string; type: string; isOpen: boolean };
-  closeModal: (type: string) => void;
-  changeModal: (type: string) => void;
-}
+setAppElement("#root");
+const CustomModal = (props: ModalProps) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-const CustomModal = ({ modal, closeModal, changeModal }: ModalProps) => {
+  useEffect(() => {
+    props.type ? setIsOpen(true) : setIsOpen(false);
+  }, [props.type]);
+
   return (
     <div>
       <Modal
-        isOpen={modal.isOpen}
+        isOpen={isOpen}
         className="custom-modal custom-modal-md"
         overlayClassName="overlay-modal"
         closeTimeoutMS={100}
       >
         <button
           className="btn-float-close"
-          onClick={() => closeModal(modal.type)}
+          onClick={() => props.setModalProps("")}
         >
           <FontAwesomeIcon icon={faXmark} size="xl" />
         </button>
-        {modal.type === "login" && (
-          <LoginBody
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-          />
-        )}
-        {modal.type === "register" && (
-          <RegisterBody
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-          />
-        )}
-        {modal.type === "successRegistration" && (
-          <RegisterSuccess
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-          />
-        )}
-
-        {(modal.type === "addMovie" ||
-          modal.type === "editMovie" ||
-          modal.type === "deleteMovie") && (
-          <MovieModalBody
-            movieId={modal.id}
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-            isOpen={modal.isOpen}
-          />
-        )}
-
-        {(modal.type === "addActor" ||
-          modal.type === "editActor" ||
-          modal.type === "deleteActor") && (
-          <ActorModalBody
-            actorId={modal.id}
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-            isOpen={modal.isOpen}
-          />
-        )}
-
-        {(modal.type === "addUser" ||
-          modal.type === "editUser" ||
-          modal.type === "deleteUser") && (
-          <UserModalBody
-            userId={modal.id}
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-            isOpen={modal.isOpen}
-          />
-        )}
-
-        {(modal.type === "approveReview" || modal.type === "declineReview") && (
-          <ReviewModalBody
-            reviewId={modal.id}
-            type={modal.type}
-            changeModal={changeModal}
-            closeModal={closeModal}
-            isOpen={modal.isOpen}
-          />
-        )}
+        {props.type === "login" && <LoginBody {...props} />}
+        {props.type === "register" && <RegisterBody {...props} />}
+        {props.type === "successRegistration" && <RegisterSuccess />}
+        {props.type === "movies" && <MovieModalBody {...props} />}
+        {props.type === "actors" && <ActorModalBody {...props} />}
+        {props.type === "users" && <UserModalBody {...props} />}
+        {props.type === "reviews" && <ReviewModalBody {...props} />}
       </Modal>
     </div>
   );

@@ -15,7 +15,6 @@ export interface Actor {
   age: string;
   gender: string;
   image: string;
-  moviesId?: string[];
 }
 
 export interface Movie {
@@ -54,4 +53,11 @@ export interface BodyProps {
   type: string;
   changeModal: (type: string) => void;
   closeModal: (type: string) => void;
+}
+
+export interface ModalProps {
+  id?: string;
+  type: string;
+  action?: string;
+  setModalProps: (newType: string, newAction?: string, id?: string) => void;
 }

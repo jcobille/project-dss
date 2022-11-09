@@ -1,7 +1,7 @@
 import { faClose, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Actor, Movie, Movies } from "../types/ActionTypes";
+import { Actor, ModalProps, Movie, Movies } from "../types/ActionTypes";
 import { clearActorsList, searchActors } from "../features/actorSlice";
 import { createMovie, deleteMovie, editMovie } from "../features/movieSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -12,26 +12,13 @@ import {
 } from "../views/CustomInput";
 import { toast } from "react-toastify";
 
-interface BodyProps {
-  movieId?: string;
-  type: string;
-  changeModal: (type: string) => void;
-  closeModal: (type: string) => void;
-  isOpen: boolean;
-}
 interface MovieEdit {
   id: string;
   image: string;
   cost: string;
   description: string;
 }
-export const MovieModalBody = ({
-  movieId,
-  type,
-  changeModal,
-  closeModal,
-  isOpen,
-}: BodyProps) => {
+export const MovieModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<Movies>({
     title: "",
     description: "",
@@ -49,25 +36,21 @@ export const MovieModalBody = ({
   const movies = useAppSelector((state) => state.movieList.movies);
   const dispatch = useAppDispatch();
 
-  let title = "Create";
-  if (type === "editMovie") {
-    title = "Edit";
-  } else if (type === "deleteMovie") {
-    title = "Delete";
-  }
-
+  let title = props.action
+    ? props.action[0].toUpperCase() + props.action.substring(1)
+    : "";
   const submitHandler = () => {
-    if (type === "addMovie") {
+    if (props.action === "add") {
       let data = {
         ...formData,
         duration: formData.duration,
         cost: formData.cost,
       } as Movie;
       handleAdd(data);
-    } else if (type === "editMovie") {
-      if (movieId) {
+    } else if (props.action === "edit") {
+      if (props.id) {
         let data: MovieEdit = {
-          id: movieId,
+          id: props.id,
           image: formData.image,
           cost: formData.cost,
           description: formData.description,
@@ -76,8 +59,8 @@ export const MovieModalBody = ({
         handleEdit(data);
       }
     } else {
-      if (movieId) {
-        handleDelete(movieId);
+      if (props.id) {
+        handleDelete(props.id);
       }
     }
   };
@@ -108,7 +91,7 @@ export const MovieModalBody = ({
       .unwrap()
       .then(() => {
         notify("Movie has been created");
-        closeModal(type);
+        props.setModalProps("");
       })
       .catch((error) => notify(error));
   };
@@ -128,7 +111,7 @@ export const MovieModalBody = ({
     dispatch(editMovie({ ...data, actors: selectedActors }))
       .then(() => {
         notify("Movie has been updated");
-        closeModal(type);
+        props.setModalProps("");
       })
       .catch((error) => notify(error));
   };
@@ -136,7 +119,7 @@ export const MovieModalBody = ({
     dispatch(deleteMovie(id))
       .then(() => {
         notify("Movie has been deleted");
-        closeModal(type);
+        props.setModalProps("");
       })
       .catch((error) => notify(error));
   };
@@ -188,14 +171,14 @@ export const MovieModalBody = ({
     }
   }, [actors, setActorList, movies, dispatch]);
   useEffect(() => {
-    let movie = movies.find((movie) => movie.id === movieId);
+    let movie = movies.find((movie) => movie.id === props.id);
     if (movie) {
       setFormData(movie);
     }
     if (movie?.actors) {
       setSelectedActors(movie.actors);
     }
-  }, [movieId]);
+  }, [props.id]);
 
   const notify = (message: string) =>
     toast(message, {
@@ -208,9 +191,10 @@ export const MovieModalBody = ({
       progress: undefined,
       theme: "dark",
     });
+
   useEffect(() => {
     dispatch(clearActorsList());
-  }, [isOpen]);
+  }, [props.type]);
   return (
     <div>
       <div className="custom-modal-header">
@@ -218,13 +202,15 @@ export const MovieModalBody = ({
       </div>
       <div
         className={
-          "custom-modal-body " + (type === "deleteMovie" ? "div-hidden" : "")
+          "custom-modal-body " + (props.action === "delete" ? "div-hidden" : "")
         }
       >
         {error ? <div className="error text-center">{error}</div> : ""}
         <div>
           <div
-            className={"row my-1 " + (type === "addMovie" ? "" : "div-hidden")}
+            className={
+              "row my-1 " + (props.action === "add" ? "" : "div-hidden")
+            }
           >
             <div className="col-3 text-center">
               <label>Movie Title</label>
@@ -240,7 +226,9 @@ export const MovieModalBody = ({
           </div>
 
           <div
-            className={"row my-1 " + (type === "addMovie" ? "" : "div-hidden")}
+            className={
+              "row my-1 " + (props.action === "add" ? "" : "div-hidden")
+            }
           >
             <div className="col-3 text-center">
               <label>Released Date</label>
@@ -257,7 +245,9 @@ export const MovieModalBody = ({
           </div>
 
           <div
-            className={"row my-1 " + (type === "addMovie" ? "" : "div-hidden")}
+            className={
+              "row my-1 " + (props.action === "add" ? "" : "div-hidden")
+            }
           >
             <div className="col-3 text-center">
               <label>Duration</label>
@@ -366,7 +356,7 @@ export const MovieModalBody = ({
       <div
         className={
           "custom-modal-body text-center " +
-          (type !== "deleteMovie" ? "div-hidden" : "")
+          (props.action !== "delete" ? "div-hidden" : "")
         }
       >
         <div className="form-input">

@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Table from "../views/Table";
 import { AdminNavTabs } from "./AdminNavTabs";
-import Modal from "../popup/Modal";
 import { getActors } from "../features/actorSlice";
 import { ToastContainer } from "react-toastify";
+import { ModalProps } from "../types/ActionTypes";
+import CustomModal from "../popup/Modal";
 
 export const ActorList = () => {
   const tableHeader = [
@@ -16,29 +17,18 @@ export const ActorList = () => {
     { title: "", key: "id" },
   ];
 
-  const buttonModalTypes = ["editActor", "deleteActor"];
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<ModalProps>({
     id: "",
     type: "",
-    isOpen: false,
+    action: "",
+    setModalProps: (newType: string, newAction = "", newId = "") => {
+      setModal({ ...modal, type: newType, action: newAction, id: newId });
+    },
   });
 
-  const openCloseModal = (type: string) => {
-    setModal({
-      id: "",
-      type: type,
-      isOpen: !modal.isOpen,
-    });
+  const addActorHandler = (type: string, action: string) => {
+    setModal({ ...modal, action: action, type: type });
   };
-
-  const changeModal = (type: string, id?: string) => {
-    if (id) {
-      setModal({ ...modal, id: id, type: type, isOpen: true });
-    } else {
-      setModal({ ...modal, type: type, isOpen: true });
-    }
-  };
-
   const ActorList = useAppSelector((state) => state.actorList.actors);
   const dispatch = useAppDispatch();
 
@@ -56,7 +46,7 @@ export const ActorList = () => {
               <span className="title">Actors Management</span>
               <button
                 className="btn-float-end"
-                onClick={() => openCloseModal("addActor")}
+                onClick={() => addActorHandler("actors", "add")}
               >
                 <FontAwesomeIcon className="pr-3" icon={faPlus} />
                 <span> Add Actor</span>
@@ -69,16 +59,11 @@ export const ActorList = () => {
             data={ActorList}
             minRow={15}
             tableType="actors"
-            changeModal={changeModal}
-            buttonModalTypes={buttonModalTypes}
+            modal={modal}
           />
         </div>
       </div>
-      <Modal
-        modal={modal}
-        closeModal={openCloseModal}
-        changeModal={changeModal}
-      />
+      <CustomModal {...modal} />
     </section>
   );
 };

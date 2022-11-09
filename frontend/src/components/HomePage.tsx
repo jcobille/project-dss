@@ -49,7 +49,6 @@ const HomePage = () => {
       setPageLoaded(true);
     });
   }, [dispatch]);
-  // setPageLoaded
   return (
     <section>
       <div className="section">

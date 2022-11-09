@@ -2,22 +2,15 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { editReview } from "../features/reviewSlice";
 import { useAppDispatch } from "../store/hooks";
+import { ModalProps } from "../types/ActionTypes";
 
-interface BodyProps {
-  reviewId?: string;
-  type: string;
-  changeModal: (type: string) => void;
-  closeModal: (type: string) => void;
-  isOpen: boolean;
-}
-export const ReviewModalBody = ({ reviewId, type, closeModal }: BodyProps) => {
+export const ReviewModalBody = (props: ModalProps) => {
   const dispatch = useAppDispatch();
-  let title = type === "approveReview" ? "Approve" : "Decline";
+  let title = props.action === "approved" ? "Approve" : "Decline";
   const submitHandler = () => {
-    if (reviewId) {
-      let status = type === "approveReview" ? "approved" : "declined";
-      dispatch(editReview({ id: reviewId, status: status }));
-      closeModal(type);
+    if (props.id && props.action) {
+      dispatch(editReview({ id: props.id, status: props.action }));
+      props.setModalProps("");
     }
   };
 

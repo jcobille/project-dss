@@ -114,6 +114,7 @@ export const reviewSlice = createSlice({
     });
 
     builder.addCase(editReview.rejected, (state, { payload }) => {
+      console.log(payload);
       if (payload) state.error = payload;
       state.status = "idle";
     });

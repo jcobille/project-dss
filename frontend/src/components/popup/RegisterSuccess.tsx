@@ -1,12 +1,7 @@
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BodyProps } from "../types/ActionTypes";
 
-export const RegisterSuccess = ({
-  type,
-  changeModal,
-  closeModal,
-}: BodyProps) => {
+export const RegisterSuccess = () => {
   return (
     <div>
       <div className="custom-modal-header">

@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Table from "../views/Table";
 import { AdminNavTabs } from "./AdminNavTabs";
-import Modal from "../popup/Modal";
 import { getUsers } from "../features/userSlice";
 import { ToastContainer } from "react-toastify";
+import { ModalProps } from "../types/ActionTypes";
+import CustomModal from "../popup/Modal";
 
 export const UserList = () => {
-  const tableHeader = [
+  const userTableHeaders = [
     { title: "First Name", key: "firstName" },
     { title: "Last Name", key: "lastName" },
     { title: "Email", key: "email" },
@@ -17,30 +18,17 @@ export const UserList = () => {
     { title: "Status", key: "isActive" },
     { title: "", key: "id" },
   ];
-  const buttonModalTypes = ["editUser", "deleteUser"];
-
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<ModalProps>({
     id: "",
     type: "",
-    isOpen: false,
+    action: "",
+    setModalProps: (newType: string, newAction = "", newId = "") => {
+      setModal({ ...modal, type: newType, action: newAction, id: newId });
+    },
   });
-
-  const openCloseModal = (type: string) => {
-    setModal({
-      id: "",
-      type: type,
-      isOpen: !modal.isOpen,
-    });
+  const addUserHandler = (type: string, action: string) => {
+    setModal({ ...modal, action: action, type: type });
   };
-
-  const changeModal = (type: string, id?: string) => {
-    if (id) {
-      setModal({ ...modal, id: id, type: type, isOpen: true });
-    } else {
-      setModal({ ...modal, type: type, isOpen: true });
-    }
-  };
-
   const UserList = useAppSelector(({ userList }) => userList.data);
   const dispatch = useAppDispatch();
 
@@ -58,7 +46,7 @@ export const UserList = () => {
               <span className="title">Users Management</span>
               <button
                 className="btn-float-end"
-                onClick={() => openCloseModal("addUser")}
+                onClick={() => addUserHandler("users", "add")}
               >
                 <FontAwesomeIcon className="pr-3" icon={faPlus} />
                 <span> Add User</span>
@@ -67,20 +55,15 @@ export const UserList = () => {
           </div>
           <div className="mt-2"></div>
           <Table
-            headers={tableHeader}
+            headers={userTableHeaders}
             data={UserList}
             minRow={15}
-            tableType="user"
-            changeModal={changeModal}
-            buttonModalTypes={buttonModalTypes}
+            tableType="users"
+            modal={modal}
           />
         </div>
       </div>
-      <Modal
-        modal={modal}
-        closeModal={openCloseModal}
-        changeModal={changeModal}
-      />
+      <CustomModal {...modal} />
     </section>
   );
 };

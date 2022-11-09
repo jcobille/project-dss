@@ -1,7 +1,6 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer } from "react-toastify";
 import { Actor, Movie } from "../types/ActionTypes";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,15 +12,6 @@ export interface CustomInputProps {
   hidden?: boolean;
   value?: string;
   min?: number;
-  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-export interface CustomNumberProps {
-  name: string;
-  className: string;
-  placeHolder?: string;
-  hidden?: boolean;
-  value?: string;
   changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -50,9 +40,10 @@ export interface CustomAutocompleteProps {
 export interface CustomButtonProps {
   dataId?: string;
   icon: IconProp;
-  modalType: string;
+  modalType?: string;
   className: string;
-  changeModal: (type: string, id: string) => void;
+  action?: string;
+  onClickHandler?: (id: string, action: string) => void;
   disabled?: boolean;
 }
 
@@ -174,17 +165,20 @@ const AutoComplete = ({
 };
 
 const CustomButton = ({
-  dataId = "",
   icon,
-  modalType,
-  changeModal,
+  dataId,
+  onClickHandler,
   className,
   disabled = true,
+  action,
 }: CustomButtonProps) => {
   return (
     <button
       className={className}
-      onClick={() => changeModal(modalType, dataId)}
+      onClick={() => {
+        if (onClickHandler && dataId && action)
+          onClickHandler(dataId, action);
+      }}
       disabled={!disabled}
     >
       <FontAwesomeIcon icon={icon} />

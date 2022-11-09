@@ -2,7 +2,7 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Movie, Review, User } from "./types/ActionTypes";
+import { ModalProps, Movie, Review, User } from "./types/ActionTypes";
 import { getMovieDetails } from "./features/movieSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { formatDate } from "./utils/misc";
@@ -29,23 +29,14 @@ const DetailsPage = () => {
 
   const reviews = useAppSelector<Review[]>(({ reviewList }) => reviewList.data);
 
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<ModalProps>({
     id: "",
     type: "",
-    isOpen: false,
+    action: "",
+    setModalProps: (newType: string, newAction = "", newId = "") => {
+      setModal({ ...modal, type: newType, action: newAction, id: newId });
+    },
   });
-  const openCloseModal = (type: string) => {
-    setModal({
-      id: "",
-      type: type,
-      isOpen: !modal.isOpen,
-    });
-  };
-  const changeModal = (type: string, id?: string) => {
-    if (id) {
-      setModal({ ...modal, id: id, type: type, isOpen: true });
-    }
-  };
 
   useEffect(() => {
     if (id) {
@@ -61,13 +52,12 @@ const DetailsPage = () => {
         dispatch(loadReviews(details.reviews));
       }
     }
-    console.log();
   }, [id, details, dispatch]);
 
   useEffect(() => {
     setReviewFound(false);
     reviews.forEach((review) => {
-      if (review.userId === currentUser.id && review.status === 'approved') {
+      if (review.userId === currentUser.id && review.status === "approved") {
         setReviewFound(true);
       }
     });
@@ -167,18 +157,15 @@ const DetailsPage = () => {
                 )
               );
             } else {
-              return (
-                <ReviewsContainer
-                  data={review}
-                  key={i}
-                  changeModal={changeModal}
-                />
-              );
+              return <ReviewsContainer data={review} key={i} modal={modal} />;
             }
           })}
           <div className="my-3 text-center">
             {!user && (
-              <div className="pointer" onClick={() => openCloseModal("login")}>
+              <div
+                className="pointer"
+                onClick={() => modal.setModalProps("login")}
+              >
                 <FontAwesomeIcon icon={faCirclePlus} />
                 <span>&nbsp;Please login to add a review</span>
               </div>
@@ -186,11 +173,7 @@ const DetailsPage = () => {
           </div>
         </div>
       </div>
-      <CustomModal
-        modal={modal}
-        closeModal={openCloseModal}
-        changeModal={changeModal}
-      />
+      <CustomModal {...modal} />
     </section>
   );
 };

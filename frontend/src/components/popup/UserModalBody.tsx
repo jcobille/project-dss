@@ -1,7 +1,7 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { User } from "../types/ActionTypes";
+import { ModalProps, User } from "../types/ActionTypes";
 import { addUser, deleteUser, editUser } from "../features/userSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { CustomInput, CustomRadioButton } from "../views/CustomInput";
@@ -14,13 +14,7 @@ interface BodyProps {
   closeModal: (type: string) => void;
   isOpen: boolean;
 }
-export const UserModalBody = ({
-  userId,
-  type,
-  changeModal,
-  closeModal,
-  isOpen,
-}: BodyProps) => {
+export const UserModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<User>({
     firstName: "",
     lastName: "",
@@ -36,19 +30,16 @@ export const UserModalBody = ({
   const dispatch = useAppDispatch();
   const [isActive, setIsActive] = useState("Active");
   const [confirmPassword, setConfirmPassword] = useState("");
-  let title = "Add";
-  if (type === "editUser") {
-    title = "Edit";
-  } else if (type === "deleteUser") {
-    title = "Delete";
-  }
+  let title = props.action
+    ? props.action[0].toUpperCase() + props.action.substring(1)
+    : "";
 
   const submitHandler = () => {
-    if (type === "addUser" || type === "editUser") {
+    if (props.action === "add" || props.action === "edit") {
       handleAddandEdit(formData);
     } else {
-      if (userId) {
-        handleDelete(userId);
+      if (props.id) {
+        handleDelete(props.id);
       }
     }
   };
@@ -64,10 +55,10 @@ export const UserModalBody = ({
     } else if (!data.email) {
       setError("Email is empty");
       return;
-    } else if (!data.password && type === "addUser") {
+    } else if (!data.password && props.action === "add") {
       setError("Password is empty");
       return;
-    } else if (!confirmPassword && type === "addUser") {
+    } else if (!confirmPassword && props.action === "add") {
       setError("Confirm password is empty");
       return;
     }
@@ -79,7 +70,7 @@ export const UserModalBody = ({
       }
     }
 
-    if (type === "addUser") {
+    if (props.action === "add") {
       dispatch(addUser(data)).then(() => {
         notify("New account has been created");
       });
@@ -88,14 +79,14 @@ export const UserModalBody = ({
         notify("Successfully edited the user");
       });
     }
-    closeModal(type);
+    props.setModalProps("");
   };
 
   const handleDelete = (id: string) => {
     dispatch(deleteUser(id)).then(() => {
       notify("User has been deleted");
     });
-    closeModal(type);
+    props.setModalProps("");
   };
   const changeHandler = (
     event: React.ChangeEvent<
@@ -116,13 +107,13 @@ export const UserModalBody = ({
   };
 
   useEffect(() => {
-    let user = users.find((user) => user.id === userId);
+    let user = users.find((user) => user.id === props.id);
     if (user) {
       let isActive = user.isActive ? "Active" : "Inactive";
       setFormData(user);
       setIsActive(isActive);
     }
-  }, [userId]);
+  }, [props.id]);
   const notify = (message: string) =>
     toast(message, {
       position: "top-right",
@@ -141,7 +132,7 @@ export const UserModalBody = ({
       </div>
       <div
         className={
-          "custom-modal-body " + (type === "deleteUser" ? "div-hidden" : "")
+          "custom-modal-body " + (props.action === "delete" ? "div-hidden" : "")
         }
       >
         {error ? <div className="error text-center">{error}</div> : ""}
@@ -247,7 +238,7 @@ export const UserModalBody = ({
       <div
         className={
           "custom-modal-body text-center " +
-          (type !== "deleteUser" ? "div-hidden" : "")
+          (props.action !== "delete" ? "div-hidden" : "")
         }
       >
         <div className="form-input">

@@ -4,13 +4,13 @@ import {
   faRightFromBracket,
   faUserSecret,
 } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../popup/Modal";
+import CustomModal from "../popup/Modal";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AutoComplete } from "./CustomInput";
 import { getCookie, logout } from "../utils/cookie";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { Actor, Movie, Movies, User } from "../types/ActionTypes";
+import { Actor, ModalProps, Movie, Movies, User } from "../types/ActionTypes";
 import {
   clearCurrentUser,
   currentAuthUser,
@@ -28,21 +28,12 @@ const NavTabs = () => {
   const user = useAppSelector<User>(
     (state) => state.currentUser.details as User
   );
-  const [modal, setModal] = useState({
+  const [modal, setModal] = useState<ModalProps>({
     type: "",
-    isOpen: false,
+    setModalProps: (newType: string) => {
+      setModal({ ...modal, type: newType });
+    },
   });
-
-  const openCloseModal = (type: string) => {
-    setModal({
-      type: type,
-      isOpen: !modal.isOpen,
-    });
-  };
-
-  const changeModal = (type: string) => {
-    setModal({ ...modal, type: type });
-  };
 
   useEffect(() => {
     if (userToken) {
@@ -117,7 +108,7 @@ const NavTabs = () => {
               {!userToken ? (
                 <button
                   className="ml-3 btn btn-outline btn-md"
-                  onClick={() => openCloseModal("login")}
+                  onClick={() => modal.setModalProps("login")}
                 >
                   <FontAwesomeIcon icon={faUserCircle} /> Member Login
                 </button>
@@ -158,11 +149,7 @@ const NavTabs = () => {
           </div>
         </div>
       </div>
-      <Modal
-        modal={modal}
-        closeModal={openCloseModal}
-        changeModal={changeModal}
-      />
+      <CustomModal {...modal} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BodyProps } from "../types/ActionTypes";
+import { ModalProps } from "../types/ActionTypes";
 import { loginUser } from "../features/currentUserSlice";
 import { useAppDispatch } from "../store/hooks";
 import { emailChecker } from "../utils/misc";
@@ -10,7 +10,7 @@ export interface LoginProps {
   password: string;
 }
 
-export const LoginBody = ({ type, changeModal, closeModal }: BodyProps) => {
+export const LoginBody = (props: ModalProps) => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState("");
   const [formLoginData, setFormLoginData] = useState<LoginProps>({
@@ -42,7 +42,7 @@ export const LoginBody = ({ type, changeModal, closeModal }: BodyProps) => {
       dispatch(loginUser(formLoginData))
         .unwrap()
         .then(() => {
-          closeModal(type);
+          props.setModalProps("");
         })
         .catch((error: string) => setError(error));
     }
@@ -86,7 +86,7 @@ export const LoginBody = ({ type, changeModal, closeModal }: BodyProps) => {
         Don't have an account?&nbsp;
         <button
           className="btn-link active"
-          onClick={() => changeModal("register")}
+          onClick={() => props.setModalProps("register")}
         >
           Register
         </button>

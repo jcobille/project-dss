@@ -1,18 +1,13 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { LoginBody } from "./LoginBody";
-import { BodyProps } from "../types/ActionTypes";
+import { ModalProps } from "../types/ActionTypes";
 
-function renderLoginForm(props: Partial<BodyProps> = {}) {
-  const defaultProps: BodyProps = {
+function renderLoginForm(props: Partial<ModalProps> = {}) {
+  const defaultProps: ModalProps = {
     type: "login",
-
-    changeModal() {
-      return;
-    },
-
-    closeModal() {
-      return;
+    setModalProps: (newType: string, newAction?: string, id?: string) => {
+        return;
     },
   };
   return render(<LoginBody {...defaultProps} {...props} />);

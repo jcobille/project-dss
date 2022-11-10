@@ -1,5 +1,5 @@
 import {authenticate} from '@loopback/authentication';
-import {Filter, FilterExcludingWhere, repository} from '@loopback/repository';
+import {Filter, repository} from '@loopback/repository';
 import {
   del,
   get,
@@ -43,17 +43,17 @@ export class MovieController {
       if (!movie.title) throw new Error('Title is required');
       if (!movie.description) throw new Error('Description is required');
       if (!movie.cost) throw new Error('Budget cost is required');
-      if (!movie.released_date) throw new Error('Released date is required');
+      if (!movie.releasedDate) throw new Error('Released date is required');
       if (movie.duration === 0) throw new Error('Duration is required');
       if (!movie.image) throw new Error('Movie image is required');
 
-      let newMovie = await this.movieRepository.create(movie);
+      const newMovie = await this.movieRepository.create(movie);
       if (!newMovie) throw new Error('Cannot create new movie');
 
       return {
         data: newMovie,
         status: true,
-        message: 'Movie has been created.',
+        message: 'Movie has been created',
       };
     } catch (err) {
       return {data: [], status: false, message: err.message};
@@ -123,16 +123,11 @@ export class MovieController {
       },
     },
   })
-  async findById(
-    @param.path.string('id') id: string,
-    @param.filter(Movie, {exclude: 'where'})
-    filter?: FilterExcludingWhere<Movie>,
-  ): Promise<CustomResponse> {
+  async findById(@param.path.string('id') id: string): Promise<CustomResponse> {
     try {
       const movieDetails = await this.movieRepository.findById(id, {
         include: [{relation: 'reviews', scope: {include: ['user']}}, 'actors'],
       });
-
       return {
         data: movieDetails,
         status: true,
@@ -158,7 +153,7 @@ export class MovieController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Movie, {partial: true}),
-          exclude: ['title', 'cost', 'released_date', 'duration', 'image'],
+          exclude: ['title', 'cost', 'releasedDate', 'duration', 'image'],
         },
       },
     })
@@ -217,7 +212,7 @@ export class MovieController {
     @param.query.object('filter') filter?: Filter<Review>,
   ): Promise<CustomResponse> {
     try {
-      let reviews = await this.movieRepository.reviews(id).find(filter);
+      const reviews = await this.movieRepository.reviews(id).find(filter);
       if (reviews.length === 0) throw new Error('No reviews found');
 
       return {

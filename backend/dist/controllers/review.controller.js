@@ -14,7 +14,7 @@ let ReviewController = class ReviewController {
     async create(review) {
         review = { ...review, status: 'checking' };
         try {
-            let newReview = await this.reviewRepository.create(review);
+            const newReview = await this.reviewRepository.create(review);
             if (!newReview)
                 throw new Error('Cannot create new review');
             return {

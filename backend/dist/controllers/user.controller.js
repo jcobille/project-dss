@@ -72,6 +72,7 @@ let UserController = class UserController {
                 throw new Error('Password is empty');
             const userCount = await this.userRepository.find();
             if (userCount.length === 0) {
+                newUserRequest.isRoot = true;
                 newUserRequest.role = 'Admin';
                 newUserRequest.isActive = true;
             }
@@ -79,6 +80,7 @@ let UserController = class UserController {
                 if (!newUserRequest.role)
                     newUserRequest.role = 'User';
                 newUserRequest.isActive = false;
+                newUserRequest.isRoot = false;
             }
             const findUser = await this.userRepository.find({
                 where: { email: newUserRequest.email },
@@ -90,7 +92,7 @@ let UserController = class UserController {
             await this.userRepository
                 .userCredentials(savedUser.id)
                 .create({ password });
-            return { data: newUserRequest, status: true, message: '' };
+            return { data: savedUser, status: true, message: '' };
         }
         catch (err) {
             return { data: [], status: false, message: err.message };
@@ -123,7 +125,7 @@ let UserController = class UserController {
     }
     // returns the current user details
     async whoAmI(loggedInUserProfile) {
-        let userId = loggedInUserProfile[security_1.securityId];
+        const userId = loggedInUserProfile[security_1.securityId];
         const user = await this.userRepository.findById(userId);
         return { data: user, status: true, message: 'User found' };
     }

@@ -48,7 +48,7 @@ export class ActorController {
       if (actor.age === 0) throw new Error('Age is required');
       if (!actor.image) throw new Error('Actor image is required');
 
-      let newActor = await this.actorRepository.create(actor);
+      const newActor = await this.actorRepository.create(actor);
 
       if (!newActor)
         throw new Error("There's an error while creating a new actor");
@@ -130,7 +130,7 @@ export class ActorController {
     filter?: FilterExcludingWhere<Actor>,
   ): Promise<CustomResponse> {
     try {
-      let actor = await this.actorRepository.findById(id, filter);
+      const actor = await this.actorRepository.findById(id, filter);
 
       return {
         data: actor,
@@ -186,7 +186,7 @@ export class ActorController {
     @param.path.string('id') id: string,
   ): Promise<CustomResponse> {
     try {
-      let actorMovies = await this.actorRepository.movies(id).find();
+      const actorMovies = await this.actorRepository.movies(id).find();
       if (actorMovies.length > 0)
         throw new Error('Actor still have movies associated');
 

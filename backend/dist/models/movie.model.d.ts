@@ -6,7 +6,7 @@ export declare class Movie extends Entity {
     title: string;
     description: string;
     cost: string;
-    released_date: string;
+    releasedDate: string;
     duration: number;
     image: string;
     reviews: Review[];

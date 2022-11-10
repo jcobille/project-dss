@@ -19,7 +19,7 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
   const [ratings, setRatings] = useState(0);
   const [newReviews, setNewReviews] = useState(0);
   const columnLengthForText = tableType === "movies" ? 4 : 3;
-  let isDeleteDisabled = tableType !== "users" ? false : true;
+  const [disableDeleteButton, setDisableDeleteButton] = useState(true);
 
   const getRatings = () => {
     let newReviews = 0;
@@ -40,29 +40,37 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
     }
   };
 
+  const setDisableButton = () => {
+    switch (tableType) {
+      case "users":
+        const userData: User = data as User;
+        if (userData.isRoot) setDisableDeleteButton(!userData.isRoot);
+        break;
+      case "actors":
+        const actorsData: Actor = data as Actor;
+        setDisableDeleteButton(!actorsData.movies);
+        break;
+      case "movies":
+        const moviesData: Movie = data as Movie;
+        const releasedDate = new Date(moviesData.releasedDate);
+        const currentDate = new Date();
+        const isDeleteDisabled =
+          (Number(currentDate) - Number(releasedDate)) /
+            (1000 * 3600 * 24 * 365) >
+          1;
+        setDisableDeleteButton(isDeleteDisabled);
+        break;
+    }
+  };
+
   const onClickHandler = (id: string, action: string) => {
     modal.setModalProps(tableType, action, id);
   };
 
-  isDeleteDisabled =
-    (tableType === "actors" &&
-      data["movies" as keyof typeof data]?.length === 0) ||
-    (tableType === "users" && index !== 0);
-
-  if (data["released_date" as keyof typeof data]) {
-    let releasedDate = new Date(
-      data["released_date" as keyof typeof data] as string
-    );
-    let currentDate = new Date();
-    isDeleteDisabled =
-      (Number(currentDate) - Number(releasedDate)) / (1000 * 3600 * 24 * 365) >
-      1;
-  }
-
   useEffect(() => {
     if (tableType === "movies") getRatings();
+    setDisableButton();
   }, [data]);
-
   return (
     <tr>
       {headers.map((header, i) => {
@@ -118,7 +126,7 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                   dataId={data.id}
                   icon={faTrash}
                   onClickHandler={onClickHandler}
-                  disabled={isDeleteDisabled}
+                  disabled={disableDeleteButton}
                 />
               </>
             )}

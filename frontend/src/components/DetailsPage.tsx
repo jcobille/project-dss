@@ -108,7 +108,7 @@ const DetailsPage = () => {
               <div className="row">
                 <div className="col-5">
                   <div className="sub-title-1 mt-3">
-                    <b>Released</b>: {formatDate(details?.released_date)}
+                    <b>Released</b>: {formatDate(details?.releasedDate)}
                   </div>
                   <div className="sub-title-1 mt-1">
                     <b>Duration</b>:

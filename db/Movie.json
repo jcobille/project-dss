@@ -1,232 +1,254 @@
-[{
-  "_id": {
-    "$oid": "635d3d39425fc647181495f2"
+[
+  {
+    "_id": {
+      "$oid": "635d3d39425fc647181495f2"
+    },
+    "title": "Black Adam",
+    "description": "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.",
+    "releasedDate": "2022-10-19",
+    "duration": 126,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/15/1b/151b961f5343bebb7f434f3060079d97/151b961f5343bebb7f434f3060079d97.jpg",
+    "cost": "$10 million"
   },
-  "title": "Black Adam",
-  "description": "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.",
-  "released_date": "2022-10-19",
-  "duration": 126,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/15/1b/151b961f5343bebb7f434f3060079d97/151b961f5343bebb7f434f3060079d97.jpg",
-  "cost": "$10 million"
-},{
-  "_id": {
-    "$oid": "635e2a561fd72a3b343f1576"
+  {
+    "_id": {
+      "$oid": "635e2a561fd72a3b343f1576"
+    },
+    "title": "Barbarian",
+    "description": "In town for a job interview, a young woman arrives at her Airbnb late at night only to find that it has been mistakenly double-booked and a strange man is already staying there. Against her better judgement, she decides to stay the night anyway, but soon discovers that there is much more to be afraid of in the house than the other house guest.",
+    "releasedDate": "2022-09-08",
+    "duration": 102,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/0a/b0/0ab08224c226dd6b284144f1b91dac79/0ab08224c226dd6b284144f1b91dac79.jpg",
+    "actorIds": [],
+    "cost": "$100 Million"
   },
-  "title": "Barbarian",
-  "description": "In town for a job interview, a young woman arrives at her Airbnb late at night only to find that it has been mistakenly double-booked and a strange man is already staying there. Against her better judgement, she decides to stay the night anyway, but soon discovers that there is much more to be afraid of in the house than the other house guest.",
-  "released_date": "2022-09-08",
-  "duration": 102,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/0a/b0/0ab08224c226dd6b284144f1b91dac79/0ab08224c226dd6b284144f1b91dac79.jpg",
-  "actorIds": [],
-  "cost": "$100 Million"
-},{
-  "_id": {
-    "$oid": "635e2aa41fd72a3b343f1577"
+  {
+    "_id": {
+      "$oid": "635e2aa41fd72a3b343f1577"
+    },
+    "title": "The Good Nurse",
+    "description": "Suspicious that her colleague is responsible for a series of mysterious patient deaths, a nurse risks her own life to uncover the truth in this gripping thriller based on true events.",
+    "releasedDate": "2022-10-19",
+    "duration": 121,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/05/b1/05b1a5e0065bce54d68733aa58d5d587/05b1a5e0065bce54d68733aa58d5d587.jpg",
+    "actorIds": []
   },
-  "title": "The Good Nurse",
-  "description": "Suspicious that her colleague is responsible for a series of mysterious patient deaths, a nurse risks her own life to uncover the truth in this gripping thriller based on true events.",
-  "released_date": "2022-10-19",
-  "duration": 121,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/05/b1/05b1a5e0065bce54d68733aa58d5d587/05b1a5e0065bce54d68733aa58d5d587.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "635e2adc1fd72a3b343f1578"
+  {
+    "_id": {
+      "$oid": "635e2adc1fd72a3b343f1578"
+    },
+    "title": "Wendell & Wild",
+    "description": "Two demon brothers enlist the aid of Kat Elliot — a tough teen with a load of guilt — to summon them to the Land of the Living. But what Kat demands in return leads to a brilliantly bizarre and comedic adventure like no other.",
+    "releasedDate": "2022-10-21",
+    "duration": 105,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/95/54/9554f17a53245100096f752fe783603b/9554f17a53245100096f752fe783603b.jpg",
+    "actorIds": []
   },
-  "title": "Wendell & Wild",
-  "description": "Two demon brothers enlist the aid of Kat Elliot — a tough teen with a load of guilt — to summon them to the Land of the Living. But what Kat demands in return leads to a brilliantly bizarre and comedic adventure like no other.",
-  "released_date": "2022-10-21",
-  "duration": 105,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/95/54/9554f17a53245100096f752fe783603b/9554f17a53245100096f752fe783603b.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "635e2b701fd72a3b343f1579"
+  {
+    "_id": {
+      "$oid": "635e2b701fd72a3b343f1579"
+    },
+    "title": "Robbing Mussolini",
+    "description": "At the end of WWII, a black marketeer and a nightclub singer put together a ragtag bunch of misfits to carry out an impossible heist: to steal Mussolini's treasure right from his headquarters.",
+    "releasedDate": "2022-10-26",
+    "duration": 99,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/7f/57/7f57310a2b3e74f1c1333cabadc80cd0/7f57310a2b3e74f1c1333cabadc80cd0.jpg",
+    "actorIds": []
   },
-  "title": "Robbing Mussolini",
-  "description": "At the end of WWII, a black marketeer and a nightclub singer put together a ragtag bunch of misfits to carry out an impossible heist: to steal Mussolini's treasure right from his headquarters.",
-  "released_date": "2022-10-26",
-  "duration": 99,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/7f/57/7f57310a2b3e74f1c1333cabadc80cd0/7f57310a2b3e74f1c1333cabadc80cd0.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "635e2bb21fd72a3b343f157a"
+  {
+    "_id": {
+      "$oid": "635e2bb21fd72a3b343f157a"
+    },
+    "title": "The Lair",
+    "description": "Royal Air Force pilot Lt. Kate Sinclair is on her final flight mission when her jet is shot down over one of the most dangerous rebel strongholds in Afghanistan. She finds refuge in an abandoned underground bunker where deadly man-made creatures known as Ravagers — half-human, half-alien, and hungry for human flesh — are awakened.",
+    "releasedDate": "2023-01-13",
+    "duration": 90,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/c3/01/c30164539418591894621ecd9f1779c2/c30164539418591894621ecd9f1779c2.jpg",
+    "actorIds": []
   },
-  "title": "The Lair",
-  "description": "Royal Air Force pilot Lt. Kate Sinclair is on her final flight mission when her jet is shot down over one of the most dangerous rebel strongholds in Afghanistan. She finds refuge in an abandoned underground bunker where deadly man-made creatures known as Ravagers — half-human, half-alien, and hungry for human flesh — are awakened.",
-  "released_date": "2023-01-13",
-  "duration": 90,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/c3/01/c30164539418591894621ecd9f1779c2/c30164539418591894621ecd9f1779c2.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "635e2bee1fd72a3b343f157b"
+  {
+    "_id": {
+      "$oid": "635e2bee1fd72a3b343f157b"
+    },
+    "title": "Terrifier 2",
+    "description": "After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night. As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.",
+    "releasedDate": "2022-10-16",
+    "duration": 90,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/92/19/921937f860ce4ff635afa632383da2bd/921937f860ce4ff635afa632383da2bd.jpg",
+    "actorIds": []
   },
-  "title": "Terrifier 2",
-  "description": "After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night. As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.",
-  "released_date": "2022-10-16",
-  "duration": 90,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/92/19/921937f860ce4ff635afa632383da2bd/921937f860ce4ff635afa632383da2bd.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "635e2c4e1fd72a3b343f157c"
+  {
+    "_id": {
+      "$oid": "635e2c4e1fd72a3b343f157c"
+    },
+    "title": "Orphan: First Kill",
+    "description": "After escaping from an Estonian psychiatric facility, Leena Klammer travels to America by impersonating Esther, the missing daughter of a wealthy family. But when her mask starts to slip, she is put against a mother who will protect her family from the murderous “child” at any cost.",
+    "releasedDate": "2022-07-27",
+    "duration": 99,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/1e/b9/1eb90ac57a535458f649c16495f117ad/1eb90ac57a535458f649c16495f117ad.jpg",
+    "actorIds": []
   },
-  "title": "Orphan: First Kill",
-  "description": "After escaping from an Estonian psychiatric facility, Leena Klammer travels to America by impersonating Esther, the missing daughter of a wealthy family. But when her mask starts to slip, she is put against a mother who will protect her family from the murderous “child” at any cost.",
-  "released_date": "2022-07-27",
-  "duration": 99,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/1e/b9/1eb90ac57a535458f649c16495f117ad/1eb90ac57a535458f649c16495f117ad.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "6361ff1cf100a4529cf10794"
+  {
+    "_id": {
+      "$oid": "6361ff1cf100a4529cf10794"
+    },
+    "title": "All Quiet on the Western Front",
+    "description": "Paul Baumer and his friends Albert and Muller, egged on by romantic dreams of heroism, voluntarily enlist in the German army. Full of excitement and patriotic fervour, the boys enthusiastically march into a war they believe in. But once on the Western Front, they discover the soul-destroying horror of World War I.",
+    "releasedDate": "2022-10-07",
+    "duration": 147,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/d0/24/d024638f74bbb4b299c8a4009244ecfe/d024638f74bbb4b299c8a4009244ecfe.jpg",
+    "actorIds": []
   },
-  "title": "All Quiet on the Western Front",
-  "description": "Paul Baumer and his friends Albert and Muller, egged on by romantic dreams of heroism, voluntarily enlist in the German army. Full of excitement and patriotic fervour, the boys enthusiastically march into a war they believe in. But once on the Western Front, they discover the soul-destroying horror of World War I.",
-  "released_date": "2022-10-07",
-  "duration": 147,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/d0/24/d024638f74bbb4b299c8a4009244ecfe/d024638f74bbb4b299c8a4009244ecfe.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "6361ff65f100a4529cf10795"
+  {
+    "_id": {
+      "$oid": "6361ff65f100a4529cf10795"
+    },
+    "title": "See How They Run",
+    "description": "In the West End of 1950s London, plans for a movie version of a smash-hit play come to an abrupt halt after a pivotal member of the crew is murdered. When world-weary Inspector Stoppard and eager rookie Constable Stalker take on the case, the two find themselves thrown into a puzzling whodunit within the glamorously sordid theater underground, investigating the mysterious homicide at their own peril.",
+    "releasedDate": "2022-09-09",
+    "duration": 98,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/40/da/40da2a6d2f025fc1bb775ed008f9a76f/40da2a6d2f025fc1bb775ed008f9a76f.jpg",
+    "actorIds": []
   },
-  "title": "See How They Run",
-  "description": "In the West End of 1950s London, plans for a movie version of a smash-hit play come to an abrupt halt after a pivotal member of the crew is murdered. When world-weary Inspector Stoppard and eager rookie Constable Stalker take on the case, the two find themselves thrown into a puzzling whodunit within the glamorously sordid theater underground, investigating the mysterious homicide at their own peril.",
-  "released_date": "2022-09-09",
-  "duration": 98,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/40/da/40da2a6d2f025fc1bb775ed008f9a76f/40da2a6d2f025fc1bb775ed008f9a76f.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "6361ffa2f100a4529cf10796"
+  {
+    "_id": {
+      "$oid": "6361ffa2f100a4529cf10796"
+    },
+    "title": "Run Sweetheart Run",
+    "description": "A woman runs for her life though the streets of Los Angeles after her blind date suddenly turns violent.",
+    "releasedDate": "2020-01-23",
+    "duration": 103,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/55/49/55499a6c64fb8d625a6b5d3022baf738/55499a6c64fb8d625a6b5d3022baf738.jpg",
+    "actorIds": []
   },
-  "title": "Run Sweetheart Run",
-  "description": "A woman runs for her life though the streets of Los Angeles after her blind date suddenly turns violent.",
-  "released_date": "2020-01-23",
-  "duration": 103,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/55/49/55499a6c64fb8d625a6b5d3022baf738/55499a6c64fb8d625a6b5d3022baf738.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "6361fffef100a4529cf10797"
+  {
+    "_id": {
+      "$oid": "6361fffef100a4529cf10797"
+    },
+    "title": "Spider-Man: No Way Home",
+    "description": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
+    "releasedDate": "2021-12-15",
+    "duration": 148,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/44/54/4454b905c18670de60b09fd624fccd0c/4454b905c18670de60b09fd624fccd0c.jpg",
+    "actorIds": []
   },
-  "title": "Spider-Man: No Way Home",
-  "description": "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
-  "released_date": "2021-12-15",
-  "duration": 148,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/44/54/4454b905c18670de60b09fd624fccd0c/4454b905c18670de60b09fd624fccd0c.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "63620049f100a4529cf10798"
+  {
+    "_id": {
+      "$oid": "63620049f100a4529cf10798"
+    },
+    "title": "Top Gun: Maverick",
+    "description": "Set in the world of drone technology and fifth generation fighters, this sequel will explore the end of the era of dogfighting.",
+    "releasedDate": "2022-05-24",
+    "duration": 131,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/8c/76/8c76f7ba1f8d85c3c260b7347e1e64cc/8c76f7ba1f8d85c3c260b7347e1e64cc.jpg",
+    "actorIds": []
   },
-  "title": "Top Gun: Maverick",
-  "description": "Set in the world of drone technology and fifth generation fighters, this sequel will explore the end of the era of dogfighting.",
-  "released_date": "2022-05-24",
-  "duration": 131,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/8c/76/8c76f7ba1f8d85c3c260b7347e1e64cc/8c76f7ba1f8d85c3c260b7347e1e64cc.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "6362007ef100a4529cf10799"
+  {
+    "_id": {
+      "$oid": "6362007ef100a4529cf10799"
+    },
+    "title": "The Woman King",
+    "description": "The story of the Agojie, the all-female unit of warriors who protected the African Kingdom of Dahomey in the 1800s with skills and a fierceness unlike anything the world has ever seen, and General Nanisca as she trains the next generation of recruits and readies them for battle against an enemy determined to destroy their way of life.",
+    "releasedDate": "2022-09-15",
+    "duration": 135,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/fe/34/fe341d3dbc3e0c98aedef72a08385abe/fe341d3dbc3e0c98aedef72a08385abe.jpg",
+    "actorIds": []
   },
-  "title": "The Woman King",
-  "description": "The story of the Agojie, the all-female unit of warriors who protected the African Kingdom of Dahomey in the 1800s with skills and a fierceness unlike anything the world has ever seen, and General Nanisca as she trains the next generation of recruits and readies them for battle against an enemy determined to destroy their way of life.",
-  "released_date": "2022-09-15",
-  "duration": 135,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/fe/34/fe341d3dbc3e0c98aedef72a08385abe/fe341d3dbc3e0c98aedef72a08385abe.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "636200b5f100a4529cf1079a"
+  {
+    "_id": {
+      "$oid": "636200b5f100a4529cf1079a"
+    },
+    "title": "Ticket to Paradise",
+    "description": "A divorced couple teams up and travels to Bali to stop their daughter from making the same mistake they think they made 25 years ago.",
+    "releasedDate": "2022-09-15",
+    "duration": 104,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/67/ac/67ac74056498ef750f26f63330e48566/67ac74056498ef750f26f63330e48566.jpg",
+    "actorIds": []
   },
-  "title": "Ticket to Paradise",
-  "description": "A divorced couple teams up and travels to Bali to stop their daughter from making the same mistake they think they made 25 years ago.",
-  "released_date": "2022-09-15",
-  "duration": 104,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/67/ac/67ac74056498ef750f26f63330e48566/67ac74056498ef750f26f63330e48566.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "636200e6f100a4529cf1079b"
+  {
+    "_id": {
+      "$oid": "636200e6f100a4529cf1079b"
+    },
+    "title": "Halloween Ends",
+    "description": "Four years after the events of Halloween in 2018, Laurie has decided to liberate herself from fear and rage and embrace life. But when a young man is accused of killing a boy he was babysitting, it ignites a cascade of violence and terror that will force Laurie to finally confront the evil she can’t control, once and for all.",
+    "releasedDate": "2022-10-12",
+    "duration": 111,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/5a/0d/5a0d73b9775e161a46a8c0036e4fbebb/5a0d73b9775e161a46a8c0036e4fbebb.jpg",
+    "actorIds": []
   },
-  "title": "Halloween Ends",
-  "description": "Four years after the events of Halloween in 2018, Laurie has decided to liberate herself from fear and rage and embrace life. But when a young man is accused of killing a boy he was babysitting, it ignites a cascade of violence and terror that will force Laurie to finally confront the evil she can’t control, once and for all.",
-  "released_date": "2022-10-12",
-  "duration": 111,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/5a/0d/5a0d73b9775e161a46a8c0036e4fbebb/5a0d73b9775e161a46a8c0036e4fbebb.jpg",
-  "actorIds": []
-},{
-  "_id": {
-    "$oid": "6363f30161af405494a69706"
+  {
+    "_id": {
+      "$oid": "6363f30161af405494a69706"
+    },
+    "title": "The Independent",
+    "description": "A young journalist discovers a conspiracy involving a U.S. Presidential candidate that could change the election and the fate of the country.",
+    "cost": "$50 Million",
+    "releasedDate": "2022-11-02",
+    "duration": 108,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/1d/ae/1dae77a315f221f6550745aa9eda220f/1dae77a315f221f6550745aa9eda220f.jpg",
+    "actorIds": [
+      {
+        "$oid": "635dc774aa9c411ffc39887a"
+      }
+    ]
   },
-  "title": "The Independent",
-  "description": "A young journalist discovers a conspiracy involving a U.S. Presidential candidate that could change the election and the fate of the country.",
-  "cost": "$50 Million",
-  "released_date": "2022-11-02",
-  "duration": 108,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/1d/ae/1dae77a315f221f6550745aa9eda220f/1dae77a315f221f6550745aa9eda220f.jpg",
-  "actorIds": [
-    {
-      "$oid": "635dc774aa9c411ffc39887a"
-    }
-  ]
-},{
-  "_id": {
-    "$oid": "6363f4cf61af405494a69707"
+  {
+    "_id": {
+      "$oid": "6363f4cf61af405494a69707"
+    },
+    "title": "Smile",
+    "description": "After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter starts experiencing frightening occurrences that she can't explain. As an overwhelming terror begins taking over her life, Rose must confront her troubling past in order to survive and escape her horrifying new reality.",
+    "cost": "$10,000",
+    "releasedDate": "2022-09-23",
+    "duration": 115,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/db/d9/dbd9c204a39dc351e57891b8885f5652/dbd9c204a39dc351e57891b8885f5652.jpg",
+    "actorIds": [
+      {
+        "$oid": "635dc774aa9c411ffc39887a"
+      }
+    ]
   },
-  "title": "Smile",
-  "description": "After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter starts experiencing frightening occurrences that she can't explain. As an overwhelming terror begins taking over her life, Rose must confront her troubling past in order to survive and escape her horrifying new reality.",
-  "cost": "$10,000",
-  "released_date": "2022-09-23",
-  "duration": 115,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/db/d9/dbd9c204a39dc351e57891b8885f5652/dbd9c204a39dc351e57891b8885f5652.jpg",
-  "actorIds": [
-    {
-      "$oid": "635dc774aa9c411ffc39887a"
-    }
-  ]
-},{
-  "_id": {
-    "$oid": "6363f61761af405494a69708"
+  {
+    "_id": {
+      "$oid": "6363f61761af405494a69708"
+    },
+    "title": "One Punch Man: Road to Hero",
+    "description": "Defeating numerous villains in the abandoned area in Z-City but still having problems with rent money (and continued harassment from the landlady who says he's 3 months overdue), Saitama speaks with a shop owner who is being forced by a local gang to surrender his store's deed. Several other shops have gone out of business and his store is the last one; a conversation between the gang boss and one of his stooges reveal that the boss has had an impulse to buy out all the stores in the area to destroy them.",
+    "cost": "$10,000",
+    "releasedDate": "2015-12-04",
+    "duration": 30,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/4e/93/4e93897a3476bba80f55b461cf230938/4e93897a3476bba80f55b461cf230938.jpg",
+    "actorIds": [
+      {
+        "$oid": "635dc7c0aa9c411ffc39887b"
+      }
+    ]
   },
-  "title": "One Punch Man: Road to Hero",
-  "description": "Defeating numerous villains in the abandoned area in Z-City but still having problems with rent money (and continued harassment from the landlady who says he's 3 months overdue), Saitama speaks with a shop owner who is being forced by a local gang to surrender his store's deed. Several other shops have gone out of business and his store is the last one; a conversation between the gang boss and one of his stooges reveal that the boss has had an impulse to buy out all the stores in the area to destroy them.",
-  "cost": "$10,000",
-  "released_date": "2015-12-04",
-  "duration": 30,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/4e/93/4e93897a3476bba80f55b461cf230938/4e93897a3476bba80f55b461cf230938.jpg",
-  "actorIds": [
-    {
-      "$oid": "635dc7c0aa9c411ffc39887b"
-    }
-  ]
-},{
-  "_id": {
-    "$oid": "6364b81eb40f06357c9ccc6e"
+  {
+    "_id": {
+      "$oid": "6364b81eb40f06357c9ccc6e"
+    },
+    "title": "Titanic: Blood and Steel",
+    "description": "Belfast, 1909. The Harland and Wolff shipyard has been handed the greatest project in its history. It will build a great, unsinkable ship. And it will be called the RMS Titanic.",
+    "cost": "$20 million",
+    "releasedDate": "2012-07-11",
+    "duration": 60,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/7a/18/7a1852a950b65f85d1f479a9faf274e0/7a1852a950b65f85d1f479a9faf274e0.jpg",
+    "actorIds": [
+      {
+        "$oid": "635dc7c0aa9c411ffc39887b"
+      }
+    ]
   },
-  "title": "Titanic: Blood and Steel",
-  "description": "Belfast, 1909. The Harland and Wolff shipyard has been handed the greatest project in its history. It will build a great, unsinkable ship. And it will be called the RMS Titanic.",
-  "cost": "$20 million",
-  "released_date": "2012-07-11",
-  "duration": 60,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/7a/18/7a1852a950b65f85d1f479a9faf274e0/7a1852a950b65f85d1f479a9faf274e0.jpg",
-  "actorIds": [
-    {
-      "$oid": "635dc7c0aa9c411ffc39887b"
-    }
-  ]
-},{
-  "_id": {
-    "$oid": "6367f9a445fe592b68121949"
-  },
-  "title": "The Loneliest Boy in the World",
-  "description": "After losing his mother, a lonely boy decides to (literally) dig up some new friends, but when they mysteriously come back to life, he’s launched into a series of misadventures as he tries to keep their secret safe from neighbors, classmates and social workers alike.",
-  "cost": "$500,000",
-  "released_date": "2022-10-14",
-  "duration": 90,
-  "image": "https://img.xmovies8.fun/xxrz/250x400/100/db/ef/dbef3afbe9f5008d27b9164b8cb203b8/dbef3afbe9f5008d27b9164b8cb203b8.jpg"
-}]
+  {
+    "_id": {
+      "$oid": "6367f9a445fe592b68121949"
+    },
+    "title": "The Loneliest Boy in the World",
+    "description": "After losing his mother, a lonely boy decides to (literally) dig up some new friends, but when they mysteriously come back to life, he’s launched into a series of misadventures as he tries to keep their secret safe from neighbors, classmates and social workers alike.",
+    "cost": "$500,000",
+    "releasedDate": "2022-10-14",
+    "duration": 90,
+    "image": "https://img.xmovies8.fun/xxrz/250x400/100/db/ef/dbef3afbe9f5008d27b9164b8cb203b8/dbef3afbe9f5008d27b9164b8cb203b8.jpg"
+  }
+]

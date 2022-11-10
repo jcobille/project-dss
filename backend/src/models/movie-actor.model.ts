@@ -21,7 +21,6 @@ export class MovieActor extends Entity {
   })
   actorId: string;
 
-
   constructor(data?: Partial<MovieActor>) {
     super(data);
   }

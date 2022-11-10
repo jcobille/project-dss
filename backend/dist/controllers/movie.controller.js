@@ -20,19 +20,19 @@ let MovieController = class MovieController {
                 throw new Error('Description is required');
             if (!movie.cost)
                 throw new Error('Budget cost is required');
-            if (!movie.released_date)
+            if (!movie.releasedDate)
                 throw new Error('Released date is required');
             if (movie.duration === 0)
                 throw new Error('Duration is required');
             if (!movie.image)
                 throw new Error('Movie image is required');
-            let newMovie = await this.movieRepository.create(movie);
+            const newMovie = await this.movieRepository.create(movie);
             if (!newMovie)
                 throw new Error('Cannot create new movie');
             return {
                 data: newMovie,
                 status: true,
-                message: 'Movie has been created.',
+                message: 'Movie has been created',
             };
         }
         catch (err) {
@@ -65,7 +65,7 @@ let MovieController = class MovieController {
         return { data: foundMovies, status: true, message: '' };
     }
     // Returns the details, reviews and actors of the movie
-    async findById(id, filter) {
+    async findById(id) {
         try {
             const movieDetails = await this.movieRepository.findById(id, {
                 include: [{ relation: 'reviews', scope: { include: ['user'] } }, 'actors'],
@@ -115,7 +115,7 @@ let MovieController = class MovieController {
     // Returns all the movie reviews based on movie id
     async findReviews(id, filter) {
         try {
-            let reviews = await this.movieRepository.reviews(id).find(filter);
+            const reviews = await this.movieRepository.reviews(id).find(filter);
             if (reviews.length === 0)
                 throw new Error('No reviews found');
             return {
@@ -196,9 +196,8 @@ tslib_1.__decorate([
         },
     }),
     tslib_1.__param(0, rest_1.param.path.string('id')),
-    tslib_1.__param(1, rest_1.param.filter(models_1.Movie, { exclude: 'where' })),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [String, Object]),
+    tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", Promise)
 ], MovieController.prototype, "findById", null);
 tslib_1.__decorate([
@@ -212,7 +211,7 @@ tslib_1.__decorate([
         content: {
             'application/json': {
                 schema: (0, rest_1.getModelSchemaRef)(models_1.Movie, { partial: true }),
-                exclude: ['title', 'cost', 'released_date', 'duration', 'image'],
+                exclude: ['title', 'cost', 'releasedDate', 'duration', 'image'],
             },
         },
     })),

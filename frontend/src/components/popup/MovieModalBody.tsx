@@ -22,7 +22,7 @@ export const MovieModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<Movies>({
     title: "",
     description: "",
-    released_date: "",
+    releasedDate: "",
     duration: "",
     image: "",
     cost: "",
@@ -70,7 +70,7 @@ export const MovieModalBody = (props: ModalProps) => {
     if (!data.title) {
       setError("Title is empty");
       return;
-    } else if (!data.released_date) {
+    } else if (!data.releasedDate) {
       setError("Released date is empty");
       return;
     } else if (!data.duration) {
@@ -237,7 +237,7 @@ export const MovieModalBody = (props: ModalProps) => {
               <CustomInput
                 type="text"
                 className="input"
-                name="released_date"
+                name="releasedDate"
                 changeHandler={changeHandler}
                 placeHolder="YYYY-MM-DD"
               />

@@ -19,13 +19,11 @@ let MovieActorController = class MovieActorController {
     // inserts all the actors based on the movie id
     async linkActors(id, actors) {
         try {
-            let movieActorsList = await this.movieRepository.actors(id).find();
-            movieActorsList.forEach(async (actor) => {
-                // remove all the actors on the collection
-                await this.movieRepository.actors(id).unlink(actor.id);
-            });
+            const movieActorsList = await this.movieRepository.actors(id).find();
+            // remove all the actors on the collection
+            movieActorsList.forEach(async (actor) => await this.movieRepository.actors(id).unlink(actor.id));
             // adds a new list of actors to collection
-            actors.forEach(actor => this.movieRepository.actors(id).link(actor.id));
+            actors.forEach(async (actor) => await this.movieRepository.actors(id).link(actor.id));
             return {
                 data: [],
                 status: true,

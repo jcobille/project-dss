@@ -27,7 +27,7 @@ export class ActorMovieController {
     @param.query.object('filter') filter?: Filter<Movie>,
   ): Promise<CustomResponse> {
     try {
-      let movies = await this.actorRepository.movies(id).find();
+      const movies = await this.actorRepository.movies(id).find();
 
       return {
         data: movies,

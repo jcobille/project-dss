@@ -34,7 +34,7 @@ export class Movie extends Entity {
     type: 'string',
     required: true,
   })
-  released_date: string;
+  releasedDate: string;
 
   @property({
     type: 'number',

@@ -25,7 +25,7 @@ export const createMovie = createAsyncThunk<
   Movie,
   {
     title: string;
-    released_date: string;
+    releasedDate: string;
     duration: string;
     image: string;
     cost: string;

@@ -8,6 +8,7 @@ export declare class User extends Entity {
     email: string;
     password: string;
     role?: string;
+    isRoot?: boolean;
     isActive?: boolean;
     reviews: Review[];
     userCredentials: UserCredentials;

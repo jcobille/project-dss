@@ -25,7 +25,7 @@ let ActorController = class ActorController {
                 throw new Error('Age is required');
             if (!actor.image)
                 throw new Error('Actor image is required');
-            let newActor = await this.actorRepository.create(actor);
+            const newActor = await this.actorRepository.create(actor);
             if (!newActor)
                 throw new Error("There's an error while creating a new actor");
             return {
@@ -61,7 +61,7 @@ let ActorController = class ActorController {
     // it will return all the details of the actor based on its id
     async findById(id, filter) {
         try {
-            let actor = await this.actorRepository.findById(id, filter);
+            const actor = await this.actorRepository.findById(id, filter);
             return {
                 data: actor,
                 status: true,
@@ -93,7 +93,7 @@ let ActorController = class ActorController {
     // Deletes the actor details but checks if the actor still have movies
     async deleteById(id) {
         try {
-            let actorMovies = await this.actorRepository.movies(id).find();
+            const actorMovies = await this.actorRepository.movies(id).find();
             if (actorMovies.length > 0)
                 throw new Error('Actor still have movies associated');
             await this.actorRepository.deleteById(id);

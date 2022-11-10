@@ -39,7 +39,7 @@ const MovieCell = ({ data }: MovieCellProps) => {
             <div className="head">
               <div className="title">{data.title}</div>
               <div className="sub">
-                <b>Released:</b> {getYear(data.released_date)}
+                <b>Released:</b> {getYear(data.releasedDate)}
               </div>
             </div>
             <div className="body">{data.description}</div>
@@ -56,7 +56,7 @@ const MovieCell = ({ data }: MovieCellProps) => {
       <div className="sub-container">
         <div className="title-1">{data.title}</div>
         <div className="sub-title">
-          {getYear(data.released_date)} | {data.duration + "m"}
+          {getYear(data.releasedDate)} | {data.duration + "m"}
         </div>
       </div>
     </div>

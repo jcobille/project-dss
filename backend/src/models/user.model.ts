@@ -44,6 +44,11 @@ export class User extends Entity {
 
   @property({
     type: 'boolean',
+  })
+  isRoot?: boolean;
+
+  @property({
+    type: 'boolean',
     required: false,
     default: false,
   })

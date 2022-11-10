@@ -108,11 +108,13 @@ export class UserController {
 
       const userCount = await this.userRepository.find();
       if (userCount.length === 0) {
+        newUserRequest.isRoot = true;
         newUserRequest.role = 'Admin';
         newUserRequest.isActive = true;
       } else {
         if (!newUserRequest.role) newUserRequest.role = 'User';
         newUserRequest.isActive = false;
+        newUserRequest.isRoot = false;
       }
 
       const findUser = await this.userRepository.find({
@@ -130,7 +132,7 @@ export class UserController {
         .userCredentials(savedUser.id)
         .create({password});
 
-      return {data: newUserRequest, status: true, message: ''};
+      return {data: savedUser, status: true, message: ''};
     } catch (err) {
       return {data: [], status: false, message: err.message};
     }
@@ -201,7 +203,7 @@ export class UserController {
     @inject(SecurityBindings.USER)
     loggedInUserProfile: UserProfile,
   ): Promise<CustomResponse> {
-    let userId = loggedInUserProfile[securityId];
+    const userId = loggedInUserProfile[securityId];
     const user = await this.userRepository.findById(userId);
     return {data: user, status: true, message: 'User found'};
   }

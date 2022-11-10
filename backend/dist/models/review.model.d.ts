@@ -3,7 +3,7 @@ export declare class Review extends Entity {
     id?: string;
     reviewScore: number;
     description: string;
-    posted_date?: string;
+    postedDate?: string;
     status: string;
     movieId?: string;
     userId: string;

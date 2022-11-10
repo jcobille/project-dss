@@ -54,6 +54,12 @@ tslib_1.__decorate([
 tslib_1.__decorate([
     (0, repository_1.property)({
         type: 'boolean',
+    }),
+    tslib_1.__metadata("design:type", Boolean)
+], User.prototype, "isRoot", void 0);
+tslib_1.__decorate([
+    (0, repository_1.property)({
+        type: 'boolean',
         required: false,
         default: false,
     }),

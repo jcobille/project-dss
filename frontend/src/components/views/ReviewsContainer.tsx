@@ -60,7 +60,7 @@ const ReviewsContainer = ({ data, modal }: ReviewsContainerProps) => {
       </div>
       <div className="sub-title">
         <b>Posted date : </b>
-        {data.posted_date && formatDate(data.posted_date)}
+        {data.postedDate && formatDate(data.postedDate)}
       </div>
       <div>
         <StarRatings ratings={data.reviewScore} />

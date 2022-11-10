@@ -13,7 +13,7 @@ export const MovieList = () => {
   const tableHeader = [
     { title: "Movie Title", key: "title" },
     { title: "Duration (mins)", key: "duration" },
-    { title: "Year Released", key: "released_date" },
+    { title: "Year Released", key: "releasedDate" },
     { title: "Budget Cost", key: "cost" },
     { title: "Reviews", key: "newReviews" },
     { title: "Rating Avg%", key: "reviews" },

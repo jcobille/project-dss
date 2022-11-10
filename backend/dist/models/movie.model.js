@@ -46,7 +46,7 @@ tslib_1.__decorate([
         required: true,
     }),
     tslib_1.__metadata("design:type", String)
-], Movie.prototype, "released_date", void 0);
+], Movie.prototype, "releasedDate", void 0);
 tslib_1.__decorate([
     (0, repository_1.property)({
         type: 'number',

@@ -11,8 +11,8 @@ import { RegisterSuccess } from "./RegisterSuccess";
 import { useEffect, useState } from "react";
 import { ModalProps } from "../types/ActionTypes";
 
-setAppElement("#root");
 const CustomModal = (props: ModalProps) => {
+  setAppElement("#root");
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

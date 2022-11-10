@@ -37,7 +37,7 @@ tslib_1.__decorate([
         default: () => new Date(),
     }),
     tslib_1.__metadata("design:type", String)
-], Review.prototype, "posted_date", void 0);
+], Review.prototype, "postedDate", void 0);
 tslib_1.__decorate([
     (0, repository_1.property)({
         type: 'string',

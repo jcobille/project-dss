@@ -13,7 +13,7 @@ let ActorMovieController = class ActorMovieController {
     /* Returns all the movies of the actor */
     async find(id, filter) {
         try {
-            let movies = await this.actorRepository.movies(id).find();
+            const movies = await this.actorRepository.movies(id).find();
             return {
                 data: movies,
                 status: true,

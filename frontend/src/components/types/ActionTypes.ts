@@ -5,6 +5,7 @@ export interface User {
   lastName: string;
   role?: string;
   isActive?: boolean;
+  isRoot?: boolean;
   password?: string;
 }
 
@@ -15,13 +16,14 @@ export interface Actor {
   age: string;
   gender: string;
   image: string;
+  movies? : Movie[];
 }
 
 export interface Movie {
   id?: string;
   title: string;
   description: string;
-  released_date: string;
+  releasedDate: string;
   duration: string;
   image: string;
   cost: string;
@@ -33,7 +35,7 @@ export interface Movies {
   id?: string;
   title: string;
   description: string;
-  released_date: string;
+  releasedDate: string;
   duration: string;
   image: string;
   cost: string;
@@ -45,7 +47,7 @@ export interface Review {
   description: string;
   status?: string;
   movieId?: string;
-  posted_date?: string;
+  postedDate?: string;
   user?: User;
 }
 

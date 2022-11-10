@@ -1,5 +1,9 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, HasManyThroughRepositoryFactory} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {
+  DefaultCrudRepository,
+  HasManyThroughRepositoryFactory,
+  repository,
+} from '@loopback/repository';
 import {DbDataSource} from '../datasources';
 import {Actor, ActorRelations, Movie, MovieActor} from '../models';
 import {MovieActorRepository} from './movie-actor.repository';
@@ -10,15 +14,26 @@ export class ActorRepository extends DefaultCrudRepository<
   typeof Actor.prototype.id,
   ActorRelations
 > {
+  public readonly movies: HasManyThroughRepositoryFactory<
+    Movie,
+    typeof Movie.prototype.id,
+    MovieActor,
+    typeof Actor.prototype.id
+  >;
 
-  public readonly movies: HasManyThroughRepositoryFactory<Movie, typeof Movie.prototype.id,
-          MovieActor,
-          typeof Actor.prototype.id
-        >;
-
-  constructor(@inject('datasources.db') dataSource: DbDataSource, @repository.getter('MovieActorRepository') protected movieActorRepositoryGetter: Getter<MovieActorRepository>, @repository.getter('MovieRepository') protected movieRepositoryGetter: Getter<MovieRepository>,) {
+  constructor(
+    @inject('datasources.db') dataSource: DbDataSource,
+    @repository.getter('MovieActorRepository')
+    protected movieActorRepositoryGetter: Getter<MovieActorRepository>,
+    @repository.getter('MovieRepository')
+    protected movieRepositoryGetter: Getter<MovieRepository>,
+  ) {
     super(Actor, dataSource);
-    this.movies = this.createHasManyThroughRepositoryFactoryFor('movies', movieRepositoryGetter, movieActorRepositoryGetter,);
+    this.movies = this.createHasManyThroughRepositoryFactoryFor(
+      'movies',
+      movieRepositoryGetter,
+      movieActorRepositoryGetter,
+    );
     this.registerInclusionResolver('movies', this.movies.inclusionResolver);
   }
 }

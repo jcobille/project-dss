@@ -1,9 +1,9 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { ModalProps, Movies } from "../types/ActionTypes";
-import { getMovies } from "../features/movieSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { ModalProps, Movies } from "../../utils/types";
+import { getMovies } from "../../features/movieSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Table from "../views/Table";
 import { AdminNavTabs } from "./AdminNavTabs";
 import { ToastContainer } from "react-toastify";

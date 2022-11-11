@@ -1,8 +1,8 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { editReview } from "../features/reviewSlice";
-import { useAppDispatch } from "../store/hooks";
-import { ModalProps } from "../types/ActionTypes";
+import { editReview } from "../../features/reviewSlice";
+import { useAppDispatch } from "../../hooks/hooks";
+import { ModalProps } from "../../utils/types";
 
 export const ReviewModalBody = (props: ModalProps) => {
   const dispatch = useAppDispatch();

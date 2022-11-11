@@ -8,23 +8,26 @@ import CustomModal from "../popup/Modal";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AutoComplete } from "./CustomInput";
-import { getCookie, logout } from "../utils/cookie";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { Actor, ModalProps, Movie, Movies, User } from "../types/ActionTypes";
+import { getCookie, logout } from "../../utils/cookie";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { Actor, ModalProps, Movie, User } from "../../utils/types";
 import {
   clearCurrentUser,
   currentAuthUser,
-} from "../features/currentUserSlice";
-import { searchMovies } from "../features/movieSlice";
-import { searchActors } from "../features/actorSlice";
+} from "../../features/currentUserSlice";
+import { searchActorMovie } from "../../utils/services";
+import { getMovies } from "../../features/movieSlice";
+import { getActors } from "../../features/actorSlice";
+
 const NavTabs = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const userToken = getCookie();
   const dispatch = useAppDispatch();
   const [data, setData] = useState<Movie[] | Actor[]>([]);
-  const [searchValue, setSearchValue] = useState("");
+  const movieList = useAppSelector(({ movieList }) => movieList.movies);
+  const actorList = useAppSelector(({ actorList }) => actorList.actors);
   const [searchType, setSearchType] = useState("Movie");
-  const navigate = useNavigate();
   const user = useAppSelector<User>(
     (state) => state.currentUser.details as User
   );
@@ -41,38 +44,24 @@ const NavTabs = () => {
     }
   }, [userToken, dispatch]);
 
+  useEffect(() => {
+    if (movieList.length === 0) dispatch(getMovies());
+    if (actorList.length === 0) dispatch(getActors());
+  }, [dispatch]);
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (value) {
-      let movieFound = await dispatch(searchMovies(value));
-      if (movieFound.payload && movieFound.payload.length > 0) {
-        let movies = movieFound.payload as Movies[];
-        setSearchType("Movie");
-        setData(movies);
-      } else {
-        let actorFound = await dispatch(searchActors(value));
-
-        if (actorFound.payload && actorFound.payload.length > 0) {
-          let actors = actorFound.payload as Actor[];
-          setSearchType("Actor");
-          setData(actors);
-        }
-      }
-    } else {
-      setData([]);
-    }
-    setSearchValue(value);
+    let { type, data } = searchActorMovie(value, movieList, actorList);
+    setSearchType(type);
+    setData(data);
   };
 
   const selectMovieAutocomplete = ({ id }: Movie) => {
     navigate(`/movie/details/${id}`);
     setData([]);
-    setSearchValue("");
   };
 
   const selectActorAutocomplete = ({ id }: Actor) => {
     navigate(`/actor/details/${id}`);
-    setSearchValue("");
   };
 
   const userLogout = () => {
@@ -82,7 +71,6 @@ const NavTabs = () => {
 
   useEffect(() => {
     setData([]);
-    setSearchValue("");
   }, [location.pathname]);
   return (
     <div>
@@ -103,7 +91,6 @@ const NavTabs = () => {
                 selectMovie={selectMovieAutocomplete}
                 selectActor={selectActorAutocomplete}
                 type={searchType}
-                value={searchValue}
               />
               {!userToken ? (
                 <button

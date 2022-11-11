@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Review, User } from "../types/ActionTypes";
-import { addReview } from "../features/reviewSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { getCookie } from "../utils/cookie";
+import { Review, User } from "../../utils/types";
+import { addReview } from "../../features/reviewSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { getCookie } from "../../utils/cookie";
 import { CustomInput, StarRatings } from "./CustomInput";
 
 const ReviewInput = () => {

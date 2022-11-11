@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAppSelector } from "./components/store/hooks";
-import { getCookie } from "./components/utils/cookie";
-import { User } from "./components/types/ActionTypes";
+import { useAppSelector } from "./hooks/hooks";
+import { getCookie } from "./utils/cookie";
+import { User } from "./utils/types";
 
 const ProtectedRoutes = () => {
   const userDetails = useAppSelector(

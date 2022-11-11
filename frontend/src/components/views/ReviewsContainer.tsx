@@ -1,18 +1,18 @@
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ModalProps, Review, User } from "../types/ActionTypes";
-import { useAppSelector } from "../store/hooks";
-import { formatDate } from "../utils/misc";
+import { ModalProps, Review, User } from "../../utils/types";
+import { useAppSelector } from "../../hooks/hooks";
+import { formatDate } from "../../utils/misc";
 import { StarRatings } from "./CustomInput";
 
-interface ReviewsContainerProps {
+export interface ReviewsContainerProps {
   data: Review;
   modal?: ModalProps;
 }
 
-const ReviewsContainer = ({ data, modal }: ReviewsContainerProps) => {
+export const ReviewsContainer = ({ data, modal }: ReviewsContainerProps) => {
   const approveAndDeclineHandler = (action: string) => {
-    modal?.setModalProps("reviews", action, data.movieId);
+    modal?.setModalProps("reviews", action, data.id);
   };
   const currentUser = useAppSelector<User>(
     ({ currentUser }) => currentUser.details as User
@@ -41,22 +41,23 @@ const ReviewsContainer = ({ data, modal }: ReviewsContainerProps) => {
             <FontAwesomeIcon icon={faCheck} />
           </button>
         )}
-        {currentUser.id === data.userId &&
-          ((data.status === "checking" && (
-            <span className="float-end badge rounded-pill bg-primary">
-              Checking
-            </span>
-          )) ||
-            (data.status === "approved" && (
-              <span className="float-end badge rounded-pill bg-success">
-                Approved
-              </span>
-            )) ||
-            (data.status === "declined" && (
-              <span className="float-end badge rounded-pill bg-danger">
-                Declined
-              </span>
-            )))}
+        {currentUser.id === data.userId && data.status === "checking" && (
+          <span className="float-end badge rounded-pill bg-primary">
+            Checking
+          </span>
+        )}
+
+        {currentUser.id === data.userId && data.status === "approved" && (
+          <span className="float-end badge rounded-pill bg-success">
+            Approved
+          </span>
+        )}
+
+        {currentUser.id === data.userId && data.status === "declined" && (
+          <span className="float-end badge rounded-pill bg-danger">
+            Declined
+          </span>
+        )}
       </div>
       <div className="sub-title">
         <b>Posted date : </b>
@@ -70,5 +71,3 @@ const ReviewsContainer = ({ data, modal }: ReviewsContainerProps) => {
     </div>
   );
 };
-
-export default ReviewsContainer;

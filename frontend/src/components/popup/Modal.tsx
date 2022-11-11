@@ -9,10 +9,11 @@ import { LoginBody } from "./LoginBody";
 import RegisterBody from "./RegisterBody";
 import { RegisterSuccess } from "./RegisterSuccess";
 import { useEffect, useState } from "react";
-import { ModalProps } from "../types/ActionTypes";
+import { ModalProps } from "../../utils/types";
+import ReactModal from "react-modal";
 
 const CustomModal = (props: ModalProps) => {
-  setAppElement("#root");
+  if (process.env.NODE_ENV !== "test") ReactModal.setAppElement("#root");
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { Movie } from "../types/ActionTypes";
+import { Movie } from "../../utils/types";
 import MovieCell from "./MovieCell";
 
 interface MovieContainerProps {

@@ -1,7 +1,7 @@
 import { faEye, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Actor, ModalProps, Movie, User } from "../types/ActionTypes";
+import { Actor, ModalProps, Movie, User } from "../../utils/types";
 import { CustomButton, StarRatings } from "./CustomInput";
 
 interface RowProps {
@@ -18,7 +18,6 @@ interface RowProps {
 const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
   const [ratings, setRatings] = useState(0);
   const [newReviews, setNewReviews] = useState(0);
-  const columnLengthForText = tableType === "movies" ? 4 : 3;
   const [disableDeleteButton, setDisableDeleteButton] = useState(true);
 
   const getRatings = () => {
@@ -130,9 +129,7 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                 />
               </>
             )}
-            {i < columnLengthForText && (
-              <span>{data[header.key as keyof typeof data]}</span>
-            )}
+            {i < 4 && <span>{data[header.key as keyof typeof data]}</span>}
           </td>
         );
       })}

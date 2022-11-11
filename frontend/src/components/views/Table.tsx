@@ -1,4 +1,4 @@
-import { Actor, ModalProps, Movie, User } from "../types/ActionTypes";
+import { Actor, ModalProps, Movie, User } from "../../utils/types";
 import TableRow from "./Row";
 
 interface TableProps {
@@ -11,13 +11,7 @@ interface TableProps {
   tableType: string;
   modal: ModalProps;
 }
-const Table = ({
-  data,
-  headers,
-  tableType,
-  minRow,
-  modal,
-}: TableProps) => {
+const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
   const length = data.length < minRow ? minRow : data.length;
   return (
     <>

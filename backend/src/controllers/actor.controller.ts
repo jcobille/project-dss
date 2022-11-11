@@ -76,7 +76,7 @@ export class ActorController {
       },
     },
   })
-  async findAll(
+  async getActors(
     @param.filter(Actor) filter?: Filter<Actor>,
   ): Promise<CustomResponse> {
     try {

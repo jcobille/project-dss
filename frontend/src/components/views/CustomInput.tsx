@@ -1,7 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Actor, Movie } from "../types/ActionTypes";
+import { Actor, Movie } from "../../utils/types";
 import "react-toastify/dist/ReactToastify.css";
 
 export interface CustomInputProps {

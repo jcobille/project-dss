@@ -1,16 +1,16 @@
 import { faClose, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Actor, ModalProps, Movie, Movies } from "../types/ActionTypes";
-import { clearActorsList, searchActors } from "../features/actorSlice";
-import { createMovie, deleteMovie, editMovie } from "../features/movieSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { Actor, ModalProps, Movie, Movies } from "../../utils/types";
+import { clearActorsList, searchActors } from "../../features/actorSlice";
+import { createMovie, deleteMovie, editMovie } from "../../features/movieSlice";
 import {
   AutoComplete,
   CustomInput,
   CustomTextArea,
 } from "../views/CustomInput";
 import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 interface MovieEdit {
   id: string;

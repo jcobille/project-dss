@@ -12,6 +12,7 @@ import {
 } from '@loopback/rest';
 import {Movie, Review} from '../models';
 import {MovieRepository} from '../repositories';
+import {isEmpty} from '../services/helpers';
 import {CustomResponse} from '../services/types';
 export class MovieController {
   constructor(
@@ -26,7 +27,7 @@ export class MovieController {
     description: 'Movie model instance',
     content: {'application/json': {schema: getModelSchemaRef(Movie)}},
   })
-  async create(
+  async createMovie(
     @requestBody({
       content: {
         'application/json': {
@@ -40,12 +41,8 @@ export class MovieController {
     movie: Omit<Movie, 'id'>,
   ): Promise<CustomResponse> {
     try {
-      if (!movie.title) throw new Error('Title is required');
-      if (!movie.description) throw new Error('Description is required');
-      if (!movie.cost) throw new Error('Budget cost is required');
-      if (!movie.releasedDate) throw new Error('Released date is required');
-      if (movie.duration === 0) throw new Error('Duration is required');
-      if (!movie.image) throw new Error('Movie image is required');
+      isEmpty(movie.title, 'title');
+      isEmpty(movie.description, 'description');
 
       const newMovie = await this.movieRepository.create(movie);
       if (!newMovie) throw new Error('Cannot create new movie');
@@ -72,7 +69,7 @@ export class MovieController {
       },
     },
   })
-  async find(): Promise<CustomResponse> {
+  async getMovies(): Promise<CustomResponse> {
     try {
       const movieList = await this.movieRepository.find({
         include: ['reviews', 'actors'],
@@ -190,7 +187,7 @@ export class MovieController {
         message: 'Movie has been deleted',
       };
     } catch (err) {
-      return {data: [], status: false, message: err};
+      return {data: [], status: false, message: err.message};
     }
   }
 

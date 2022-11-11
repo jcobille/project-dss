@@ -1,15 +1,15 @@
 import React from "react";
 import "./index.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import DetailsPage from "./components/DetailsPage";
+import HomePage from "./pages/HomePage";
+import DetailsPage from "./pages/DetailsPage";
 import HeaderNavigation from "./Header";
 import ProtectedRoutes from "./ProtectedRoute";
 import { MovieList } from "./components/admin/MovieList";
-import { PageNotExist } from "./components/PageNotExist";
 import { ActorList } from "./components/admin/ActorList";
 import { UserList } from "./components/admin/UserList";
-import ActorPage from "./components/ActorPage";
+import ActorPage from "./pages/ActorPage";
+import { PageNotExist } from "./pages/PageNotExist";
 
 const AppRouter = () => {
   return (

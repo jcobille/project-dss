@@ -1,9 +1,9 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { ModalProps, User } from "../types/ActionTypes";
-import { addUser, deleteUser, editUser } from "../features/userSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { ModalProps, User } from "../../utils/types";
+import { addUser, deleteUser, editUser } from "../../features/userSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { CustomInput, CustomRadioButton } from "../views/CustomInput";
 import { toast } from "react-toastify";
 
@@ -21,7 +21,7 @@ export const UserModalBody = (props: ModalProps) => {
     email: "",
     role: "User",
     isActive: false,
-    password: undefined,
+    password: "",
   });
   const userType = ["Admin", "User"];
   const isActiveType = ["Active", "Inactive"];

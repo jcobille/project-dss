@@ -2,5 +2,5 @@ projectKey=dss-frontend
 serverUrl=http://localhost:9000
 serverVersion=9.7.0.61563
 dashboardUrl=http://localhost:9000/dashboard?id=dss-frontend
-ceTaskId=AYRhKVo_csEE5m9CccCA
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYRhKVo_csEE5m9CccCA
+ceTaskId=AYRkYVs0csEE5m9CccCG
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYRkYVs0csEE5m9CccCG

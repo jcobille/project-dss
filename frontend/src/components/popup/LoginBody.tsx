@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ModalProps } from "../types/ActionTypes";
-import { loginUser } from "../features/currentUserSlice";
-import { useAppDispatch } from "../store/hooks";
-import { emailChecker } from "../utils/misc";
+import { ModalProps } from "../../utils/types";
+import { loginUser } from "../../features/currentUserSlice";
+import { useAppDispatch } from "../../hooks/hooks";
+import { emailChecker } from "../../utils/misc";
 import { CustomInput } from "../views/CustomInput";
 
 export interface LoginProps {

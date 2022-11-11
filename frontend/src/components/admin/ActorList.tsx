@@ -1,18 +1,19 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Table from "../views/Table";
 import { AdminNavTabs } from "./AdminNavTabs";
-import { getActors } from "../features/actorSlice";
+import { getActors } from "../../features/actorSlice";
 import { ToastContainer } from "react-toastify";
-import { ModalProps } from "../types/ActionTypes";
+import { ModalProps } from "../../utils/types";
 import CustomModal from "../popup/Modal";
 
 export const ActorList = () => {
   const tableHeader = [
     { title: "First Name", key: "firstName" },
     { title: "Last Name", key: "lastName" },
+    { title: "Gender", key: "gender" },
     { title: "Actor's Age", key: "age" },
     { title: "", key: "id" },
   ];

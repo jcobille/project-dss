@@ -11,8 +11,7 @@ const HomePage = () => {
   const { movies, status } = useAppSelector(({ movieList }) => movieList);
   const actorList = useAppSelector(({ actorList }) => actorList.actors);
   const [data, setData] = useState<Movie[] | Actor[]>([]);
-  const navigate = useNavigate();
-  const [searchType, setSearchType] = useState("Movie");
+  const [searchType, setSearchType] = useState("movie");
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     let { type, data } = searchActorMovie(value, movies, actorList);
@@ -20,13 +19,6 @@ const HomePage = () => {
     setData(data);
   };
 
-  const selectMovieAutocomplete = ({ id }: Movie) => {
-    navigate(`/movie/details/${id}`);
-  };
-
-  const selectActorAutocomplete = ({ id }: Actor) => {
-    navigate(`/actor/details/${id}`);
-  };
   return (
     <section>
       <div className="section">
@@ -39,12 +31,10 @@ const HomePage = () => {
               <div className="col">
                 <AutoComplete
                   className="search-input input-lg autocomplete"
-                  name="search"
+                  name="searchBox"
                   changeHandler={changeHandler}
                   data={data}
                   placeHolder="Search Movies and Actor"
-                  selectMovie={selectMovieAutocomplete}
-                  selectActor={selectActorAutocomplete}
                   type={searchType}
                 />
               </div>
@@ -52,7 +42,7 @@ const HomePage = () => {
           </div>
         </div>
         <div>
-          <MovieContainer data={movies} limit={32} />
+          <MovieContainer movies={movies} limit={32} />
           {status === "idle" && movies.length === 0 && (
             <div className="d-flex justify-content-center">
               No movies yet. Please come back later.

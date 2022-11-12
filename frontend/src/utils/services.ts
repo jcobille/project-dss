@@ -14,7 +14,7 @@ export const searchActorMovie = (
     );
 
     if (searchedMovies.length > 0) {
-      type = "Movie";
+      type = "movie";
       data = searchedMovies;
     } else {
       const searchedActors = actorList.filter(
@@ -24,7 +24,7 @@ export const searchActorMovie = (
       );
 
       if (searchedActors.length > 0) {
-        type = "Actor";
+        type = "actor";
         data = searchedActors;
       }
     }

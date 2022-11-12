@@ -10,8 +10,9 @@ const ActorPage = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const actor = useAppSelector(({ actorList }) => actorList.selectedActor);
-  const movieList = useAppSelector(({ movieList }) => movieList.movies);
+  const movieList = useAppSelector(({ movieList }) => movieList.actorMovies);
   const [actorDetails, setActorDetails] = useState<Actor>();
+  const actorName = `${actorDetails?.firstName} ${actorDetails?.lastName}`;
   useEffect(() => {
     if (id) {
       dispatch(searchActorById(id));
@@ -31,7 +32,7 @@ const ActorPage = () => {
             <div className="col-2 p-3">
               <img
                 className="img-div"
-                alt={`${actorDetails?.firstName} ${actorDetails?.lastName}`}
+                alt={actorName}
                 src={actorDetails?.image}
               />
             </div>
@@ -58,7 +59,7 @@ const ActorPage = () => {
                 Movies
               </span>
             </div>
-            <MovieContainer data={movieList} limit={32} />
+            <MovieContainer movies={movieList} limit={32} />
           </div>
         </div>
       </div>

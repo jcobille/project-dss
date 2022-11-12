@@ -8,6 +8,7 @@ type returnError = {
 
 interface MovieState {
   movies: Movie[];
+  actorMovies: Movie[];
   details: object;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -15,6 +16,7 @@ interface MovieState {
 
 const initialState: MovieState = {
   movies: [],
+  actorMovies: [],
   details: {},
   status: "loading",
   error: null,
@@ -239,7 +241,7 @@ export const movieSlice = createSlice({
     });
 
     builder.addCase(getActorMovies.fulfilled, (state, { payload }) => {
-      state.movies = payload;
+      state.actorMovies = payload;
       state.status = "idle";
     });
 

@@ -1,4 +1,4 @@
-import Modal, { setAppElement } from "react-modal";
+import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { MovieModalBody } from "./MovieModalBody";
@@ -10,10 +10,9 @@ import RegisterBody from "./RegisterBody";
 import { RegisterSuccess } from "./RegisterSuccess";
 import { useEffect, useState } from "react";
 import { ModalProps } from "../../utils/types";
-import ReactModal from "react-modal";
 
 const CustomModal = (props: ModalProps) => {
-  if (process.env.NODE_ENV !== "test") ReactModal.setAppElement("#root");
+  if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -21,28 +20,26 @@ const CustomModal = (props: ModalProps) => {
   }, [props.type]);
 
   return (
-    <div>
-      <Modal
-        isOpen={isOpen}
-        className="custom-modal custom-modal-md"
-        overlayClassName="overlay-modal"
-        closeTimeoutMS={100}
+    <Modal
+      isOpen={isOpen}
+      className="custom-modal custom-modal-md"
+      overlayClassName="overlay-modal"
+      closeTimeoutMS={100}
+    >
+      <button
+        className="btn-float-close"
+        onClick={() => props.setModalProps("")}
       >
-        <button
-          className="btn-float-close"
-          onClick={() => props.setModalProps("")}
-        >
-          <FontAwesomeIcon icon={faXmark} size="xl" />
-        </button>
-        {props.type === "login" && <LoginBody {...props} />}
-        {props.type === "register" && <RegisterBody {...props} />}
-        {props.type === "successRegistration" && <RegisterSuccess />}
-        {props.type === "movies" && <MovieModalBody {...props} />}
-        {props.type === "actors" && <ActorModalBody {...props} />}
-        {props.type === "users" && <UserModalBody {...props} />}
-        {props.type === "reviews" && <ReviewModalBody {...props} />}
-      </Modal>
-    </div>
+        <FontAwesomeIcon icon={faXmark} size="xl" />
+      </button>
+      {props.type === "login" && <LoginBody {...props} />}
+      {props.type === "register" && <RegisterBody {...props} />}
+      {props.type === "successRegistration" && <RegisterSuccess />}
+      {props.type === "movies" && <MovieModalBody {...props} />}
+      {props.type === "actors" && <ActorModalBody {...props} />}
+      {props.type === "users" && <UserModalBody {...props} />}
+      {props.type === "reviews" && <ReviewModalBody {...props} />}
+    </Modal>
   );
 };
 

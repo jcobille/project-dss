@@ -3,6 +3,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Actor, Movie } from "../../utils/types";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 export interface CustomInputProps {
   type: string;
@@ -113,21 +114,10 @@ const AutoComplete = ({
   placeHolder,
   data,
   changeHandler,
-  selectMovie,
-  selectActor,
   value,
   type,
   hidden,
 }: CustomAutocompleteProps) => {
-  const handleClick = (data: Movie | Actor) => {
-    if (data) {
-      if (type === "Movie" && selectMovie) {
-        selectMovie(data as Movie);
-      } else if (type === "Actor" && selectActor) {
-        selectActor(data as Actor);
-      }
-    }
-  };
   return (
     <div className="autocomplete">
       <input
@@ -143,17 +133,15 @@ const AutoComplete = ({
       <div className="autocomplete-items" hidden={hidden}>
         {data?.map((val, i) => {
           return (
-            <div
-              key={i}
-              className="text-start"
-              onClick={() => handleClick(val)}
-            >
-              {type === "Actor" &&
-                `${val["firstName" as keyof typeof val]} ${
-                  val["lastName" as keyof typeof val]
-                }`}
-              {type === "Movie" && `${val["title" as keyof typeof val]}`}
-            </div>
+            <Link to={`/${type}/details/${val.id}`} className="link" key={i}>
+              <div className="text-start" data-testid="dataSelection">
+                {type === "movie" && `${val["title" as keyof typeof val]}`}
+                {type === "actor" &&
+                  `${val["firstName" as keyof typeof val]} ${
+                    val["lastName" as keyof typeof val]
+                  }`}
+              </div>
+            </Link>
           );
         })}
         {data?.length === 0 && value && (
@@ -176,8 +164,7 @@ const CustomButton = ({
     <button
       className={className}
       onClick={() => {
-        if (onClickHandler && dataId && action)
-          onClickHandler(dataId, action);
+        if (onClickHandler && dataId && action) onClickHandler(dataId, action);
       }}
       disabled={!disabled}
     >

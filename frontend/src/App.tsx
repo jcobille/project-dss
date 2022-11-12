@@ -2,7 +2,7 @@ import React from "react";
 import "./index.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import DetailsPage from "./pages/DetailsPage";
+import DetailsPage from "./pages/MovieDetailsPage";
 import HeaderNavigation from "./Header";
 import ProtectedRoutes from "./ProtectedRoute";
 import { MovieList } from "./components/admin/MovieList";

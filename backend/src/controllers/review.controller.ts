@@ -9,6 +9,7 @@ import {
 } from '@loopback/rest';
 import {Review} from '../models';
 import {ReviewRepository} from '../repositories';
+import {isEmpty} from '../services/helpers';
 import {CustomResponse} from '../services/types';
 
 export class ReviewController {
@@ -38,8 +39,8 @@ export class ReviewController {
   ): Promise<CustomResponse> {
     review = {...review, status: 'checking'};
     try {
+      isEmpty(review.description, 'review');
       const newReview = await this.reviewRepository.create(review);
-      if (!newReview) throw new Error('Cannot create new review');
 
       return {
         data: newReview,

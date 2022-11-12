@@ -2,16 +2,16 @@ import { Movie } from "../../utils/types";
 import MovieCell from "./MovieCell";
 
 interface MovieContainerProps {
-  data: Movie[];
+  movies: Movie[];
   limit: number;
 }
 
-const MovieContainer = ({ data, limit }: MovieContainerProps) => {
+const MovieContainer = ({ movies, limit }: MovieContainerProps) => {
   return (
-    <div className="row">
-      {[...Array(limit)].map((_, i) => {
-        if (data[i]) {
-          return <MovieCell key={i} data={data[i]} />;
+    <div className="row" data-testid="movieContainer">
+      {movies.map((movie, i) => {
+        if (movie) {
+          return <MovieCell key={i} data={movie} />;
         }
       })}
     </div>

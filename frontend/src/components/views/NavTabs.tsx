@@ -45,23 +45,14 @@ const NavTabs = () => {
   }, [userToken, dispatch]);
 
   useEffect(() => {
-    if (movieList.length === 0) dispatch(getMovies());
-    if (actorList.length === 0) dispatch(getActors());
+    dispatch(getMovies());
+    dispatch(getActors());
   }, [dispatch]);
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     let { type, data } = searchActorMovie(value, movieList, actorList);
     setSearchType(type);
     setData(data);
-  };
-
-  const selectMovieAutocomplete = ({ id }: Movie) => {
-    navigate(`/movie/details/${id}`);
-    setData([]);
-  };
-
-  const selectActorAutocomplete = ({ id }: Actor) => {
-    navigate(`/actor/details/${id}`);
   };
 
   const userLogout = () => {
@@ -88,8 +79,6 @@ const NavTabs = () => {
                 changeHandler={changeHandler}
                 data={data}
                 placeHolder="Enter keywords ..."
-                selectMovie={selectMovieAutocomplete}
-                selectActor={selectActorAutocomplete}
                 type={searchType}
               />
               {!userToken ? (

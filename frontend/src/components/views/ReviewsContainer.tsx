@@ -17,10 +17,17 @@ export const ReviewsContainer = ({ data, modal }: ReviewsContainerProps) => {
   const currentUser = useAppSelector<User>(
     ({ currentUser }) => currentUser.details as User
   );
+
+  const userFullName = data.user
+    ? `${data.user?.firstName} ${data.user?.lastName}`
+    : `${currentUser.firstName} ${currentUser.lastName}`;
+
   return (
     <div className="my-3">
       <div className="header">
-        <b>{`${data.user?.firstName} ${data.user?.lastName}`}</b>
+        <span data-testid="reviewerName">
+          <b>{userFullName}</b>
+        </span>
         {currentUser.role === "Admin" && data.status === "checking" && (
           <button
             className="float-end btn btn-outline-danger mx-1"

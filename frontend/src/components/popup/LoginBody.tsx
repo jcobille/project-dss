@@ -21,6 +21,7 @@ export const LoginBody = (props: ModalProps) => {
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     let name = event.target.name;
     let value = event.target.value;
+    setError("");
 
     setFormLoginData({ ...formLoginData, [name]: value });
   };
@@ -34,7 +35,7 @@ export const LoginBody = (props: ModalProps) => {
       if (!emailChecker(formLoginData.email)) {
         setError("Invalid email");
         return;
-      } else if (formLoginData.password.length <= 6) {
+      } else if (formLoginData.password.length < 8) {
         setError("Invalid email or password");
         return;
       }
@@ -47,6 +48,7 @@ export const LoginBody = (props: ModalProps) => {
         .catch((error: string) => setError(error));
     }
   };
+
   return (
     <div>
       <div className="custom-modal-header">
@@ -54,7 +56,11 @@ export const LoginBody = (props: ModalProps) => {
       </div>
 
       <div className="custom-modal-body">
-        {error ? <div className="error text-center">{error}</div> : ""}
+        {error && (
+          <div className="error text-center" data-testid="movieError">
+            {error}
+          </div>
+        )}
         <form onSubmit={submitLoginHandler} data-testid="login-form">
           <div className="form-input text-start">
             <label className="form-label">EMAIL</label>
@@ -76,7 +82,11 @@ export const LoginBody = (props: ModalProps) => {
             </div>
           </div>
           <div className="form-input text-start">
-            <button type="submit" className="custom-btn full-width-button">
+            <button
+              type="submit"
+              aria-label="loginUser"
+              className="custom-btn full-width-button"
+            >
               Login
             </button>
           </div>
@@ -85,6 +95,7 @@ export const LoginBody = (props: ModalProps) => {
       <div className="custom-modal-footer">
         Don't have an account?&nbsp;
         <button
+          aria-label="registerBody"
           className="btn-link active"
           onClick={() => props.setModalProps("register")}
         >

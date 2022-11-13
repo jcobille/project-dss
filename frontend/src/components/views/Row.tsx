@@ -114,12 +114,14 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                 )}
                 <CustomButton
                   className="btn btn-success mx-1"
-                  dataId={data.id}
                   action="edit"
+                  testId="editBtn"
+                  dataId={data.id}
                   onClickHandler={onClickHandler}
                   icon={faPen}
                 />
                 <CustomButton
+                  testId="deleteBtn"
                   className="btn btn-danger"
                   action="delete"
                   dataId={data.id}

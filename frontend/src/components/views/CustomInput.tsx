@@ -40,6 +40,7 @@ export interface CustomAutocompleteProps {
 
 export interface CustomButtonProps {
   dataId?: string;
+  testId?: string;
   icon: IconProp;
   modalType?: string;
   className: string;
@@ -51,7 +52,6 @@ export interface CustomButtonProps {
 export interface CustomRadioButtonProps {
   data: string[];
   name: string;
-  dataId?: string;
   value?: string;
   changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -74,6 +74,7 @@ const CustomInput = ({
     <div>
       <input
         data-testid={name}
+        aria-label={name}
         type={type}
         name={name}
         className={className}
@@ -97,6 +98,7 @@ const CustomTextArea = ({
 }: CustomTextareaProps) => {
   return (
     <textarea
+      aria-label={name}
       data-testid={name}
       name={name}
       className={className}
@@ -121,6 +123,7 @@ const AutoComplete = ({
   return (
     <div className="autocomplete">
       <input
+        aria-label="search"
         data-testid={name}
         className={className}
         name={name}
@@ -155,6 +158,7 @@ const AutoComplete = ({
 const CustomButton = ({
   icon,
   dataId,
+  testId,
   onClickHandler,
   className,
   disabled = true,
@@ -163,6 +167,7 @@ const CustomButton = ({
   return (
     <button
       className={className}
+      data-testid={testId}
       onClick={() => {
         if (onClickHandler && dataId && action) onClickHandler(dataId, action);
       }}
@@ -177,7 +182,6 @@ const CustomRadioButton = ({
   data,
   name,
   value,
-  dataId,
   changeHandler,
 }: CustomRadioButtonProps) => {
   return (
@@ -185,15 +189,18 @@ const CustomRadioButton = ({
       {data.map((gender, i) => {
         return (
           <div className="form-check form-check-inline" key={i}>
-            <input
-              className="form-check-input"
-              type="radio"
-              name={name}
-              checked={gender === value}
-              value={gender}
-              onChange={changeHandler}
-            />
-            <label className="form-check-label">{gender}</label>
+            <label className="form-check-label">
+              <input
+                aria-label={name}
+                className="form-check-input"
+                type="radio"
+                name={name}
+                checked={gender === value}
+                value={gender}
+                onChange={changeHandler}
+              />
+              {gender}
+            </label>
           </div>
         );
       })}

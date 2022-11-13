@@ -34,17 +34,22 @@ const ActorPage = () => {
                 className="img-div"
                 alt={actorName}
                 src={actorDetails?.image}
+                data-testid="actorImg"
               />
             </div>
             <div className="col">
-              <div className="title">{`${actorDetails?.firstName} ${actorDetails?.lastName}`}</div>
+              <div className="title" data-testid="actorName">
+                {actorName}
+              </div>
               <div className="row">
                 <div className="col-5">
                   <div className="sub-title-1 mt-3">
-                    <b>Age</b>: {actorDetails?.age}
+                    <b>Age</b>:{" "}
+                    <span data-testid="actorAge">{actorDetails?.age}</span>
                   </div>
                   <div className="sub-title-1 mt-1">
-                    <b>Gender</b>: {`${actorDetails?.gender}`}
+                    <b>Gender</b>:{" "}
+                    <span data-testid="actorGender">{`${actorDetails?.gender}`}</span>
                   </div>
                 </div>
               </div>
@@ -54,10 +59,7 @@ const ActorPage = () => {
         <div className="section-container dark mt-3">
           <div className="header">
             <div>
-              <span className="title">
-                {`${actorDetails?.firstName} ${actorDetails?.lastName}`}'s
-                Movies
-              </span>
+              <span className="title" data-testid="actorMoviesTitle">{actorName}'s Movies</span>
             </div>
             <MovieContainer movies={movieList} limit={32} />
           </div>

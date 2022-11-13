@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 export const AdminNavTabs = () => {
   const location = useLocation();
   return (
-    <ul className="nav nav-tabs">
+    <ul className="nav nav-tabs" data-testid="adminNavTabs">
       <li className="nav-item">
         <Link
           to="/admin/movies"

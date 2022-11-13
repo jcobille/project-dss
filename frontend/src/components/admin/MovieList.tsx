@@ -52,6 +52,7 @@ export const MovieList = () => {
               <span className="title">Movies Management</span>
               <button
                 className="btn-float-end"
+                data-testid="addMovie"
                 onClick={() => addHandler("movies", "add")}
               >
                 <FontAwesomeIcon className="pr-3" icon={faPlus} />

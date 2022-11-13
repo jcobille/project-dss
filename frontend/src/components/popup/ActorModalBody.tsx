@@ -42,6 +42,9 @@ export const ActorModalBody = (props: ModalProps) => {
     } else if (!data.lastName) {
       setError("Last Name is empty");
       return;
+    } else if (!data.gender) {
+      setError("Gender is required");
+      return;
     } else if (!data.age) {
       setError("Age is empty");
       return;
@@ -82,7 +85,8 @@ export const ActorModalBody = (props: ModalProps) => {
   ) => {
     const name = event.target.name;
     const value = event.target.value;
-
+    setError("");
+    
     setFormData({ ...formData, [name]: value });
   };
 
@@ -115,14 +119,20 @@ export const ActorModalBody = (props: ModalProps) => {
   return (
     <div>
       <div className="custom-modal-header">
-        <div className="title">{title} Actor</div>
+        <div className="title" data-testid="modalTitle">
+          {title} Actor
+        </div>
       </div>
       <div
         className={
           "custom-modal-body " + (props.action === "delete" ? "div-hidden" : "")
         }
       >
-        {error ? <div className="error text-center">{error}</div> : ""}
+        {error && (
+          <div className="error text-center" data-testid="movieError">
+            {error}
+          </div>
+        )}
         <div className="row my-1">
           <div className="col-3 text-center">
             <label>First Name</label>

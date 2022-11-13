@@ -25,8 +25,10 @@ const CustomModal = (props: ModalProps) => {
       className="custom-modal custom-modal-md"
       overlayClassName="overlay-modal"
       closeTimeoutMS={100}
+      ariaHideApp={false}
     >
       <button
+        aria-label="closeModal"
         className="btn-float-close"
         onClick={() => props.setModalProps("")}
       >

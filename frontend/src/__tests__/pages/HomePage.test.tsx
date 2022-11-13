@@ -3,7 +3,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import HomePage from "../../pages/HomePage";
 import configureStore from "redux-mock-store";
-import { createMemoryHistory } from "history";
 
 import {
   actorListMockData,
@@ -12,9 +11,8 @@ import {
   reviewListMockData,
 } from "../../utils/db.mocks";
 import thunk from "redux-thunk";
-import { BrowserRouter, Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import MovieDetailsPage from "../../pages/MovieDetailsPage";
 
 describe("<HomePage />", () => {
   const initialState = {
@@ -48,7 +46,7 @@ describe("<HomePage />", () => {
 
   test("should show movie selection when valid input is entered", () => {
     const searchInputElement = screen.getByTestId(/searchBox/);
-    fireEvent.change(searchInputElement, { target: { value: "bl" } });
+    userEvent.type(searchInputElement, "bl");
 
     const selectionElement = screen.getAllByTestId(/dataSelection/);
     expect(selectionElement.length).toBe(2);

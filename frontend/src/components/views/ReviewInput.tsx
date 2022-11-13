@@ -62,6 +62,7 @@ const ReviewInput = () => {
           <StarRatings
             ratings={userReview?.reviewScore}
             changeHandler={ratingHandler}
+            data-testid="starRatings"
           />
           {ratingError && (
             <span className="danger"> * Please give us your rating</span>

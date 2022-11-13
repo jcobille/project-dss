@@ -1,4 +1,4 @@
-import { Actor, Movie } from "./types";
+import { Actor, Movie, Review } from "./types";
 
 export const searchActorMovie = (
   value: string,
@@ -31,4 +31,19 @@ export const searchActorMovie = (
   }
 
   return { type: type, data: data };
+};
+
+export const movieRatings = (reviews: Review[]) => {
+  let ratings = 0;
+  let reviewCount = 0;
+  if (reviews) {
+    reviews.forEach((review: Review) => {
+      if (review.status === "approved") {
+        ratings += review.reviewScore;
+        reviewCount += 1;
+      }
+    });
+    ratings = ratings / reviewCount;
+  }
+  return { ratings, reviewCount };
 };

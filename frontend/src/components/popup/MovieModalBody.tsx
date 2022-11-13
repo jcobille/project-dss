@@ -115,6 +115,7 @@ export const MovieModalBody = (props: ModalProps) => {
       })
       .catch((error) => notify(error));
   };
+
   const handleDelete = (id: string) => {
     dispatch(deleteMovie(id))
       .then(() => {
@@ -130,6 +131,7 @@ export const MovieModalBody = (props: ModalProps) => {
   ) => {
     const name = event.target.name;
     const value = event.target.value;
+    setError("");
 
     if (name === "cast") {
       if (value) {
@@ -198,14 +200,20 @@ export const MovieModalBody = (props: ModalProps) => {
   return (
     <div>
       <div className="custom-modal-header">
-        <div className="title">{title} Movie</div>
+        <div className="title" data-testid="modalTitle">
+          {title} Movie
+        </div>
       </div>
       <div
         className={
           "custom-modal-body " + (props.action === "delete" ? "div-hidden" : "")
         }
       >
-        {error ? <div className="error text-center">{error}</div> : ""}
+        {error && (
+          <div className="error text-center" data-testid="movieError">
+            {error}
+          </div>
+        )}
         <div>
           <div
             className={
@@ -370,7 +378,9 @@ export const MovieModalBody = (props: ModalProps) => {
       </div>
       <div className="footer py-2">
         <button
+          data-testid="modalSubmit"
           type="submit"
+          name={title}
           className="custom-btn full-width-button"
           onClick={submitHandler}
         >

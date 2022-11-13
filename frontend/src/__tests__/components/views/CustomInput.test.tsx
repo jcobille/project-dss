@@ -7,7 +7,7 @@ import {
   CustomInputProps,
   CustomTextArea,
   CustomTextareaProps,
-} from "../../components/views/CustomInput";
+} from "../../../components/views/CustomInput";
 
 function renderCustomInput(props: Partial<CustomInputProps> = {}) {
   const defaultProps: CustomInputProps = {

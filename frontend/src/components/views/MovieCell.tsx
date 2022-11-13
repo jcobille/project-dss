@@ -10,7 +10,6 @@ interface MovieCellProps {
 }
 
 const MovieCell = ({ data }: MovieCellProps) => {
-  const navigate = useNavigate();
   const [dropdown, setDropdown] = useState(false);
   return (
     <div className="col-1-5" data-testid="movieCell">
@@ -20,7 +19,11 @@ const MovieCell = ({ data }: MovieCellProps) => {
           onMouseLeave={() => setDropdown(false)}
           data-testid="movieCardTrigger"
         >
-          <Link to={`/movie/details/${data.id}`} className="link">
+          <Link
+            to={`/movie/details/${data.id}`}
+            className="link"
+            data-testid="movieLink"
+          >
             <div className="img-container">
               <img className="img" alt="Avatar" src={data.image} />
               <div className="overlay">

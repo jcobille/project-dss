@@ -135,7 +135,11 @@ export const UserModalBody = (props: ModalProps) => {
           "custom-modal-body " + (props.action === "delete" ? "div-hidden" : "")
         }
       >
-        {error ? <div className="error text-center">{error}</div> : ""}
+        {error && (
+          <div className="error text-center" data-testid="movieError">
+            {error}
+          </div>
+        )}
         <div className="row my-1">
           <div className="col-3">
             <label>Role</label>

@@ -21,7 +21,6 @@ import { getActors } from "../../features/actorSlice";
 
 const NavTabs = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const userToken = getCookie();
   const dispatch = useAppDispatch();
   const [data, setData] = useState<Movie[] | Actor[]>([]);
@@ -68,7 +67,9 @@ const NavTabs = () => {
       <div className={"navtab " + (location.pathname === "/" ? "home" : "")}>
         <div className="section p-4">
           <Link to="/">
-            <span className="link align-left">MovieViewer</span>
+            <span className="link align-left" role="span">
+              MovieViewer
+            </span>
           </Link>
           <div className="align-right">
             <div className="text-center">
@@ -83,6 +84,7 @@ const NavTabs = () => {
               />
               {!userToken ? (
                 <button
+                  aria-label="login"
                   className="ml-3 btn btn-outline btn-md"
                   onClick={() => modal.setModalProps("login")}
                 >

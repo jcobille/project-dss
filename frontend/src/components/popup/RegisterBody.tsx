@@ -26,6 +26,7 @@ const RegisterBody = (props: ModalProps) => {
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     let name = event.target.name;
     let value = event.target.value;
+    setError("");
 
     setFormRegisterData({ ...formRegisterData, [name]: value });
   };
@@ -44,8 +45,8 @@ const RegisterBody = (props: ModalProps) => {
       if (!emailChecker(formRegisterData.email)) {
         setError("Email is invalid");
         return;
-      } else if (formRegisterData.password.length < 6) {
-        setError("Password is fewer than 6 characters");
+      } else if (formRegisterData.password.length < 8) {
+        setError("Password is fewer than 8 characters");
         return;
       } else if (
         formRegisterData.password !== formRegisterData.confirmPassword
@@ -77,10 +78,16 @@ const RegisterBody = (props: ModalProps) => {
   return (
     <div>
       <div className="custom-modal-header">
-        <div className="title">Create an Account</div>
+        <div className="title" arial-label="registerLabel">
+          Create an Account
+        </div>
       </div>
       <div className="custom-modal-body">
-        {error ? <div className="error text-center">{error}</div> : ""}
+        {error && (
+          <div className="error text-center" data-testid="movieError">
+            {error}
+          </div>
+        )}
         <form onSubmit={submitRegisterHandler}>
           <div className="form-input text-start">
             <div>
@@ -134,7 +141,11 @@ const RegisterBody = (props: ModalProps) => {
             </div>
           </div>
           <div className="form-input text-start">
-            <button className="custom-btn full-width-button" type="submit">
+            <button
+              aria-label="registerUser"
+              className="custom-btn full-width-button"
+              type="submit"
+            >
               Register
             </button>
           </div>
@@ -143,6 +154,7 @@ const RegisterBody = (props: ModalProps) => {
       <div className="custom-modal-footer">
         Have an account?&nbsp;
         <button
+          aria-label="loginBody"
           className="btn-link active"
           onClick={() => props.setModalProps("login")}
         >

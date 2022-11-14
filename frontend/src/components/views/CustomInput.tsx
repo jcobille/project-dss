@@ -37,6 +37,15 @@ export interface CustomAutocompleteProps {
   selectMovie?: (data: Movie) => void;
   selectActor?: (data: Actor) => void;
 }
+export interface CustomInputSelectorProps {
+  name: string;
+  className: string;
+  placeHolder?: string;
+  data: Actor[];
+  value: string;
+  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  selectActor: (data: Actor) => void;
+}
 
 export interface CustomButtonProps {
   dataId?: string;
@@ -83,6 +92,7 @@ const CustomInput = ({
         onChange={changeHandler}
         value={value}
         min={min}
+        autoComplete="off"
       />
     </div>
   );
@@ -145,6 +155,50 @@ const AutoComplete = ({
                   }`}
               </div>
             </Link>
+          );
+        })}
+        {data?.length === 0 && value && (
+          <div className="text-start">No results found</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const CustomInputSelector = ({
+  name,
+  className,
+  placeHolder,
+  data,
+  changeHandler,
+  selectActor,
+  value,
+}: CustomInputSelectorProps) => {
+  return (
+    <div className="autocomplete">
+      <input
+        aria-label="search"
+        data-testid={name}
+        className={className}
+        name={name}
+        placeholder={placeHolder}
+        autoComplete="off"
+        onChange={changeHandler}
+        value={value}
+      />
+      <div className="autocomplete-items">
+        {data?.map((val, i) => {
+          return (
+            <div
+              key={i}
+              className="text-start"
+              data-testid="dataSelection"
+              onClick={() => selectActor(val)}
+            >
+              {`${val["firstName" as keyof typeof val]} ${
+                val["lastName" as keyof typeof val]
+              }`}
+            </div>
           );
         })}
         {data?.length === 0 && value && (
@@ -247,6 +301,7 @@ export {
   CustomInput,
   CustomTextArea,
   AutoComplete,
+  CustomInputSelector,
   CustomButton,
   CustomRadioButton,
   StarRatings,

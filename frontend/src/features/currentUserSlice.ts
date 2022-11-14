@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "../utils/types";
 import { axiosCall } from "../utils/api";
-import { setCookie } from "../utils/cookie";
-
+import Cookies from "js-cookie";
 interface UserState {
   details: {};
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -35,8 +34,7 @@ export const loginUser = createAsyncThunk<
   if (!response.status) {
     return thunkAPI.rejectWithValue(response.message);
   }
-
-  setCookie("token", response.data.token, 1);
+  Cookies.set("token", response.data.token, { expires: 1 });
   return response.data as User;
 });
 

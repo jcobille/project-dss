@@ -8,11 +8,11 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { formatDate } from "../utils/misc";
 import { ReviewsContainer } from "../components/views/ReviewsContainer";
 import { StarRatings } from "../components/views/CustomInput";
-import { getCookie } from "../utils/cookie";
 import CustomModal from "../components/popup/Modal";
 import ReviewInput from "../components/views/ReviewInput";
 import { clearReviews, loadReviews } from "../features/reviewSlice";
 import { movieRatings } from "../utils/services";
+import Cookies from "js-cookie";
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
@@ -21,7 +21,7 @@ const MovieDetailsPage = () => {
   const [reviewFound, setReviewFound] = useState(false);
   const [reviewCount, setReviewCount] = useState(0);
   const dispatch = useAppDispatch();
-  const user = getCookie();
+  const user = Cookies.get('token');
   
   const currentUser = useAppSelector<User>(
     ({ currentUser }) => currentUser.details as User

@@ -5,12 +5,13 @@ import { Actor, ModalProps, Movie, Movies } from "../../utils/types";
 import { clearActorsList, searchActors } from "../../features/actorSlice";
 import { createMovie, deleteMovie, editMovie } from "../../features/movieSlice";
 import {
-  AutoComplete,
   CustomInput,
+  CustomInputSelector,
   CustomTextArea,
 } from "../views/CustomInput";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { currencyFormatter, isUrl } from "../../utils/misc";
 
 interface MovieEdit {
   id: string;
@@ -32,10 +33,9 @@ export const MovieModalBody = (props: ModalProps) => {
   const [error, setError] = useState("");
   const [actorList, setActorList] = useState<Actor[]>([]);
   const [selectedActors, setSelectedActors] = useState<Actor[]>([]);
-  const actors = useAppSelector((state) => state.actorList.actors);
+  const actors = useAppSelector((state) => state.actorList.searchedActors);
   const movies = useAppSelector((state) => state.movieList.movies);
   const dispatch = useAppDispatch();
-
   let title = props.action
     ? props.action[0].toUpperCase() + props.action.substring(1)
     : "";
@@ -69,23 +69,22 @@ export const MovieModalBody = (props: ModalProps) => {
     setError("");
     if (!data.title) {
       setError("Title is empty");
-      return;
     } else if (!data.releasedDate) {
       setError("Released date is empty");
-      return;
     } else if (!data.duration) {
       setError("Duration is empty");
-      return;
     } else if (!data.image) {
       setError("Image is empty");
-      return;
     } else if (!data.cost) {
       setError("Cost is empty");
-      return;
     } else if (!data.description) {
       setError("Description is empty");
-      return;
     } else {
+      if (!isUrl(data.image)) {
+        setError("Image is not valid");
+        return;
+      }
+
       dispatch(createMovie({ ...data, actors: selectedActors }))
         .unwrap()
         .then(() => {
@@ -99,21 +98,23 @@ export const MovieModalBody = (props: ModalProps) => {
     setError("");
     if (!data.image) {
       setError("Image is empty");
-      return;
     } else if (!data.cost) {
       setError("Cost is empty");
-      return;
     } else if (!data.description) {
       setError("Description is empty");
-      return;
-    }
+    } else {
+      if (!isUrl(data.image)) {
+        setError("Image is not valid");
+        return;
+      }
 
-    dispatch(editMovie({ ...data, actors: selectedActors }))
-      .then(() => {
-        notify("Movie has been updated");
-        props.setModalProps("");
-      })
-      .catch((error) => notify(error));
+      dispatch(editMovie({ ...data, actors: selectedActors }))
+        .then(() => {
+          notify("Movie has been updated");
+          props.setModalProps("");
+        })
+        .catch((error) => notify(error));
+    }
   };
 
   const handleDelete = (id: string) => {
@@ -130,7 +131,7 @@ export const MovieModalBody = (props: ModalProps) => {
     >
   ) => {
     const name = event.target.name;
-    const value = event.target.value;
+    let value = event.target.value;
     setError("");
 
     if (name === "cast") {
@@ -141,11 +142,17 @@ export const MovieModalBody = (props: ModalProps) => {
       }
       setActor(value);
     } else {
-      setFormData({ ...formData, [name]: value });
+      if (name === "cost") {
+        value = value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+        const cost = value ? currencyFormatter.format(Number(value)) : "";
+        setFormData({ ...formData, [name]: cost });
+      } else {
+        setFormData({ ...formData, [name]: value });
+      }
     }
   };
 
-  const selectAutocomplete = (data: Actor) => {
+  const selectActor = (data: Actor) => {
     setActor("");
     setSelectedActors([...selectedActors, data]);
     setActorList([]);
@@ -311,14 +318,13 @@ export const MovieModalBody = (props: ModalProps) => {
             <div className="col">
               <div className="row">
                 <div className="col-12">
-                  <AutoComplete
+                  <CustomInputSelector
                     className="input autocomplete"
                     name="cast"
                     changeHandler={changeHandler}
                     data={actorList}
-                    selectActor={selectAutocomplete}
+                    selectActor={selectActor}
                     value={actor}
-                    type="Actor"
                   />
                 </div>
               </div>

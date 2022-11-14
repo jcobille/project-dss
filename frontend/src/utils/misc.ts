@@ -23,3 +23,17 @@ export const emailChecker = (email: string) => {
   }
   return true;
 };
+
+export const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 0,
+});
+
+export const isUrl = (url: string) => {
+  try {
+    return Boolean(new URL(url));
+  } catch (e) {
+    return false;
+  }
+};

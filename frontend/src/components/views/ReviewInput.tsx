@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { Review, User } from "../../utils/types";
 import { addReview } from "../../features/reviewSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { getCookie } from "../../utils/cookie";
 import { CustomInput, StarRatings } from "./CustomInput";
+import Cookies from "js-cookie";
 
 const ReviewInput = () => {
-  const user = getCookie();
+  const user = Cookies.get("token");
   const { id } = useParams();
   const currentUser = useAppSelector<User>(
     ({ currentUser }) => currentUser.details as User

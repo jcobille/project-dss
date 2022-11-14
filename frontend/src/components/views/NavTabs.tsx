@@ -6,9 +6,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CustomModal from "../popup/Modal";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AutoComplete } from "./CustomInput";
-import { getCookie, logout } from "../../utils/cookie";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Actor, ModalProps, Movie, User } from "../../utils/types";
 import {
@@ -18,10 +17,12 @@ import {
 import { searchActorMovie } from "../../utils/services";
 import { getMovies } from "../../features/movieSlice";
 import { getActors } from "../../features/actorSlice";
+import Cookies from "js-cookie";
 
 const NavTabs = () => {
   const location = useLocation();
-  const userToken = getCookie();
+  const navigate = useNavigate();
+  const userToken = Cookies.get("token");
   const dispatch = useAppDispatch();
   const [data, setData] = useState<Movie[] | Actor[]>([]);
   const movieList = useAppSelector(({ movieList }) => movieList.movies);
@@ -56,7 +57,8 @@ const NavTabs = () => {
 
   const userLogout = () => {
     dispatch(clearCurrentUser());
-    logout();
+    Cookies.remove("token");
+    navigate("/");
   };
 
   useEffect(() => {

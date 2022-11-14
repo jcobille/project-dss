@@ -95,7 +95,7 @@ export const actorSlice = createSlice({
       state.error = "";
     },
     clearActorsList(state) {
-      state.actors = [];
+      state.searchedActors = [];
     },
     searchActors(state, { payload }) {
       const actorsFound = state.actors.filter(
@@ -141,7 +141,7 @@ export const actorSlice = createSlice({
       if (payload) state.error = payload;
       state.status = "idle";
     });
-    
+
     builder.addCase(createActor.pending, (state) => {
       state.status = "loading";
       state.error = null;
@@ -190,9 +190,6 @@ export const actorSlice = createSlice({
     });
   },
 });
-export const {
-  clearErrorMessage,
-  clearActorsList,
-  searchActors,
-} = actorSlice.actions;
+export const { clearErrorMessage, clearActorsList, searchActors } =
+  actorSlice.actions;
 export default actorSlice.reducer;

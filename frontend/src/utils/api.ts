@@ -1,12 +1,12 @@
-import { getCookie } from "./cookie";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const axiosCall = async (
   url: string,
   method: string,
   data?: object | []
 ) => {
-  let token = getCookie();
+  let token = Cookies.get("token");
   let returnedData = [];
   let options = {
     method: method,

@@ -6,7 +6,7 @@ export const RegisterSuccess = () => {
     <div>
       <div className="custom-modal-header">
         <FontAwesomeIcon icon={faCheckCircle} size="5x" />
-        <div className="title mt-4">Successfully Registered!</div>
+        <div className="title mt-4" data-testid="registerSuccess">Successfully Registered!</div>
       </div>
       <div className="custom-modal-body">
         <div>Please wait for the admin to activate your account</div>

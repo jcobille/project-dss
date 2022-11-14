@@ -6,7 +6,7 @@ type returnError = {
   message: string;
 };
 
-interface MovieState {
+export interface MovieState {
   movies: Movie[];
   actorMovies: Movie[];
   details: object;

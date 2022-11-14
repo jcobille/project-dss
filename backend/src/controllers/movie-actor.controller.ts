@@ -65,13 +65,16 @@ export class MovieActorController {
     try {
       const movieActorsList = await this.movieRepository.actors(id).find();
       // remove all the actors on the collection
-      movieActorsList.forEach(
-        async actor => await this.movieRepository.actors(id).unlink(actor.id),
-      );
+      for (const actor of movieActorsList) {
+        try {
+          this.movieRepository.actors(id).unlink(actor.id);
+        } catch (error) {
+          throw new Error(error);
+        }
+      }
+
       // adds a new list of actors to collection
-      actors.forEach(
-        async actor => await this.movieRepository.actors(id).link(actor.id),
-      );
+      actors.forEach(actor => this.movieRepository.actors(id).link(actor.id));
 
       return {
         data: [],

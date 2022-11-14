@@ -40,7 +40,7 @@ export interface CustomAutocompleteProps {
 
 export interface CustomButtonProps {
   dataId?: string;
-  testId?: string;
+  name: string;
   icon: IconProp;
   modalType?: string;
   className: string;
@@ -158,7 +158,7 @@ const AutoComplete = ({
 const CustomButton = ({
   icon,
   dataId,
-  testId,
+  name,
   onClickHandler,
   className,
   disabled = true,
@@ -167,7 +167,8 @@ const CustomButton = ({
   return (
     <button
       className={className}
-      data-testid={testId}
+      aria-label={name}
+      data-testid={name}
       onClick={() => {
         if (onClickHandler && dataId && action) onClickHandler(dataId, action);
       }}

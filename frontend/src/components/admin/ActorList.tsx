@@ -30,7 +30,7 @@ export const ActorList = () => {
   const addActorHandler = (type: string, action: string) => {
     setModal({ ...modal, action: action, type: type });
   };
-  const ActorList = useAppSelector((state) => state.actorList.actors);
+  const ActorList = useAppSelector(({ actorList }) => actorList.actors);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -44,9 +44,7 @@ export const ActorList = () => {
         <div className="section-container dark">
           <div className="header">
             <div>
-              <span className="title">
-                Actors Management
-              </span>
+              <span className="title">Actors Management</span>
               <button
                 className="btn-float-end"
                 onClick={() => addActorHandler("actors", "add")}

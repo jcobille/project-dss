@@ -7,6 +7,7 @@ import {
   actorListMockData,
   currentUserMockData,
   moviesMockData,
+  newUserMockData,
   reviewListMockData,
 } from "../utils/db.mocks";
 import thunk from "redux-thunk";
@@ -129,7 +130,7 @@ describe("<App />", () => {
     });
     userEvent.click(loginBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Email is required");
   });
@@ -150,7 +151,7 @@ describe("<App />", () => {
     });
     userEvent.click(loginBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Password is required");
   });
@@ -171,7 +172,7 @@ describe("<App />", () => {
     });
     userEvent.click(loginBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Invalid email");
   });
@@ -192,7 +193,7 @@ describe("<App />", () => {
     });
     userEvent.click(loginBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Invalid email or password");
   });
@@ -219,7 +220,7 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("First name is required");
   });
@@ -233,7 +234,7 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Last name is required");
   });
@@ -247,7 +248,7 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Email is required");
   });
@@ -265,7 +266,7 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Password is required");
   });
@@ -284,7 +285,7 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Email is invalid");
   });
@@ -303,7 +304,7 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent(
       "Password is fewer than 8 characters"
@@ -325,9 +326,23 @@ describe("<App />", () => {
     });
     userEvent.click(registerBtn);
 
-    const errorMessage = screen.getByTestId("movieError");
+    const errorMessage = screen.getByTestId("modalError");
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveTextContent("Password didn't match");
+  });
+
+  test("should notify the user with a message 'Successfully Registered' when successful", async () => {
+    openRegisterForm();
+    inputRegisterForm({ ...newUserMockData });
+
+    const registerBtn = screen.getByRole("button", {
+      name: "registerUser",
+    });
+    userEvent.click(registerBtn);
+
+    // expect(
+    //   await screen.findByText("Successfully Registered")
+    // ).toBeInTheDocument();
   });
 
   test("should go back to login page when footer register is clicked", () => {

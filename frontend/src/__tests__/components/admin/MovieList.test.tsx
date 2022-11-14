@@ -14,6 +14,7 @@ import {
   actorListMockData,
   currentUserMockData,
   moviesMockData,
+  newMovieMockData,
 } from "../../../utils/db.mocks";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
@@ -27,7 +28,7 @@ interface MovieForm {
   cost?: string;
   description?: string;
 }
-describe.only("<MovieList />", () => {
+describe("<MovieList />", () => {
   const renderApp = () => {
     const initialState = {
       currentUser: currentUserMockData,
@@ -65,17 +66,6 @@ describe.only("<MovieList />", () => {
     const editMovieModal = await screen.findByRole("dialog");
     await waitFor(() => {
       expect(editMovieModal).toBeInTheDocument();
-    });
-  };
-
-  const openDeleteMovieModal = async () => {
-    const deleteMovieBtn = screen.getAllByTestId("deleteBtn");
-    expect(deleteMovieBtn[2]).not.toBeDisabled();
-    userEvent.click(deleteMovieBtn[2]);
-
-    const deleteMovieModal = await screen.findByRole("dialog");
-    await waitFor(() => {
-      expect(deleteMovieModal).toBeInTheDocument();
     });
   };
 
@@ -198,7 +188,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(addMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Title is empty");
     });
@@ -211,7 +201,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(addMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Released date is empty");
     });
@@ -224,7 +214,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(addMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Duration is empty");
     });
@@ -242,7 +232,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(addMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Image is empty");
     });
@@ -262,7 +252,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(addMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Cost is empty");
     });
@@ -283,7 +273,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(addMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Description is empty");
     });
@@ -316,7 +306,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(editMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Image is empty");
     });
@@ -334,7 +324,7 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(editMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Cost is empty");
     });
@@ -352,9 +342,27 @@ describe.only("<MovieList />", () => {
       });
       userEvent.click(editMovieButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Description is empty");
+    });
+
+    test("should notify the user with a message 'Movie has been updated' when successful", async () => {
+      openEditMovieModal();
+      await editMovieForm({
+        image: moviesMockData.movies[0].image,
+        cost: moviesMockData.movies[0].cost,
+        description: moviesMockData.movies[0].description,
+      });
+
+      const editMovieConfirm = screen.getByRole("button", {
+        name: "Edit",
+      });
+      userEvent.click(editMovieConfirm);
+
+      expect(
+        await screen.findByText("Movie has been updated")
+      ).toBeInTheDocument();
     });
   });
 
@@ -365,9 +373,29 @@ describe.only("<MovieList />", () => {
     });
 
     test("should render 'Delete Movie' when the button is not disabled", async () => {
-      openDeleteMovieModal();
-      const deleteMovieModalElement = await screen.findByRole("dialog");
-      expect(deleteMovieModalElement).toBeInTheDocument();
+      const deleteMovieBtn = screen.getAllByTestId("deleteBtn");
+      expect(deleteMovieBtn[2]).not.toBeDisabled();
+      userEvent.click(deleteMovieBtn[2]);
+
+      const deleteMovieModal = await screen.findByRole("dialog");
+      await waitFor(() => {
+        expect(deleteMovieModal).toBeInTheDocument();
+      });
+    });
+
+    test("should notify the user with a message 'Movie has been deleted' when successful", async () => {
+      const deleteMovieBtn = screen.getAllByTestId("deleteBtn");
+      expect(deleteMovieBtn[2]).not.toBeDisabled();
+      userEvent.click(deleteMovieBtn[2]);
+
+      const deleteMovieConfirm = screen.getByRole("button", {
+        name: "Delete",
+      });
+      userEvent.click(deleteMovieConfirm);
+
+      expect(
+        await screen.findByText("Movie has been deleted")
+      ).toBeInTheDocument();
     });
   });
 });

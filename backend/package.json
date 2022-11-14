@@ -24,7 +24,7 @@
     "pretest": "npm run rebuild",
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov --reporter=lcov --verbose",
-    "posttest": "npm run lint",
+    "posttest": "npm run lint && lb-nyc report --reporter=lcov --report-dir=.nyc_coverage && sonar-scanner.bat",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
     "docker:build": "docker build -t backend .",
     "docker:run": "docker run -p 3000:3000 -d backend",

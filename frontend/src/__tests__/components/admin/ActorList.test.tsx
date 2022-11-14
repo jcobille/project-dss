@@ -18,7 +18,7 @@ interface ActorForm {
   age?: string;
   image?: string;
 }
-describe.only("<ActorList />", () => {
+describe("<ActorList />", () => {
   const renderApp = () => {
     const initialState = {
       currentUser: currentUserMockData,
@@ -87,9 +87,7 @@ describe.only("<ActorList />", () => {
     }
   };
 
-  beforeEach(() => {
-    renderApp();
-  });
+  beforeEach(() => renderApp());
 
   test("should render <AdminNavTabs />", () => {
     const navTabs = screen.getByTestId("adminNavTabs");
@@ -116,9 +114,9 @@ describe.only("<ActorList />", () => {
 
     test("should render modal title if 'Add Actor' modal is open", async () => {
       openAddActorModal();
-      const addMovieTitle = await screen.findByTestId("modalTitle");
-      expect(addMovieTitle).toBeInTheDocument();
-      expect(addMovieTitle).toHaveTextContent("Add Actor");
+      const addActorTitle = await screen.findByTestId("modalTitle");
+      expect(addActorTitle).toBeInTheDocument();
+      expect(addActorTitle).toHaveTextContent("Add Actor");
     });
 
     test("should show an error message 'First name is empty' when firstName is empty", () => {
@@ -128,7 +126,7 @@ describe.only("<ActorList />", () => {
       });
       userEvent.click(addActorButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("First name is empty");
     });
@@ -136,12 +134,12 @@ describe.only("<ActorList />", () => {
     test("should show an error message 'Last name is empty' when last name is empty", () => {
       openAddActorModal();
       addActorForm({ firstName: "firstName" });
-      const addMovieButton = screen.getByRole("button", {
+      const addActorButton = screen.getByRole("button", {
         name: "Add",
       });
-      userEvent.click(addMovieButton);
+      userEvent.click(addActorButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Last Name is empty");
     });
@@ -149,12 +147,12 @@ describe.only("<ActorList />", () => {
     test("should show an error message 'Gender is required' when gender is not selected", () => {
       openAddActorModal();
       addActorForm({ firstName: "firstName", lastName: "lastName" });
-      const addMovieButton = screen.getByRole("button", {
+      const addActorButton = screen.getByRole("button", {
         name: "Add",
       });
-      userEvent.click(addMovieButton);
+      userEvent.click(addActorButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Gender is required");
     });
@@ -166,12 +164,12 @@ describe.only("<ActorList />", () => {
         lastName: "lastName",
         gender: "Male",
       });
-      const addMovieButton = screen.getByRole("button", {
+      const addActorButton = screen.getByRole("button", {
         name: "Add",
       });
-      userEvent.click(addMovieButton);
+      userEvent.click(addActorButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Age is empty");
     });
@@ -184,14 +182,38 @@ describe.only("<ActorList />", () => {
         gender: "Male",
         age: "30",
       });
-      const addMovieButton = screen.getByRole("button", {
+      const addActorButton = screen.getByRole("button", {
         name: "Add",
       });
-      userEvent.click(addMovieButton);
+      userEvent.click(addActorButton);
 
-      const errorMessage = screen.getByTestId("movieError");
+      const errorMessage = screen.getByTestId("modalError");
       expect(errorMessage).toBeInTheDocument();
       expect(errorMessage).toHaveTextContent("Image is empty");
+    });
+
+    test("should render 'Delete Actor' modal when the button is not disabled", async () => {
+      const deleteActorBtn = screen.getAllByTestId("deleteBtn");
+      expect(deleteActorBtn[1]).not.toBeDisabled();
+      userEvent.click(deleteActorBtn[1]);
+
+      const deleteActorModal = await screen.findByRole("dialog");
+      expect(deleteActorModal).toBeInTheDocument();
+    });
+
+    test("should notify the user with a message 'Actor has been deleted' when successful", async () => {
+      const deleteActorBtn = screen.getAllByTestId("deleteBtn");
+      expect(deleteActorBtn[1]).not.toBeDisabled();
+      userEvent.click(deleteActorBtn[1]);
+
+      const deleteActorConfirm = screen.getByRole("button", {
+        name: "Delete",
+      });
+      userEvent.click(deleteActorConfirm);
+
+      expect(
+        await screen.findByText("Actor has been deleted")
+      ).toBeInTheDocument();
     });
   });
 });

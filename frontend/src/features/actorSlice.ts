@@ -2,8 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Actor } from "../utils/types";
 import { axiosCall } from "../utils/api";
 
-interface ActorState {
+export interface ActorState {
   actors: Actor[];
+  searchedActors: Actor[];
   selectedActor: Actor;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
@@ -11,6 +12,7 @@ interface ActorState {
 
 const initialState: ActorState = {
   actors: [],
+  searchedActors: [],
   selectedActor: {
     firstName: "",
     lastName: "",
@@ -18,7 +20,7 @@ const initialState: ActorState = {
     gender: "",
     image: "",
   },
-  status: "idle",
+  status: "loading",
   error: null,
 };
 
@@ -28,18 +30,6 @@ export const getActors = createAsyncThunk<
   { rejectValue: string }
 >("actor/fetch", async (payload, thunkAPI) => {
   const response = await axiosCall(`/actor`, "GET");
-  if (!response.status) {
-    return thunkAPI.rejectWithValue(response.message);
-  }
-  return response.data as Actor[];
-});
-
-export const searchActors = createAsyncThunk<
-  Actor[],
-  string,
-  { rejectValue: string }
->("actors/", async (payload, thunkAPI) => {
-  const response = await axiosCall(`/actor/${payload}`, "GET");
   if (!response.status) {
     return thunkAPI.rejectWithValue(response.message);
   }
@@ -93,6 +83,7 @@ export const deleteActor = createAsyncThunk<
   if (!response.status) {
     return thunkAPI.rejectWithValue(response.message);
   }
+
   return { id: payload };
 });
 
@@ -105,6 +96,19 @@ export const actorSlice = createSlice({
     },
     clearActorsList(state) {
       state.actors = [];
+    },
+    searchActors(state, { payload }) {
+      const actorsFound = state.actors.filter(
+        ({ firstName, lastName }) =>
+          firstName.toLowerCase().indexOf(payload.toLowerCase()) !== -1 ||
+          lastName.toLowerCase().indexOf(payload.toLowerCase()) !== -1
+      );
+
+      if (actorsFound.length > 0) {
+        state.searchedActors = actorsFound;
+      } else {
+        state.error = "No actors found";
+      }
     },
   },
   extraReducers: (builder) => {
@@ -123,21 +127,6 @@ export const actorSlice = createSlice({
       state.status = "idle";
     });
 
-    builder.addCase(searchActors.pending, (state) => {
-      state.status = "loading";
-      state.error = null;
-    });
-
-    builder.addCase(searchActors.fulfilled, (state, { payload }) => {
-      state.actors = payload;
-      state.status = "idle";
-    });
-
-    builder.addCase(searchActors.rejected, (state, { payload }) => {
-      if (payload) state.error = payload;
-      state.status = "idle";
-    });
-
     builder.addCase(searchActorById.pending, (state) => {
       state.status = "loading";
       state.error = null;
@@ -152,7 +141,7 @@ export const actorSlice = createSlice({
       if (payload) state.error = payload;
       state.status = "idle";
     });
-
+    
     builder.addCase(createActor.pending, (state) => {
       state.status = "loading";
       state.error = null;
@@ -201,5 +190,9 @@ export const actorSlice = createSlice({
     });
   },
 });
-export const { clearActorsList } = actorSlice.actions;
+export const {
+  clearErrorMessage,
+  clearActorsList,
+  searchActors,
+} = actorSlice.actions;
 export default actorSlice.reducer;

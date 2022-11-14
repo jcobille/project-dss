@@ -107,6 +107,7 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                 {tableType === "movies" && (
                   <Link to={`/movie/details/${data.id}`}>
                     <CustomButton
+                      name="view"
                       className="btn btn-primary mx-1"
                       icon={faEye}
                     />
@@ -115,13 +116,13 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                 <CustomButton
                   className="btn btn-success mx-1"
                   action="edit"
-                  testId="editBtn"
+                  name="editBtn"
                   dataId={data.id}
                   onClickHandler={onClickHandler}
                   icon={faPen}
                 />
                 <CustomButton
-                  testId="deleteBtn"
+                  name="deleteBtn"
                   className="btn btn-danger"
                   action="delete"
                   dataId={data.id}

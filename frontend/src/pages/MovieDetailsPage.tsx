@@ -22,6 +22,7 @@ const MovieDetailsPage = () => {
   const [reviewCount, setReviewCount] = useState(0);
   const dispatch = useAppDispatch();
   const user = getCookie();
+  
   const currentUser = useAppSelector<User>(
     ({ currentUser }) => currentUser.details as User
   );

@@ -19,7 +19,7 @@ describe('ReviewController', () => {
   beforeEach(givenStubbedRepository);
 
   describe('Review', () => {
-    it.only('creates a Review', async () => {
+    it('creates a Review', async () => {
       const create = reviewRepo.stubs.create;
       create.resolves(aReviewWithId);
       const response = await controller.create(aReview);

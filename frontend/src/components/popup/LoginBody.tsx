@@ -57,7 +57,7 @@ export const LoginBody = (props: ModalProps) => {
 
       <div className="custom-modal-body">
         {error && (
-          <div className="error text-center" data-testid="movieError">
+          <div className="error text-center" data-testid="modalError">
             {error}
           </div>
         )}

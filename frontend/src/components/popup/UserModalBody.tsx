@@ -7,13 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { CustomInput, CustomRadioButton } from "../views/CustomInput";
 import { toast } from "react-toastify";
 
-interface BodyProps {
-  userId?: string;
-  type: string;
-  changeModal: (type: string) => void;
-  closeModal: (type: string) => void;
-  isOpen: boolean;
-}
 export const UserModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<User>({
     firstName: "",
@@ -38,6 +31,7 @@ export const UserModalBody = (props: ModalProps) => {
     if (props.action === "add" || props.action === "edit") {
       handleAddandEdit(formData);
     } else {
+      console.log(props.id);
       if (props.id) {
         handleDelete(props.id);
       }
@@ -64,7 +58,10 @@ export const UserModalBody = (props: ModalProps) => {
     }
 
     if (data.password) {
-      if (data.password !== confirmPassword) {
+      if (data.password.length < 8) {
+        setError("Password is less than 8");
+        return;
+      } else if (data.password !== confirmPassword) {
         setError("Password isn't the same");
         return;
       }
@@ -128,7 +125,9 @@ export const UserModalBody = (props: ModalProps) => {
   return (
     <div>
       <div className="custom-modal-header">
-        <div className="title">{title} User</div>
+        <div className="title" data-testid="modalTitle">
+          {title} User
+        </div>
       </div>
       <div
         className={
@@ -136,7 +135,7 @@ export const UserModalBody = (props: ModalProps) => {
         }
       >
         {error && (
-          <div className="error text-center" data-testid="movieError">
+          <div className="error text-center" data-testid="modalError">
             {error}
           </div>
         )}

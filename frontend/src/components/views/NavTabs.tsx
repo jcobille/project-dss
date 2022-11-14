@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CustomModal from "../popup/Modal";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AutoComplete } from "./CustomInput";
 import { getCookie, logout } from "../../utils/cookie";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";

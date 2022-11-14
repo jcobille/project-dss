@@ -22,7 +22,6 @@ export const createUser = createAsyncThunk<User, User, { rejectValue: string }>(
     if (!response.status) {
       return thunkAPI.rejectWithValue(response.message);
     }
-
     return response.data as User;
   }
 );

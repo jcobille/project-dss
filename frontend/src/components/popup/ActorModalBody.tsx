@@ -86,14 +86,13 @@ export const ActorModalBody = (props: ModalProps) => {
     const name = event.target.name;
     const value = event.target.value;
     setError("");
-    
+
     setFormData({ ...formData, [name]: value });
   };
 
   useEffect(() => {
     let actor = actors.find((actor) => actor.id === props.id);
     if (actor) {
-      console.log(actor);
       setFormData({
         id: actor.id,
         firstName: actor.firstName,
@@ -129,7 +128,7 @@ export const ActorModalBody = (props: ModalProps) => {
         }
       >
         {error && (
-          <div className="error text-center" data-testid="movieError">
+          <div className="error text-center" data-testid="modalError">
             {error}
           </div>
         )}

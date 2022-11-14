@@ -85,15 +85,15 @@ export const MovieModalBody = (props: ModalProps) => {
     } else if (!data.description) {
       setError("Description is empty");
       return;
+    } else {
+      dispatch(createMovie({ ...data, actors: selectedActors }))
+        .unwrap()
+        .then(() => {
+          notify("Movie has been created");
+          props.setModalProps("");
+        })
+        .catch((error) => notify(error));
     }
-
-    dispatch(createMovie({ ...data, actors: selectedActors }))
-      .unwrap()
-      .then(() => {
-        notify("Movie has been created");
-        props.setModalProps("");
-      })
-      .catch((error) => notify(error));
   };
   const handleEdit = (data: MovieEdit) => {
     setError("");
@@ -210,7 +210,7 @@ export const MovieModalBody = (props: ModalProps) => {
         }
       >
         {error && (
-          <div className="error text-center" data-testid="movieError">
+          <div className="error text-center" data-testid="modalError">
             {error}
           </div>
         )}

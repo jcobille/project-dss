@@ -333,15 +333,11 @@ describe("Actor Slice ExtraReducers", () => {
     });
 
     it("clears actorList", () => {
-      const action = {
-        type: getActors.fulfilled.type,
-        payload: actorsListMock,
-      };
-      let state = reducer(initialStateWithData, action);
-      expect(state.actors.length).toBe(2);
+      let state = reducer(initialStateWithData, searchActors("dwayne"));
+      expect(state.searchedActors.length).toBe(1);
 
       state = reducer(initialStateWithData, clearActorsList());
-      expect(state.actors.length).toBe(0);
+      expect(state.searchedActors.length).toBe(0);
     });
 
     it("search for actors", () => {

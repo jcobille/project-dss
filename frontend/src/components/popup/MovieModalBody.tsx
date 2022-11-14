@@ -166,7 +166,7 @@ export const MovieModalBody = (props: ModalProps) => {
     setSelectedActors(newActorList);
   };
   useEffect(() => {
-    if (actors.length > 0) {
+    if (actors && actors.length > 0) {
       const data: Actor[] = [];
       actors.forEach((actor: Actor) => {
         if (!selectedActors.find((selected) => selected.id === actor.id)) {

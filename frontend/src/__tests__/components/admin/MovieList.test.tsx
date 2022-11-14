@@ -359,10 +359,8 @@ describe("<MovieList />", () => {
         name: "Edit",
       });
       userEvent.click(editMovieConfirm);
-
-      expect(
-        await screen.findByText("Movie has been updated")
-      ).toBeInTheDocument();
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).toBeInTheDocument();
     });
   });
 

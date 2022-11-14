@@ -91,7 +91,7 @@ export const MovieModalBody = (props: ModalProps) => {
           notify("Movie has been created");
           props.setModalProps("");
         })
-        .catch((error) => notify(error));
+        .catch((error: string) => notify(error));
     }
   };
   const handleEdit = (data: MovieEdit) => {
@@ -109,11 +109,12 @@ export const MovieModalBody = (props: ModalProps) => {
       }
 
       dispatch(editMovie({ ...data, actors: selectedActors }))
+        .unwrap()
         .then(() => {
           notify("Movie has been updated");
           props.setModalProps("");
         })
-        .catch((error) => notify(error));
+        .catch((error: string) => notify(error));
     }
   };
 
@@ -123,7 +124,7 @@ export const MovieModalBody = (props: ModalProps) => {
         notify("Movie has been deleted");
         props.setModalProps("");
       })
-      .catch((error) => notify(error));
+      .catch((error: string) => notify(error));
   };
   const changeHandler = (
     event: React.ChangeEvent<
@@ -167,7 +168,7 @@ export const MovieModalBody = (props: ModalProps) => {
   useEffect(() => {
     if (actors.length > 0) {
       const data: Actor[] = [];
-      actors.forEach((actor) => {
+      actors.forEach((actor: Actor) => {
         if (!selectedActors.find((selected) => selected.id === actor.id)) {
           if (actor.id) {
             data.push(actor);
@@ -180,7 +181,7 @@ export const MovieModalBody = (props: ModalProps) => {
     }
   }, [actors, setActorList, movies, dispatch]);
   useEffect(() => {
-    let movie = movies.find((movie) => movie.id === props.id);
+    let movie = movies.find((movie: Movie) => movie.id === props.id);
     if (movie) {
       setFormData(movie);
     }

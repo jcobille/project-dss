@@ -1,5 +1,5 @@
-DIGITAL STREAMING SYSTEM
-A collection of movies that users can give their reviews on certain movies.
+# DIGITAL STREAMING SYSTEM
+- A collection of movies that users can give their reviews on certain movies.
 
 ![homepage](./homepage.png)
 

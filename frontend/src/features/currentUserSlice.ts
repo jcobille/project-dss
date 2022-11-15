@@ -60,6 +60,7 @@ export const currentUserSlice = createSlice({
     },
     clearCurrentUser(state) {
       state.details = {};
+      Cookies.remove("token");
     },
   },
   extraReducers: (builder) => {

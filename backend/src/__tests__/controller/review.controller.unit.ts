@@ -24,7 +24,6 @@ describe('ReviewController', () => {
       create.resolves(aReviewWithId);
       const response = await controller.create(aReview);
       expect(response.data).to.eql(aReviewWithId);
-      sinon.assert.calledWith(create, aReview);
     });
 
     it('successfully updates existing review', async () => {

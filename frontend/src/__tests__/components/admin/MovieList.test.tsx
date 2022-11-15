@@ -167,6 +167,7 @@ describe("<MovieList />", () => {
     });
     expect(addMovieBtn).toBeInTheDocument();
   });
+  
   describe("Add movie modal", () => {
     test("should render 'Add Movie' modal if 'Add Movie' button is clicked", async () => {
       openAddMovieModal();

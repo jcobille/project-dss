@@ -28,6 +28,8 @@ export class ActorMovieController {
   ): Promise<CustomResponse> {
     try {
       const movies = await this.actorRepository.movies(id).find();
+      if (movies.length === 0)
+        throw new Error('No movies for this actor found');
 
       return {
         data: movies,
@@ -38,7 +40,7 @@ export class ActorMovieController {
       return {
         data: [],
         status: false,
-        message: 'No movies for this actor found',
+        message: err,
       };
     }
   }

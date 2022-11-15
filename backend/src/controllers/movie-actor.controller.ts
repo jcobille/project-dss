@@ -62,27 +62,19 @@ export class MovieActorController {
     })
     actors: Actor[],
   ): Promise<CustomResponse> {
-    try {
-      const movieActorsList = await this.movieRepository.actors(id).find();
-      // remove all the actors on the collection
-      for (const actor of movieActorsList) {
-        try {
-          this.movieRepository.actors(id).unlink(actor.id);
-        } catch (error) {
-          throw new Error(error);
-        }
-      }
-
-      // adds a new list of actors to collection
-      actors.forEach(actor => this.movieRepository.actors(id).link(actor.id));
-
-      return {
-        data: [],
-        status: true,
-        message: 'Movie has been updated',
-      };
-    } catch (err) {
-      return {data: [], status: false, message: err};
+    const movieActorsList = await this.movieRepository.actors(id).find();
+    // remove all the actors on the collection
+    for (const actor of movieActorsList) {
+      this.movieRepository.actors(id).unlink(actor.id);
     }
+
+    // adds a new list of actors to collection
+    actors.forEach(actor => this.movieRepository.actors(id).link(actor.id));
+
+    return {
+      data: [],
+      status: true,
+      message: 'Movie has been updated',
+    };
   }
 }

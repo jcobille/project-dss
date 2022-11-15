@@ -18,6 +18,7 @@ interface MovieEdit {
   image: string;
   cost: string;
   description: string;
+  actors: Actor[];
 }
 export const MovieModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<Movies>({
@@ -54,6 +55,7 @@ export const MovieModalBody = (props: ModalProps) => {
           image: formData.image,
           cost: formData.cost,
           description: formData.description,
+          actors: selectedActors,
         };
 
         handleEdit(data);
@@ -86,7 +88,6 @@ export const MovieModalBody = (props: ModalProps) => {
       }
 
       dispatch(createMovie({ ...data, actors: selectedActors }))
-        .unwrap()
         .then(() => {
           notify("Movie has been created");
           props.setModalProps("");
@@ -107,8 +108,7 @@ export const MovieModalBody = (props: ModalProps) => {
         setError("Image is not valid");
         return;
       }
-
-      dispatch(editMovie({ ...data, actors: selectedActors }))
+      dispatch(editMovie(data))
         .unwrap()
         .then(() => {
           notify("Movie has been updated");

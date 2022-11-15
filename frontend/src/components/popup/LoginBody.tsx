@@ -4,6 +4,7 @@ import { loginUser } from "../../features/currentUserSlice";
 import { useAppDispatch } from "../../hooks/hooks";
 import { emailChecker } from "../../utils/misc";
 import { CustomInput } from "../views/CustomInput";
+import { useNavigate } from "react-router-dom";
 
 export interface LoginProps {
   email: string;
@@ -13,6 +14,7 @@ export interface LoginProps {
 export const LoginBody = (props: ModalProps) => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [formLoginData, setFormLoginData] = useState<LoginProps>({
     email: "",
     password: "",
@@ -44,6 +46,7 @@ export const LoginBody = (props: ModalProps) => {
         .unwrap()
         .then(() => {
           props.setModalProps("");
+          navigate(document.location.pathname)
         })
         .catch((error: string) => setError(error));
     }

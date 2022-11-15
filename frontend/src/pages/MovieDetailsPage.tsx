@@ -21,8 +21,8 @@ const MovieDetailsPage = () => {
   const [reviewFound, setReviewFound] = useState(false);
   const [reviewCount, setReviewCount] = useState(0);
   const dispatch = useAppDispatch();
-  const user = Cookies.get('token');
-  
+  const user = Cookies.get("token");
+
   const currentUser = useAppSelector<User>(
     ({ currentUser }) => currentUser.details as User
   );
@@ -42,22 +42,19 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     if (id) {
-      if (Object.keys(details).length === 0 || details.id !== id) {
-        dispatch(getMovieDetails(id));
-      }
-    }
-
-    if (Object.keys(details).length > 0) {
       dispatch(clearReviews());
-      if (details?.reviews) {
-        dispatch(loadReviews(details.reviews));
-      }
+      dispatch(getMovieDetails(id));
     }
-  }, [id, details, dispatch]);
+  }, [id, dispatch]);
 
   useEffect(() => {
-    const { ratings, reviewCount } = movieRatings(reviews);
-    const reviewList: Review[] = [];
+    if (details?.reviews) {
+      dispatch(loadReviews(details.reviews));
+    }
+  }, [details]);
+
+  useEffect(() => {
+    const { reviewCount } = movieRatings(reviews);
     setReviewFound(false);
     setRatings(ratings);
     setReviewCount(reviewCount);

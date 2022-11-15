@@ -3,7 +3,6 @@ import { useAppSelector } from "../hooks/hooks";
 import MovieContainer from "../components/views/MovieContainer";
 import { AutoComplete } from "../components/views/CustomInput";
 import { Actor, Movie } from "../utils/types";
-import { useNavigate } from "react-router-dom";
 import { searchActorMovie } from "../utils/services";
 export interface HomePageProps {}
 

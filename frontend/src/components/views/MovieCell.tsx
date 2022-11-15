@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 import { Movie } from "../../utils/types";
 import { getYear } from "../../utils/misc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 interface MovieCellProps {

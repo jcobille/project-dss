@@ -34,7 +34,7 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
         }
         if (review.status === "checking") newReviews += 1;
       });
-      setNewReviews(newReviews / reviewCount);
+      setNewReviews(newReviews);
       setRatings(reviewRatings / reviewCount);
     }
   };

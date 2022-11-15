@@ -57,8 +57,7 @@ const NavTabs = () => {
 
   const userLogout = () => {
     dispatch(clearCurrentUser());
-    Cookies.remove("token");
-    navigate("/");
+    document.location.replace("/");
   };
 
   useEffect(() => {

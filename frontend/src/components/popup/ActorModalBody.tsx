@@ -6,6 +6,7 @@ import { createActor, deleteActor, editActor } from "../../features/actorSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { CustomInput, CustomRadioButton } from "../views/CustomInput";
 import { toast } from "react-toastify";
+import { isUrl } from "../../utils/misc";
 
 export const ActorModalBody = (props: ModalProps) => {
   const [formData, setFormData] = useState<Actor>({
@@ -38,45 +39,45 @@ export const ActorModalBody = (props: ModalProps) => {
     setError("");
     if (!data.firstName) {
       setError("First name is empty");
-      return;
     } else if (!data.lastName) {
       setError("Last Name is empty");
-      return;
     } else if (!data.gender) {
       setError("Gender is required");
-      return;
     } else if (!data.age) {
       setError("Age is empty");
-      return;
     } else if (!data.image) {
       setError("Image is empty");
-      return;
-    }
-
-    if (props.action === "add") {
-      dispatch(createActor(data))
-        .then((res) => {
-          notify("Actor has been created");
-          props.setModalProps("");
-        })
-        .catch((error) => notify(error));
     } else {
-      dispatch(editActor(data))
-        .then((res) => {
-          notify("Actor has been updated");
-          props.setModalProps("");
-        })
-        .catch((error) => notify(error));
+      if (!isUrl(data.image)) {
+        setError("Image is not valid");
+        return;
+      }
+
+      if (props.action === "add") {
+        dispatch(createActor(data))
+          .then(() => {
+            notify("Actor has been created");
+            props.setModalProps("");
+          })
+          .catch((error: string) => notify(error));
+      } else {
+        dispatch(editActor(data))
+          .then(() => {
+            notify("Actor has been updated");
+            props.setModalProps("");
+          })
+          .catch((error: string) => notify(error));
+      }
     }
   };
 
   const handleDelete = (id: string) => {
     dispatch(deleteActor(id))
-      .then((res) => {
+      .then(() => {
         notify("Actor has been deleted");
         props.setModalProps("");
       })
-      .catch((error) => notify(error));
+      .catch((error: string) => notify(error));
   };
   const changeHandler = (
     event: React.ChangeEvent<
@@ -91,7 +92,7 @@ export const ActorModalBody = (props: ModalProps) => {
   };
 
   useEffect(() => {
-    let actor = actors.find((actor) => actor.id === props.id);
+    let actor = actors.find((actor: Actor) => actor.id === props.id);
     if (actor) {
       setFormData({
         id: actor.id,

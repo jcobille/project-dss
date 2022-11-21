@@ -6,7 +6,7 @@ import { CustomButton, StarRatings } from "./CustomInput";
 
 interface RowProps {
   index: number;
-  data: Movie | Actor | User;
+  data?: Movie | Actor | User;
   headers: {
     title: string;
     key: string;
@@ -23,41 +23,49 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
   const getRatings = () => {
     let newReviews = 0;
     let reviewRatings = 0;
-    let movieData: Movie = data as Movie;
-    if (movieData.reviews) {
-      let reviews = movieData.reviews;
-      let reviewCount = 0;
-      reviews.forEach((review) => {
-        if (review.status === "approved") {
-          reviewCount += 1;
-          reviewRatings += review.reviewScore;
-        }
-        if (review.status === "checking") newReviews += 1;
-      });
-      setNewReviews(newReviews);
-      setRatings(reviewRatings / reviewCount);
+    if (data) {
+      let movieData: Movie = data as Movie;
+      if (movieData.reviews) {
+        let reviews = movieData.reviews;
+        let reviewCount = 0;
+        reviews.forEach((review) => {
+          if (review.status === "approved") {
+            reviewCount += 1;
+            reviewRatings += review.reviewScore;
+          }
+          if (review.status === "checking") newReviews += 1;
+        });
+        setNewReviews(newReviews);
+        setRatings(reviewRatings / reviewCount);
+      }
     }
   };
 
   const setDisableButton = () => {
     switch (tableType) {
       case "users":
-        const userData: User = data as User;
-        if (userData.isRoot) setDisableDeleteButton(!userData.isRoot);
+        if (data) {
+          const userData: User = data as User;
+          if (userData.isRoot) setDisableDeleteButton(!userData.isRoot);
+        }
         break;
       case "actors":
-        const actorsData: Actor = data as Actor;
-        setDisableDeleteButton(!actorsData.movies);
+        if (data) {
+          const actorsData: Actor = data as Actor;
+          setDisableDeleteButton(!actorsData.movies);
+        }
         break;
       case "movies":
-        const moviesData: Movie = data as Movie;
-        const releasedDate = new Date(moviesData.releasedDate);
-        const currentDate = new Date();
-        const isDeleteDisabled =
-          (Number(currentDate) - Number(releasedDate)) /
-            (1000 * 3600 * 24 * 365) >
-          1;
-        setDisableDeleteButton(isDeleteDisabled);
+        if (data) {
+          const moviesData: Movie = data as Movie;
+          const releasedDate = new Date(moviesData.releasedDate);
+          const currentDate = new Date();
+          const isDeleteDisabled =
+            (Number(currentDate) - Number(releasedDate)) /
+              (1000 * 3600 * 24 * 365) >
+            1;
+          setDisableDeleteButton(isDeleteDisabled);
+        }
         break;
     }
   };
@@ -75,20 +83,24 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
       {headers.map((header, i) => {
         return (
           <td className={i > 0 ? "centered" : ""} key={i}>
-            {header.title === "Status" && (
+            {data && header.title === "Status" && (
               <span
                 className={
                   "badge rounded-pill mx-1 " +
-                  (data[header.key as keyof typeof data]
+                  (data && data[header.key as keyof typeof data]
                     ? "bg-success"
                     : "bg-danger")
                 }
               >
-                {data[header.key as keyof typeof data] ? "Active" : "Inactive"}
+                {data && data[header.key as keyof typeof data]
+                  ? "Active"
+                  : "Inactive"}
               </span>
             )}
-            {header.key === "reviews" && <StarRatings ratings={ratings} />}
-            {header.key === "newReviews" && newReviews > 0 && (
+            {data && header.key === "reviews" && (
+              <StarRatings ratings={ratings} />
+            )}
+            {data && header.key === "newReviews" && newReviews > 0 && (
               <Link to={`/movie/details/${data.id}`}>
                 <span className="pointer badge rounded-pill bg-success">
                   {newReviews === 1
@@ -97,12 +109,12 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                 </span>
               </Link>
             )}
-            {header.key === "newReviews" && newReviews === 0 && (
+            {data && header.key === "newReviews" && newReviews === 0 && (
               <span className="badge rounded-pill bg-secondary">
                 No New Review
               </span>
             )}
-            {header.key === "id" && (
+            {data && header.key === "id" && (
               <>
                 {tableType === "movies" && (
                   <Link to={`/movie/details/${data.id}`}>
@@ -132,7 +144,9 @@ const TableRow = ({ data, headers, modal, tableType, index }: RowProps) => {
                 />
               </>
             )}
-            {i < 4 && <span>{data[header.key as keyof typeof data]}</span>}
+            {data && i < 4 && (
+              <span>{data[header.key as keyof typeof data]}</span>
+            )}
           </td>
         );
       })}

@@ -16,7 +16,7 @@ export interface Actor {
   age: string;
   gender: string;
   image: string;
-  movies? : Movie[];
+  movies?: Movie[];
 }
 
 export interface Movie {
@@ -62,4 +62,11 @@ export interface ModalProps {
   type: string;
   action?: string;
   setModalProps: (newType: string, newAction?: string, id?: string) => void;
+}
+
+export interface PaginationProps {
+  totalCount: number;
+  pageSize: number;
+  siblingCount: number;
+  currentPage: number;
 }

@@ -54,13 +54,13 @@ export const UserList = () => {
             </div>
           </div>
           <div className="mt-2"></div>
-          <Table
+          {UserList.length > 0 && <Table
             headers={userTableHeaders}
             data={UserList}
-            minRow={15}
+            minRow={10}
             tableType="users"
             modal={modal}
-          />
+          />}
         </div>
       </div>
       <CustomModal {...modal} />

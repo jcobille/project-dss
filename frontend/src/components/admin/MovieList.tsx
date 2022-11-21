@@ -61,13 +61,15 @@ export const MovieList = () => {
             </div>
           </div>
           <div className="mt-2"></div>
-          <Table
-            headers={tableHeader}
-            data={movieList}
-            minRow={15}
-            tableType="movies"
-            modal={modal}
-          />
+          {movieList.length > 0 && (
+            <Table
+              headers={tableHeader}
+              data={movieList}
+              minRow={10}
+              tableType="movies"
+              modal={modal}
+            />
+          )}
         </div>
       </div>
       <CustomModal {...modal} />

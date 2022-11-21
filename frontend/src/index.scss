@@ -92,41 +92,15 @@ body {
     font-size: 15px;
 }
 
-.table {
+table {
     width: 100%;
     display: table;
     margin-bottom: 20px;
     table-layout: fixed;
 
-    & .table-header {
-        display: table-header-group;
-
-        & .th-cell {
-            display: table-cell;
-            padding: 5px;
-            text-align: justify;
-            border-bottom: 1px solid #2B2C35;
-            font-size: 12px;
-            color: #424A59;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-    }
-
-    & .table-body {
-        display: table-row-group;
-
-        & .table-row {
-            display: table-row;
-
-            & .table-cell {
-                display: table-cell;
-                padding: 5px;
-                border-bottom: 1px solid #2B2C35;
-                width: 20%;
-            }
-
-            & .table-cell:empty::after {
+    & tbody {
+        & tr {
+            & td:empty::after {
                 content: "\00a0";
             }
         }
@@ -856,4 +830,75 @@ textarea {
 .col-1-5 {
     flex: 0 0 auto;
     width: 12.5%
+}
+
+.pagination-container {
+    display: flex;
+    list-style-type: none;
+    background-color: #212529;
+
+    .pagination-item {
+        padding: 0 12px;
+        height: 32px;
+        text-align: center;
+        margin: auto 4px;
+        color: white;
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        letter-spacing: 0.01071em;
+        border-radius: 16px;
+        line-height: 1.43;
+        font-size: 13px;
+        min-width: 32px;
+
+        &.dots:hover {
+            background-color: transparent;
+            cursor: default;
+        }
+
+        &:hover {
+            background-color: #2B3342;
+            cursor: pointer;
+        }
+
+        &.selected {
+            background-color: #2B3342;
+        }
+
+        .arrow {
+            &::before {
+                position: relative;
+                /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+                content: '';
+                display: inline-block;
+                width: 0.4em;
+                height: 0.4em;
+                border-right: 0.12em solid white;
+                border-top: 0.12em solid white;
+            }
+
+            &.left {
+                transform: rotate(-135deg) translate(-50%);
+            }
+
+            &.right {
+                transform: rotate(45deg);
+            }
+        }
+
+        &.disabled {
+            pointer-events: none;
+
+            .arrow::before {
+                border-right: 0.12em solid rgba(0, 0, 0, 0.43);
+                border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+            }
+
+            &:hover {
+                background-color: transparent;
+                cursor: default;
+            }
+        }
+    }
 }

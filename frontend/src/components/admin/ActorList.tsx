@@ -55,13 +55,15 @@ export const ActorList = () => {
             </div>
           </div>
           <div className="mt-2"></div>
-          <Table
-            headers={tableHeader}
-            data={ActorList}
-            minRow={15}
-            tableType="actors"
-            modal={modal}
-          />
+          {ActorList.length > 0 && (
+            <Table
+              headers={tableHeader}
+              data={ActorList}
+              minRow={10}
+              tableType="actors"
+              modal={modal}
+            />
+          )}
         </div>
       </div>
       <CustomModal {...modal} />

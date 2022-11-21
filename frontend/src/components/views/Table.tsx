@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useState } from "react";
 import { Actor, ModalProps, Movie, User } from "../../utils/types";
+import Pagination from "./Pagination";
 import TableRow from "./Row";
 
 interface TableProps {
@@ -11,8 +13,18 @@ interface TableProps {
   tableType: string;
   modal: ModalProps;
 }
+
+let PageSize = 10;
+
 const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
-  const length = data.length < minRow ? minRow : data.length;
+  const [currentPage, setCurrentPage] = useState(1);
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
+  const length =
+    currentTableData.length < minRow ? minRow : currentTableData.length;
   return (
     <>
       <table className="table table-dark">
@@ -31,13 +43,23 @@ const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
         </thead>
         <tbody>
           {[...Array(length)].map((_, i) => {
-            if (data[i]) {
+            if (currentTableData[i]) {
               return (
                 <TableRow
                   key={i}
                   index={i}
                   tableType={tableType}
-                  data={data[i]}
+                  data={currentTableData[i]}
+                  headers={headers}
+                  modal={modal}
+                />
+              );
+            } else {
+              return (
+                <TableRow
+                  key={i}
+                  index={i}
+                  tableType={tableType}
                   headers={headers}
                   modal={modal}
                 />
@@ -46,6 +68,13 @@ const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
           })}
         </tbody>
       </table>
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={data.length}
+        pageSize={PageSize}
+        onPageChange={(page: number) => setCurrentPage(page)}
+      />
     </>
   );
 };

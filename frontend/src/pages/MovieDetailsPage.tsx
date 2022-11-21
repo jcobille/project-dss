@@ -54,9 +54,9 @@ const MovieDetailsPage = () => {
   }, [details]);
 
   useEffect(() => {
-    const { reviewCount } = movieRatings(reviews);
+    const { starRatings, reviewCount } = movieRatings(reviews);
     setReviewFound(false);
-    setRatings(ratings);
+    setRatings(starRatings);
     setReviewCount(reviewCount);
 
     reviews.forEach((review) => {

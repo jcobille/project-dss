@@ -34,16 +34,16 @@ export const searchActorMovie = (
 };
 
 export const movieRatings = (reviews: Review[]) => {
-  let ratings = 0;
+  let starRatings = 0;
   let reviewCount = 0;
   if (reviews) {
     reviews.forEach((review: Review) => {
       if (review.status === "approved") {
-        ratings += review.reviewScore;
+        starRatings += review.reviewScore;
         reviewCount += 1;
       }
     });
-    ratings = ratings / reviewCount;
+    starRatings = starRatings / reviewCount;
   }
-  return { ratings, reviewCount };
+  return { starRatings, reviewCount };
 };

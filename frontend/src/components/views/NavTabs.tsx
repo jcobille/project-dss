@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CustomModal from "../popup/Modal";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AutoComplete } from "./CustomInput";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Actor, ModalProps, Movie, User } from "../../utils/types";
@@ -21,7 +21,6 @@ import Cookies from "js-cookie";
 
 const NavTabs = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const userToken = Cookies.get("token");
   const dispatch = useAppDispatch();
   const [data, setData] = useState<Movie[] | Actor[]>([]);

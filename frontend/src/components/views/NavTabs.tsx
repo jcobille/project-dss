@@ -47,6 +47,7 @@ const NavTabs = () => {
     dispatch(getMovies());
     dispatch(getActors());
   }, [dispatch]);
+
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     let { type, data } = searchActorMovie(value, movieList, actorList);
@@ -62,6 +63,23 @@ const NavTabs = () => {
   useEffect(() => {
     setData([]);
   }, [location.pathname]);
+
+  let expires = Cookies.get('expires');
+  const timer = expires && setInterval(function () {
+    const currentTime = new Date();
+    const counter = expires && Number(new Date(expires.toString())) - Number(currentTime);
+    let sec = counter && counter / 1000;
+
+    if (sec) {
+      sec = Math.trunc(sec);
+      console.log(sec);
+      if (sec === 0) {
+        clearInterval(timer);
+        dispatch(clearCurrentUser());
+        modal.setModalProps("logout");
+      }
+    }
+  }, 1000);
   return (
     <div>
       <div className={"navtab " + (location.pathname === "/" ? "home" : "")}>

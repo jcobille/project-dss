@@ -10,6 +10,7 @@ import RegisterBody from "./RegisterBody";
 import { RegisterSuccess } from "./RegisterSuccess";
 import { useEffect, useState } from "react";
 import { ModalProps } from "../../utils/types";
+import { LogoutBody } from "./LogoutBody";
 
 const CustomModal = (props: ModalProps) => {
   if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -41,6 +42,7 @@ const CustomModal = (props: ModalProps) => {
       {props.type === "actors" && <ActorModalBody {...props} />}
       {props.type === "users" && <UserModalBody {...props} />}
       {props.type === "reviews" && <ReviewModalBody {...props} />}
+      {props.type === "logout" && <LogoutBody />}
     </Modal>
   );
 };

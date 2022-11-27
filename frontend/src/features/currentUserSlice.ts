@@ -34,7 +34,12 @@ export const loginUser = createAsyncThunk<
   if (!response.status) {
     return thunkAPI.rejectWithValue(response.message);
   }
-  Cookies.set("token", response.data.token, { expires: 1 });
+  const currentTime = new Date().getTime();
+  const inTenMinutes = new Date(currentTime + 10 * 60 * 1000);
+
+  Cookies.set("token", response.data.token, { expires: inTenMinutes });
+  Cookies.set("expires", inTenMinutes.toString(), { expires: inTenMinutes });
+
   return response.data as User;
 });
 
@@ -61,6 +66,7 @@ export const currentUserSlice = createSlice({
     clearCurrentUser(state) {
       state.details = {};
       Cookies.remove("token");
+      Cookies.remove("expires");
     },
   },
   extraReducers: (builder) => {

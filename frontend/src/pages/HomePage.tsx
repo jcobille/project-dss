@@ -4,7 +4,7 @@ import MovieContainer from "../components/views/MovieContainer";
 import { AutoComplete } from "../components/views/CustomInput";
 import { Actor, Movie } from "../utils/types";
 import { searchActorMovie } from "../utils/services";
-export interface HomePageProps {}
+export interface HomePageProps { }
 
 const HomePage = () => {
   const { movies, status } = useAppSelector(({ movieList }) => movieList);

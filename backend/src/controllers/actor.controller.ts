@@ -80,11 +80,16 @@ export class ActorController {
     @param.filter(Actor) filter?: Filter<Actor>,
   ): Promise<CustomResponse> {
     try {
-      const actors = await this.actorRepository.find({
+      const {count} = await this.actorRepository.count();
+      const actors = await this.actorRepository.find(filter, {
         include: ['movies'],
       });
 
-      return {data: actors, status: true, message: 'Actors has been fetched'};
+      return {
+        data: {actors: actors, count: count},
+        status: true,
+        message: 'Actors has been fetched',
+      };
     } catch (err) {
       return {data: [], status: false, message: 'No actors found'};
     }

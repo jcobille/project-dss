@@ -69,16 +69,19 @@ export class MovieController {
       },
     },
   })
-  async getMovies(): Promise<CustomResponse> {
+  async getMovies(
+    @param.filter(Movie) filter?: Filter<Movie>,
+  ): Promise<CustomResponse> {
     try {
-      const movieList = await this.movieRepository.find({
+      const {count} = await this.movieRepository.count();
+      const movieList = await this.movieRepository.find(filter, {
         include: ['reviews', 'actors'],
       });
 
       if (!movieList) throw new Error('No movies found');
 
       return {
-        data: movieList,
+        data: {movies: movieList, count: count},
         status: true,
         message: 'Movie list has been fetched.',
       };

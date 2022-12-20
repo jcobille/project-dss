@@ -7,7 +7,7 @@ type returnError = {
 };
 
 export interface MovieState {
-  movies: Movie[];
+  data: { movies: Movie[]; count: number };
   actorMovies: Movie[];
   details: object;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -15,7 +15,7 @@ export interface MovieState {
 }
 
 const initialState: MovieState = {
-  movies: [],
+  data: { movies: [], count: 0 },
   actorMovies: [],
   details: {},
   status: "loading",
@@ -95,18 +95,19 @@ export const deleteMovie = createAsyncThunk<
 
 /* It will get all movies */
 export const getMovies = createAsyncThunk<
-  Movie[],
-  undefined,
+  { movies: Movie[]; count: number },
+  undefined | { skip: number; limit: number },
   { rejectValue: returnError }
 >("movies/fetch", async (state, thunkAPI) => {
-  const response = await axiosCall("/movies", "GET");
+  let filter = "";
+  if (state) filter = `filter[order]=title asc&[skip]=${state.skip}&filter[limit]=${state.limit}`;
+  const response = await axiosCall(`/movies?${filter}`, "GET");
   if (!response.status) {
     return thunkAPI.rejectWithValue({
       message: response.message,
     });
   }
-
-  return response.data as Movie[];
+  return response.data;
 });
 
 /* It will get movie details */
@@ -163,7 +164,7 @@ export const movieSlice = createSlice({
     });
 
     builder.addCase(createMovie.fulfilled, (state, { payload }) => {
-      state.movies.push(payload);
+      state.data.count += 1;
       state.status = "idle";
     });
 
@@ -178,7 +179,7 @@ export const movieSlice = createSlice({
     });
 
     builder.addCase(editMovie.fulfilled, (state, { payload }) => {
-      state.movies = state.movies.map((movies) =>
+      state.data.movies = state.data.movies.map((movies) =>
         movies.id === payload.id ? { ...movies, ...payload } : movies
       );
 
@@ -196,7 +197,10 @@ export const movieSlice = createSlice({
     });
 
     builder.addCase(deleteMovie.fulfilled, (state, { payload }) => {
-      state.movies = state.movies.filter(({ id }) => id !== payload.id);
+      state.data.movies = state.data.movies.filter(
+        ({ id }) => id !== payload.id
+      );
+      state.data.count -= 1;
       state.status = "idle";
     });
 
@@ -211,7 +215,8 @@ export const movieSlice = createSlice({
     });
 
     builder.addCase(getMovies.fulfilled, (state, { payload }) => {
-      state.movies = payload;
+      state.data.movies = payload.movies;
+      state.data.count = payload.count;
       state.status = "idle";
     });
 

@@ -15,7 +15,6 @@ import {
   currentAuthUser,
 } from "../../features/currentUserSlice";
 import { searchActorMovie } from "../../utils/services";
-import { getMovies } from "../../features/movieSlice";
 import { getActors } from "../../features/actorSlice";
 import Cookies from "js-cookie";
 
@@ -24,8 +23,8 @@ const NavTabs = () => {
   const userToken = Cookies.get("token");
   const dispatch = useAppDispatch();
   const [data, setData] = useState<Movie[] | Actor[]>([]);
-  const movieList = useAppSelector(({ movieList }) => movieList.movies);
-  const actorList = useAppSelector(({ actorList }) => actorList.actors);
+  const movieList = useAppSelector(({ movieList }) => movieList.data.movies);
+  const actorList = useAppSelector(({ actorList }) => actorList.data.actors);
   const [searchType, setSearchType] = useState("Movie");
   const user = useAppSelector<User>(
     (state) => state.currentUser.details as User
@@ -44,7 +43,6 @@ const NavTabs = () => {
   }, [userToken, dispatch]);
 
   useEffect(() => {
-    dispatch(getMovies());
     dispatch(getActors());
   }, [dispatch]);
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {

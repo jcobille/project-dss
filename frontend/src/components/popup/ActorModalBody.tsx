@@ -18,7 +18,7 @@ export const ActorModalBody = (props: ModalProps) => {
   });
   const radioButton = ["Male", "Female"];
   const [error, setError] = useState("");
-  const actors = useAppSelector((state) => state.actorList.actors);
+  const actors = useAppSelector((state) => state.actorList.data.actors);
   const dispatch = useAppDispatch();
 
   let title = props.action

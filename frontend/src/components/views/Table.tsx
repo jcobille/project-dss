@@ -5,6 +5,7 @@ import TableRow from "./Row";
 
 interface TableProps {
   data: Movie[] | Actor[] | User[];
+  dataCount?: number;
   headers: {
     title: string;
     key: string;
@@ -12,19 +13,26 @@ interface TableProps {
   minRow: number;
   tableType: string;
   modal: ModalProps;
+  fetchData?: (page: number) => void;
 }
 
 let PageSize = 10;
 
-const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
+const Table = ({
+  data,
+  dataCount,
+  headers,
+  tableType,
+  minRow,
+  modal,
+  fetchData,
+}: TableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
-  const length =
-    currentTableData.length < minRow ? minRow : currentTableData.length;
+  const length = data.length < minRow ? minRow : data.length;
+  const getNextPage = (page: number) => {
+    if (fetchData) fetchData(page);
+    setCurrentPage(page);
+  };
   return (
     <>
       <table className="table table-dark">
@@ -43,13 +51,13 @@ const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
         </thead>
         <tbody>
           {[...Array(length)].map((_, i) => {
-            if (currentTableData[i]) {
+            if (data[i]) {
               return (
                 <TableRow
                   key={i}
                   index={i}
                   tableType={tableType}
-                  data={currentTableData[i]}
+                  data={data[i]}
                   headers={headers}
                   modal={modal}
                 />
@@ -71,9 +79,9 @@ const Table = ({ data, headers, tableType, minRow, modal }: TableProps) => {
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}
-        totalCount={data.length}
+        totalCount={dataCount}
         pageSize={PageSize}
-        onPageChange={(page: number) => setCurrentPage(page)}
+        onPageChange={(page: number) => getNextPage(page)}
       />
     </>
   );

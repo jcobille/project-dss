@@ -3,7 +3,7 @@ import { Actor } from "../utils/types";
 import { axiosCall } from "../utils/api";
 
 export interface ActorState {
-  actors: Actor[];
+  data: { actors: Actor[]; count: number };
   searchedActors: Actor[];
   selectedActor: Actor;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -11,7 +11,7 @@ export interface ActorState {
 }
 
 const initialState: ActorState = {
-  actors: [],
+  data: { actors: [], count: 0 },
   searchedActors: [],
   selectedActor: {
     firstName: "",
@@ -25,15 +25,17 @@ const initialState: ActorState = {
 };
 
 export const getActors = createAsyncThunk<
-  Actor[],
-  undefined,
+  { actors: Actor[]; count: number },
+  undefined | { skip: number; limit: number },
   { rejectValue: string }
->("actor/fetch", async (payload, thunkAPI) => {
-  const response = await axiosCall(`/actor`, "GET");
+>("actor/fetch", async (state, thunkAPI) => {
+  let filter = "";
+  if (state) filter = `filter[skip]=${state.skip}&filter[limit]=${state.limit}`;
+  const response = await axiosCall(`/actor?${filter}`, "GET");
   if (!response.status) {
     return thunkAPI.rejectWithValue(response.message);
   }
-  return response.data as Actor[];
+  return response.data;
 });
 
 export const searchActorById = createAsyncThunk<
@@ -98,7 +100,7 @@ export const actorSlice = createSlice({
       state.searchedActors = [];
     },
     searchActors(state, { payload }) {
-      const actorsFound = state.actors.filter(
+      const actorsFound = state.data.actors.filter(
         ({ firstName, lastName }) =>
           firstName.toLowerCase().indexOf(payload.toLowerCase()) !== -1 ||
           lastName.toLowerCase().indexOf(payload.toLowerCase()) !== -1
@@ -118,7 +120,8 @@ export const actorSlice = createSlice({
     });
 
     builder.addCase(getActors.fulfilled, (state, { payload }) => {
-      state.actors = payload;
+      state.data.actors = payload.actors;
+      state.data.count = payload.count;
       state.status = "idle";
     });
 
@@ -148,7 +151,7 @@ export const actorSlice = createSlice({
     });
 
     builder.addCase(createActor.fulfilled, (state, { payload }) => {
-      state.actors.push(payload);
+      state.data.count += 1;
       state.status = "idle";
     });
 
@@ -163,7 +166,7 @@ export const actorSlice = createSlice({
     });
 
     builder.addCase(editActor.fulfilled, (state, { payload }) => {
-      state.actors = state.actors.map((actor) =>
+      state.data.actors = state.data.actors.map((actor) =>
         actor.id === payload.id ? { ...actor, ...payload } : actor
       );
       state.status = "idle";
@@ -180,7 +183,7 @@ export const actorSlice = createSlice({
     });
 
     builder.addCase(deleteActor.fulfilled, (state, { payload }) => {
-      state.actors = state.actors.filter(({ id }) => id !== payload.id);
+      state.data.count -= 1;
       state.status = "idle";
     });
 

@@ -1,23 +1,31 @@
-import { useState } from "react";
-import { useAppSelector } from "../hooks/hooks";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import MovieContainer from "../components/views/MovieContainer";
 import { AutoComplete } from "../components/views/CustomInput";
 import { Actor, Movie } from "../utils/types";
 import { searchActorMovie } from "../utils/services";
+import { getMovies } from "../features/movieSlice";
 export interface HomePageProps {}
 
 const HomePage = () => {
-  const { movies, status } = useAppSelector(({ movieList }) => movieList);
-  const actorList = useAppSelector(({ actorList }) => actorList.actors);
+  const dispatch = useAppDispatch();
+  const movieList = useAppSelector(({ movieList }) => movieList);
+  const actorList = useAppSelector(({ actorList }) => actorList.data.actors);
   const [data, setData] = useState<Movie[] | Actor[]>([]);
   const [searchType, setSearchType] = useState("movie");
   const changeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    let { type, data } = searchActorMovie(value, movies, actorList);
+    let { type, data } = searchActorMovie(
+      value,
+      movieList.data.movies,
+      actorList
+    );
     setSearchType(type);
     setData(data);
   };
-
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
   return (
     <section>
       <div className="section">
@@ -41,12 +49,13 @@ const HomePage = () => {
           </div>
         </div>
         <div>
-          <MovieContainer movies={movies} limit={32} />
-          {status === "idle" && movies.length === 0 && (
-            <div className="d-flex justify-content-center">
-              No movies yet. Please come back later.
-            </div>
-          )}
+          <MovieContainer movies={movieList.data.movies} limit={32} />
+          {movieList.status === "idle" &&
+            movieList.data.movies.length === 0 && (
+              <div className="d-flex justify-content-center">
+                No movies yet. Please come back later.
+              </div>
+            )}
         </div>
       </div>
     </section>

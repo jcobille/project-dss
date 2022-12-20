@@ -35,7 +35,7 @@ export const MovieModalBody = (props: ModalProps) => {
   const [actorList, setActorList] = useState<Actor[]>([]);
   const [selectedActors, setSelectedActors] = useState<Actor[]>([]);
   const actors = useAppSelector((state) => state.actorList.searchedActors);
-  const movies = useAppSelector((state) => state.movieList.movies);
+  const movies = useAppSelector((state) => state.movieList.data.movies);
   const dispatch = useAppDispatch();
   let title = props.action
     ? props.action[0].toUpperCase() + props.action.substring(1)

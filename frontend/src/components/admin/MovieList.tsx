@@ -33,14 +33,19 @@ export const MovieList = () => {
     setModal({ ...modal, action: action, type: type });
   };
 
-  const movieList = useAppSelector(
-    (state) => state.movieList.movies as Movies[]
-  );
-
+  const movieList = useAppSelector((state) => state.movieList.data.movies);
+  const movieCount = useAppSelector((state) => state.movieList.data.count);
   const dispatch = useAppDispatch();
+
+  const fetchData = (page: number) => {
+    const skip = (page - 1) * 10;
+    dispatch(getMovies({ skip: skip, limit: 10 }));
+  };
+
   useEffect(() => {
-    dispatch(getMovies());
+    dispatch(getMovies({ skip: 0, limit: 10 }));
   }, [dispatch]);
+
   return (
     <section>
       <ToastContainer />
@@ -66,8 +71,10 @@ export const MovieList = () => {
               headers={tableHeader}
               data={movieList}
               minRow={10}
+              dataCount={movieCount}
               tableType="movies"
               modal={modal}
+              fetchData={fetchData}
             />
           )}
         </div>

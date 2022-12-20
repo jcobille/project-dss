@@ -30,11 +30,16 @@ export const ActorList = () => {
   const addActorHandler = (type: string, action: string) => {
     setModal({ ...modal, action: action, type: type });
   };
-  const ActorList = useAppSelector(({ actorList }) => actorList.actors);
+  const ActorList = useAppSelector(({ actorList }) => actorList.data.actors);
+  const actorCount = useAppSelector(({ actorList }) => actorList.data.count);
   const dispatch = useAppDispatch();
 
+  const fetchData = (page: number) => {
+    const skip = (page - 1) * 10;
+    dispatch(getActors({ skip: skip, limit: 10 }));
+  };
   useEffect(() => {
-    dispatch(getActors());
+    dispatch(getActors({ skip: 0, limit: 10 }));
   }, [dispatch]);
   return (
     <section>
@@ -59,9 +64,11 @@ export const ActorList = () => {
             <Table
               headers={tableHeader}
               data={ActorList}
+              dataCount={actorCount}
               minRow={10}
               tableType="actors"
               modal={modal}
+              fetchData={fetchData}
             />
           )}
         </div>
